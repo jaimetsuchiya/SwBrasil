@@ -1,0 +1,90 @@
+/*
+Contact Form by html-form-guide.com
+You can customize all the aspects of the form in this style sheet
+All the style elements use form id selector(notice the #contactus). So, including this
+stylesheet does not affect the other elements at all!
+*/
+
+#contactus fieldset {
+	width:100%;
+	height:20px;
+	padding:0px;
+	border:0px solid #cccccc;
+}
+#contactus label {
+	margin:0 0 6px;
+	display:block;
+}
+#contactus input[type="text"],textarea {
+	overflow:hidden;
+	font-size: 13px;
+	font-family: 'Ariel', sans-serif;
+	padding:6px;
+	background:#ffffff;
+	color:#111111;
+	border:1px #cccccc Solid;
+	margin-bottom:20px;
+	text-shadow:0 0 0 transparent,#ffffff 0px 1px 0px;
+	box-shadow:inset 0px 0px 25px rgba(0,0,0,.1);
+	-webkit-box-shadow:inset 0px 0px 25px rgba(0,0,0,.1);
+	-moz-box-shadow:inset 0px 0px 25px rgba(0,0,0,.1)	
+}
+#contactus input[type="text"] {
+	width:70%;
+	height:24px; 
+}
+#contactus #scaptcha {
+	width:60px;
+	height:18px;
+}
+#contactus textarea {
+	height:140px;
+	width:92%;
+}
+#contactus input[type="text"]:focus,textarea:focus {
+	outline: none;
+}
+#contactus .container {
+	margin-top:0px;
+	margin-bottom: 0px;
+	margin-left:0px;
+	margin-right:0px;   
+}
+#contactus .error {
+	font-family: 'PT Sans', sans-serif;
+	font-size: 13px;
+	color: #c85849;
+}
+#contactus fieldset#antispam {
+	padding:0px;
+	border-top:0px solid #cccccc;
+	border-left:0;
+	border-right:0;
+	border-bottom:0;
+	width:350px;
+}
+#contactus fieldset#antispam legend {
+	font-family: 'PT Sans', sans-serif;
+	font-size: 13px;
+	color:#555555;   
+}
+/* spam_trap: This input is hidden. This is here to trick the spam bots*/
+#contactus .spmhidip {
+	display:none;
+	width:10px;
+	height:3px;
+}
+#fg_crdiv {
+	font-size: 0.3em;
+	opacity: .2;
+	-moz-opacity: .2;
+	filter: alpha(opacity=20);   
+}
+#fg_crdiv p {
+    display:none;
+}
+/*-----------Buttons-----------*/
+.button{cursor:pointer; text-decoration:none; text-align:center; background-color:#f7f7f7; padding:4px 8px; display:inline-block; color:#111111 !important; font-family: 'PT Sans', sans-serif; border:none}
+.button:hover{background-color:#5fbf41; color:#ffffff !important;}
+.button.medium{padding:8px 12px; font-size:13px}
+.button.big{padding:12px 18px; font-size:18px}

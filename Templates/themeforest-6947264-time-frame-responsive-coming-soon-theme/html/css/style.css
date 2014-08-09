@@ -1,0 +1,285 @@
+@charset "utf-8";
+/* CSS Document */
+
+@import url('font-awesome.min.css');
+
+*::-moz-selection {
+    background:#9ddb17;
+    text-shadow:1px 1px 1px #000;
+	color:#fff;
+}
+body{
+	background:#f2f2f2;
+	font:400 14px/21px 'Fauna One', Arial, Helvetica, sans-serif;
+	color:#fff;
+}
+#wrapper{
+	width:100%;
+}
+.pattern-overlay{
+	position:fixed;
+	width:100%;
+	height:100%;
+	background:url(../images/03.png) repeat center center;
+}
+.page{
+	width:100%;
+	height:auto;
+	position:absolute;
+	z-index:9;
+}
+.header-time a{
+	color:#fff;
+}
+.header-time h1{
+	font-size:50px;
+}
+.header-time a:hover{
+	color:#fff;
+	text-decoration:none;
+}
+.header-time p{
+	font:400 17px/25px 'Fauna One', Arial, Helvetica, sans-serif;
+}
+.header-time i{
+	color:#9ddb17;
+}
+#timer{
+	margin:50px 0;
+}
+#timer h2{
+	margin-bottom:30px;
+}
+.counters{
+	text-align:center;
+	margin:0;
+	padding:0;
+}
+.counters li{
+	display:inline-block;
+	margin:0 10px;
+}
+.header-time .counters li input {
+    color: #FFFFFF !important;
+    font-family: 'Fauna One',serif !important;
+    font-size: 30px !important;
+    font-weight: 700;
+    margin-left: -77px !important;
+    margin-top: 30px !important;
+    text-shadow: 1px 1px 1px #000000;
+}
+.header-time .counters li input.knob.days{
+	margin-left: -75px !important;
+}
+.header-time .counters li div{
+	margin:0 auto !important;
+}
+.header-time .counters li canvas {
+    height: 200px;
+    margin-bottom: -85px;
+}
+.quick-links{
+	padding:0 0 60px;
+}
+.quick-links a{
+	margin:0 20px;
+	color:#fff;
+	font-size:40px;
+	transition:all ease-in-out 200ms;
+}
+.quick-links a:hover{
+	color:#9DDB17;
+}
+.st-content{
+	padding:5px 0 30px;
+}
+.tf-accordion{
+    width:100%;
+    min-width:270px;
+    margin: 0 auto;
+}
+.tf-accordion ul{
+	padding:0;
+	margin:0;
+}
+.tf-accordion ul li{
+    height: 100px;
+    border-top: 1px solid rgba(255,255,255,0.3);
+    overflow: hidden;
+}
+.tf-accordion ul li:last-child{
+    border-bottom:none;
+}
+.tf-accordion ul li > a{
+    font-family: 'Fauna One',Georgia, serif;
+    text-shadow: 1px 1px 1px #000;
+    font-size: 30px;
+    display: block;
+	position: relative;
+    line-height: 100px;
+	outline:none;
+	color:#fff;
+	text-align:center;
+	text-decoration:none;
+    -webkit-transition:  color 0.2s ease-in-out;
+	-moz-transition:  color 0.2s ease-in-out;
+	-o-transition:  color 0.2s ease-in-out;
+	-ms-transition:  color 0.2s ease-in-out;
+	transition:  color 0.2s ease-in-out;
+}
+.tf-accordion ul li > a em{
+	font-style:normal;
+	color:#9DDB17;
+	font-size:40px;
+	transition:  all 0.2s ease-in-out;
+}
+.tf-accordion ul li > a span{
+	background: transparent url(../images/down.png) no-repeat center center;
+	text-indent:-9000px;
+	width: 26px;
+	height: 14px;
+	position: absolute;
+	top: 50%;
+	right: -26px;
+	margin-top: -7px;
+	opacity:0;
+	-webkit-transition:  all 0.2s ease-in-out;
+	-moz-transition:  all 0.2s ease-in-out;
+	-o-transition:  all 0.2s ease-in-out;
+	-ms-transition:  all 0.2s ease-in-out;
+	transition:  all 0.2s ease-in-out;
+}
+.tf-accordion ul li > a:hover{
+    color: #9ddb17;
+}
+.tf-accordion ul li > a:hover em, .tf-accordion ul li.st-open > a em{
+    color: #fff;
+}
+.tf-accordion ul li > a:hover span{
+	opacity:1;
+	right: 10px;
+}
+.tf-accordion ul li.st-open > a {
+    color: #9ddb17;
+}
+.tf-accordion ul li.st-open > a span{
+	-webkit-transform:rotate(180deg);
+	-moz-transform:rotate(180deg);
+    transform:rotate(180deg);
+	right:10px;
+	opacity:1;
+}
+.tf-content{
+    padding: 5px 0px 30px 0px;
+}
+.tf-content p{
+    padding: 0px 4px 15px 4px; 
+}
+.tf-content img{
+    width:125px;
+    border-right:1px solid #fff;
+    border-bottom:1px solid #fff;
+}
+.thumb{
+	margin-bottom:15px;
+}
+.thumb img{
+	border:15px solid rgba(255,255,255,0.4);
+}
+.service-icon{
+	margin-bottom:15px;
+	padding:20px;
+	border:1px solid rgba(255,255,255,0.7);
+	background:rgba(255,255,255,0.4);
+	font-size:100px;
+	text-align:center;
+}
+.newsletter-field{
+	display:inline-block;
+	padding:10px;
+	background:#000;
+	border-radius:5px;
+	position:relative;
+}
+.newsletter-field button[type=submit]{
+	background:#9DDB17;
+	border-color:#6EA204;
+	color:#000;
+	transition:all ease-in-out 200ms;
+}
+.newsletter-field button[type=submit]:hover{
+	background:#6EA204;
+}
+.newsletter-field label.error{
+	position:absolute;
+	bottom:-25px;
+	left:10px;
+	font-size:12px;
+	width:100%;
+	text-align:left;
+	color:#f00;
+}
+@media screen and (max-width: 320px){
+	.tf-accordion ul li > a{
+		font-size:20px;
+		text-align:left;
+	}
+	.tf-accordion ul li > a em{
+		font-size:27px;
+	}
+}
+footer{
+	padding:50px;
+	background:rgba(0,0,0,0.6);
+	border-top:1px solid rgba(255,255,255,0.3);
+}
+#social-icons {
+    margin:50px 0 0;
+}
+#social-icons ul{
+	padding:0;
+	margin:0;
+}
+#social-icons ul li {
+    -moz-box-sizing: border-box;
+    background-color: #000;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 100%;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 22px;
+    height: 50px;
+	line-height:46px;
+    margin: 0 5px;
+    text-align: center;
+    transition: all 0.3s ease-in 0s;
+    width: 50px;
+}
+#social-icons a {
+    color: inherit;
+}
+#social-icons ul li:hover {
+    border: 2px solid #fff;
+    color: #9ddb17;
+}
+#social-icons ul li.facebook{
+	background-color: #3b5998;
+}
+#social-icons ul li.twitter{
+	background-color: #55acee;
+}
+#social-icons ul li.google-plus{
+	background-color: #dd4b39;
+}
+#social-icons ul li.youtube{
+	background-color: #e02927;
+}
+#social-icons ul li.dribbble{
+	background-color: #ea4c89;
+}
+.copyright{
+	padding:10px;
+	font:normal 13px Arial, Helvetica, sans-serif;
+}
+

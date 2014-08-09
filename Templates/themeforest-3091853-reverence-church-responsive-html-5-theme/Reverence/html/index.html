@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+	<title>Reverence - Responsive Church Theme</title>
+
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/prettyPhoto.css" />
+    <link href='http://fonts.googleapis.com/css?family=News+Cycle|PT+Sans:400,400italic,700,700italic' rel='stylesheet' type='text/css' />
+    <style type="text/css">@import url("http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz");</style>
+	<!--[if lt IE 9]>   <link rel="stylesheet" type="text/css" href="css/ie.css" /> <![endif]-->
+
+    <meta name="description" content="">
+	<meta name="author" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">   
+    
+    <!-- get jQuery from the google apis -->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>	
+	   
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
+    <script type="text/javascript" src="js/menu.js"></script>
+    <script type="text/javascript" src="js/jquery.tools.min.js"></script>
+    <script type="text/javascript" src="js/custom.js"></script>
+	<script type="text/javascript" src="js/sliders/jquery.eislideshow.js"></script>
+	<script src="js/jquery.mobilemenu.js"></script>
+    <script type="text/javascript" src="js/jquery.carouFredSel-5.5.0-packed.js"></script>
+
+	<!--[if lt IE 9]>
+
+    	<script src="js/html5.js"></script>
+
+    <![endif]-->
+    
+    <script type="text/javascript">		
+		jQuery(document).ready(function(){
+			jQuery("a[data-rel^='prettyPhoto']").prettyPhoto({show_title: false});
+			jQuery('#ei-slider').eislideshow({
+				easing		: 'easeOutExpo',
+				titleeasing	: 'easeOutExpo',
+				titlespeed	: 1200,
+				autoplay: true
+			});
+			jQuery('.textSlider ul').carouFredSel({
+				responsive : true,
+				width:'100%',
+				items : 1,
+				scroll: 1,
+				items: {visible:1},
+				next : '.ts-next',
+				prev : '.ts-prev',
+				auto: false,
+				scroll : {	            
+					items         : 1,
+					easing        : "easeInExpo",
+					duration      : 700,
+					pauseDuration : 4500,                     
+					pauseOnHover  : true
+				} 
+			});
+		});
+    </script>    
+    
+        <!-- REVOLUTION BANNER CSS SETTINGS -->	
+    <link rel="stylesheet" type="text/css" href="css/fullwidth.css" media="screen" />		
+	<link rel="stylesheet" type="text/css" href="rs-plugin/css/settings.css" media="screen" />	
+	
+	
+     <!-- jQuery KenBurn Slider  -->	
+	<script type="text/javascript" src="rs-plugin/js/jquery.themepunch.plugins.min.js"></script>			
+    <script type="text/javascript" src="rs-plugin/js/jquery.themepunch.revolution.min.js"></script> 	
+
+</head>
+
+<body>
+
+<!-- BEGIN Header -->
+<div class="header-wrapper"> 
+<header class="container">
+	
+    <div id="logo" class="five columns">
+
+        <div class="three columns alpha">
+        	<a href="index.html"><img src="images/logo.png" width="138" height="46" alt="Reverence" /></a>
+        </div>
+        
+        <div class="four columns alpha last">
+
+        	<p id="slogan"></p>
+
+        </div>        
+
+        <div class="clear"></div>
+
+    </div>
+
+    <nav class="eleven columns last">
+
+        <ul class="sf-menu">
+
+            <li><a href="index.html" class="active-item">HOME</a>
+            <ul class="sub-menu">
+ 					<li><a href="index.html">Reverence Slider</a></li>
+					<li><a href="index2.html">FlexiSlider</a></li>
+                    <li><a href="index3.html">Alternate Layout</a></li>
+            </ul>
+
+            </li>
+
+            <li><a href="company.html">ABOUT US</a>
+			<ul class="sub-menu"> 
+                    <li><a href="company.html">Our Church</a></li>
+                    <li><a href="services.html">Services and Sermons</a></li>
+                    <li><a href="alternate_layout.html">Alternate Layout</a></li>
+			</ul>
+			</li>
+
+            <li><a href="shortcodes.html">FEATURES</a>
+
+             <ul class="sub-menu">
+                    <li><a href="shortcodes.html">Shortcodes</a></li>
+                    <li><a href="widgets.html">Widgets</a></li>
+                    <li><a href="sidebar_widgets.html">Sidebar Widgets</a></li>
+                    <li><a href="tables.html">Tables</a></li>
+					<li><a href="sitemap.html">Sitemap</a></li>
+                    <li><a href="404.html">404 Page</a></li>
+                    <li><a href="#">Third level sample</a>
+
+                        <ul class="sub-menu">
+                            <li><a href="#">First Element</a></li>
+                            <li><a href="#">Some Element</a></li>
+                            <li><a href="#">Another Element</a></li>                          
+                        </ul> 
+   
+                    </li>
+
+              </ul>
+            </li>
+            
+            <li><a href="gallery.html">MEDIA</a>
+			<ul class="sub-menu">
+                    <li><a href="gallery.html">Filterable Gallery</a></li>
+                    <li><a href="gallery_sidebar.html">Gallery with Sidebar</a></li>
+                    <li><a href="details.html">Details Page</a></li>
+			</ul>
+			</li>            
+            
+            <li><a href="blog.html">BLOG</a>
+			<ul class="sub-menu">                   
+                    <li><a href="blog.html">Sidebar Right</a></li>
+                    <li><a href="blog_sidebar_left.html">Sidebar Left</a></li>
+                    <li><a href="blog-inner.html">Inner page</a></li>
+            </ul>
+
+            </li>
+
+            <li><a href="contact.html">CONTACT</a></li>
+
+        </ul>
+
+
+<!-- MOBILE NAVIGATION -->
+
+
+<!-- END MOBILE NAVIGATION -->
+
+    </nav>
+
+    <div class="clear"></div>
+
+</header>
+</div>
+
+<!-- END Header -->
+
+
+<!-- BEGIN Slider -->
+
+			<div class="fullwidthbanner-container">					
+					<div class="fullwidthbanner">
+						<ul>
+                        
+							<!-- FADE -->
+							<li data-transition="slideup" data-slotamount="10" data-thumb="images/revolution/thumbs/thumb1.jpg">								
+								<img src="images/revolution/slides/wideimage2.jpg">
+								<div class="caption lft big_white" data-x="10" data-y="100" data-speed="400" data-start="1700" data-easing="easeOutExpo">Share Your Faith</div>
+								<div class="caption lft big_orange"  data-x="10" data-y="155" data-speed="400" data-start="1900" data-easing="easeOutExpo"><span style="font-weight:normal;">With</span><em> Reverence Responsive Theme</em></div>
+                                <div class="caption sfl" data-x="60" data-y="225" data-speed="300" data-start="2600" data-easing="easeOutExpo"><img src="images/revolution/tiles/check.png"></div>
+                                <div class="caption lfr small_text"  data-x="120" data-y="230" data-speed="300" data-start="2600" data-easing="easeOutExpo">Responsive & Mobile Optimized Skeleton Framework</div>
+								<div class="caption sfl" data-x="60" data-y="275" data-speed="300" data-start="2900" data-easing="easeOutExpo"><img src="images/revolution/tiles/check.png"></div>
+                                <div class="caption lfr small_text"  data-x="120" data-y="278" data-speed="300" data-start="2900" data-easing="easeOutExpo">HTML5 CSS3 <span style="color: #5fbf41;">CHURCH THEME</span></div>
+                                <div class="caption sfl" data-x="60" data-y="325" data-speed="300" data-start="3200" data-easing="easeOutExpo"><img src="images/revolution/tiles/check.png"></div>
+                                <div class="caption lfr small_text"  data-x="120" data-y="325" data-speed="300" data-start="3200" data-easing="easeOutExpo">Completley Customizable</div>
+                                <div class="caption sfb"  data-x="760" data-y="320" data-speed="300" data-start="3500" data-easing="easeOutExpo"><a href="#" class="slider_button white">DONATE</a></div>
+							</li>                        
+                        
+							<!-- SLIDEUP -->
+							<li data-transition="slideup" data-slotamount="15" data-thumb="images/revolution/slides/thumb4.jpg"> 
+								<img src="images/revolution/slides/wideimage.jpg">	
+                                <div class="caption lfr very_big_orange"  data-x="100" data-y="60" data-speed="800" data-start="1200" data-easing="easeOutExpo">REVERENCE</div>	
+                                <div class="caption lfr very_big_white"  data-x="100" data-y="121" data-speed="800" data-start="1300" data-easing="easeOutExpo">RESPONSIVE</div>	
+                                <div class="caption lfr very_big_white"  data-x="100" data-y="182" data-speed="800" data-start="1400" data-easing="easeOutExpo">HTML5 THEME</div>
+                                <div class="caption lfr small_text"  data-x="100" data-y="260" data-speed="800" data-start="1500" data-easing="easeOutExpo">Lorem ipsum dolor sit amet consectetur adipiscing elit. Curabitur est justo</div>	
+                                <div class="caption sfb"  data-x="100" data-y="340" data-speed="800" data-start="1600" data-easing="easeOutExpo"><a href="#" class="slider_button orange">LEARN MORE</a></div>			
+							</li>                        								
+							
+							<!-- SLIDEUP -->
+							<li data-transition="slideup" data-slotamount="7" data-thumb="images/revolution/thumbs/thumb2.jpg">								
+								<img src="images/revolution/slides/wideimage4.jpg">									
+                                <div class="caption sfb" data-x="0" data-y="30" data-speed="900" data-start="900" data-easing="easeOutSine"><img src="images/revolution/slides/glare2.png"></div>
+                                <div class="caption lft" data-x="500" data-y="55" data-speed="900" data-start="1900" data-easing="easeOutBack"><img src="images/revolution/slides/display.png"></div> 
+<div class="caption lft" data-x="300" data-y="60" data-speed="900" data-start="1800" data-easing="easeOutBack"><img src="images/revolution/slides/ipad.png"></div>                                
+                                <div class="caption lft" data-x="200" data-y="70" data-speed="900" data-start="1700" data-easing="easeOutBack"><img src="images/revolution/slides/iphone.png"></div>                                                            	
+                                <div class="caption lfb big_white"  data-x="50" data-y="70" data-speed="600" data-start="1800" data-easing="easeOutExpo">RESPONSIVE</div>
+                                <div class="caption lfb big_white"  data-x="50" data-y="130" data-speed="600" data-start="1900" data-easing="easeOutExpo">HTML 5</div>
+                                <div class="caption lfb big_white"  data-x="50" data-y="190" data-speed="600" data-start="2000" data-easing="easeOutExpo">CSS3</div>
+                                <div class="caption lfb big_white"  data-x="50" data-y="250" data-speed="600" data-start="2100" data-easing="easeOutExpo">MOBILE READY</div>
+                                <div class="caption sfb"  data-x="50" data-y="330" data-speed="800" data-start="2200" data-easing="easeOutExpo"><a href="#" class="slider_button orange">LEARN MORE</a></div>											
+							</li>
+							
+							<!-- SLIDERIGHT -->
+							<li data-transition="slideright" data-slotamount="10" data-thumb="images/revolution/thumbs/thumb1.jpg">								
+								<img src="images/revolution/slides/wideimage3.jpg">
+								<div class="caption lfr very_big_orange" data-x="20" data-y="90" data-speed="900" data-start="1700" data-easing="easeOutExpo">Reverence</div>
+								<div class="caption lfr big_orange" data-x="20" data-y="160" data-speed="900" data-start="1900" data-easing="easeOutExpo"><em>Responsive Church Theme</em></div>
+                                <div class="caption sfl" data-x="30" data-y="235" data-speed="300" data-start="2600" data-easing="easeOutExpo"><img src="images/revolution/tiles/check.png"></div>
+                                <div class="caption lfr small_text"  data-x="90" data-y="240" data-speed="300" data-start="2600" data-easing="easeOutExpo">Responsive & Mobile Optimized Skeleton Framework</div>
+								<div class="caption sfl" data-x="30" data-y="285" data-speed="300" data-start="2900" data-easing="easeOutExpo"><img src="images/revolution/tiles/check.png"></div>
+                                <div class="caption lfr small_text"  data-x="90" data-y="288" data-speed="300" data-start="2900" data-easing="easeOutExpo">HTML5 CSS3 <span style="color: #5fbf41;">CHURCH THEME</span></div>
+                                <div class="caption sfl" data-x="30" data-y="335" data-speed="300" data-start="3200" data-easing="easeOutExpo"><img src="images/revolution/tiles/check.png"></div>
+                                <div class="caption lfr small_text"  data-x="90" data-y="335" data-speed="300" data-start="3200" data-easing="easeOutExpo">Completley Customizable</div>
+                                <div class="caption sfb"  data-x="760" data-y="330" data-speed="800" data-start="1800" data-easing="easeOutExpo"><a href="#" class="slider_button orange">SPONSER A CHILD</a></div>
+							</li>
+														
+						</ul>			
+						<div class="tp-bannertimer"></div>												
+					</div>					
+				</div>
+
+<!-- End Slider -->
+
+
+            <div class="slide-text full">
+            	<a href="#" class="ts-prev" title="Prev"></a> 
+                <div class="textSlider">
+					 <ul>
+                        <li>
+                            <h2>Responsive <span>HTML5</span> Church Theme</h2>
+                            <p>
+                                Lorem ipsum dolor sit amet consectetur adipiscing elit cras vulputate ullamcorper lectus auctor 
+                                dictum odio ultricies eu suspendisse venenatis arcu sit amet enim 
+                            </p>
+                        </li>
+                        <li>
+                            <h2>Modern, Clean, Sophisticated <span>Design</span></h2>
+                            <p>
+                                Lorem ipsum dolor sit amet consectetur adipiscing elit cras vulputate ullamcorper lectus auctor 
+                                dictum odio ultricies eu suspendisse venenatis arcu sit amet enim
+                            </p>
+                        </li>
+                        <li>
+                            <h2>Mobile <span>Optimized</span> Responsive Layout</h2>
+                            <p>
+                                Lorem ipsum dolor sit amet consectetur adipiscing elit cras vulputate ullamcorper lectus auctor 
+                                dictum odio ultricies eu suspendisse venenatis arcu sit amet enim
+                            </p>
+                        </li>
+                    </ul>
+					
+                </div>
+                <a href="#" class="ts-next" title="Next"></a> 
+                <div class="clear"></div>
+            </div>
+
+
+<!-- BEGIN Content -->
+<div id="content-wrapper">
+
+	<div class="container">
+
+        <div class="four columns">
+            
+        	<h4>UPCOMING EVENTS</h4>
+            
+            <p>
+            	Lorem ipsum dolor sit amet consectetur adipiscing elit proin sed ipsum tortor eta am aliquam lacinia 
+            	elementum lorem a ipsum dolor sit amet consectetur adipis adipiscing elit proin sed ipsum tortor en  
+            </p>
+            <a href="work-image.html" class="more-link">see more events</a>
+        </div>
+
+        <div class="twelve columns last">
+
+        	<ul class="recent-works" id="portfolio-list">
+                <li class="alpha">
+                    <a href="work-inner.html">
+                        <img src="images/demo/portfolio/1.png" alt="" />
+                    </a>
+                    <a href="work-inner.html" class="item-title">Responsive Skeleton Framework</a>
+                   <div class="overlay"><a href="images/demo/slider/accordion2.jpg" data-rel="prettyPhoto" title="Responsive Skeleton Framework"></a></div>
+                   
+                </li>
+                <li>
+                    <a href="work-inner.html">
+                        <img src="images/demo/portfolio/2.png" alt="" />
+                    </a>
+                    <a href="work-inner.html" class="item-title">HTML 5 and CSS3</a>
+                    <div class="overlay"><a href="images/demo/slider/accordion1.jpg" data-rel="prettyPhoto" title="HTML 5 and CSS3"></a></div>
+                    
+                </li>
+                <li class="last">
+                    <a href="work-inner.html" title="" data-rel="prettyPhoto">
+                        <img src="images/demo/portfolio/3.png" alt="" />
+                    </a>
+                    <a href="work-inner.html" class="item-title">Amazing Support</a>
+                    <div class="overlay"><a href="images/demo/slider/accordion3.jpg" data-rel="prettyPhoto" title="Amazing Support"></a></div>
+                    
+                </li>
+            </ul>
+
+            <div class="clear"></div>    
+    
+        </div>
+
+        <div class="clear"></div> 
+
+        <div class="big_separator"></div>
+
+        <div class="four columns">
+        	
+            <h4>LATEST POSTS</h4>
+            
+            <p>
+            	Lorem ipsum dolor sit amet consectetur adipiscing elit proin sed ipsum tortor eta am aliquam lacinia 
+            	elementum lorem a ipsum dolor sit amet consectetur adipis adipiscing elit proin sed ipsum tortor en  
+            </p>
+            <a href="blog.html" class="more-link blue-more">visit blog</a>
+        </div>
+
+        <div class="twelve columns last">
+
+        	<ul id="blogposts-list" class="recent-works">
+                <li class="alpha">
+                    <a href="blog-inner.html">
+                        <img src="images/demo/portfolio/4.png" alt="" />
+                    </a>
+                    <a href="blog-inner.html" class="item-title">SEO Optimization</a>
+                    
+                </li>
+                <li>
+                    <a href="blog-inner.html">
+                        <img src="images/demo/portfolio/5.png" alt="" />
+                    </a>
+                    <a href="blog-inner.html" class="item-title">Mobile Development</a>
+                    
+                </li>
+                <li class="last">
+                    <a href="blog-inner.html">
+                        <img src="images/demo/portfolio/6.png" alt="" />
+                    </a>
+                    <a href="blog-inner.html" class="item-title">Best Practices</a>
+                                        
+                </li>
+            </ul>
+
+            <div class="clear"></div>
+
+         </div>
+         
+         
+        <div class="clear"></div>
+
+    </div>
+
+</div>
+<!-- END Content -->
+
+
+<!-- BEGIN Footer -->
+<div id="footer-wrapper">
+
+	<footer class="container">
+
+    	<div class="four columns footer-block">
+        	<h3>Latest News</h3>
+            
+            <ul class="news">
+            	<li><a href="#">The sacraments of Christian initiation - Baptism, Confirmation, and the Eucharist</a></li>
+                <li><a href="#">Strengthened by the sacrament of Confirmation</a></li>
+                <li><a href="#">To feed the Church by the word and grace of God</a></li>
+           </ul>
+        </div>
+
+        <div class="four columns footer-block">
+        	<h3>Recent Events</h3>
+            
+            <ul class="list-posts">
+            	<li>
+                	<div class="list-post-thumb">
+                    	<img src="images/demo/footer4.png" alt="" />
+                    </div>
+                    <div class="list-post-desc">
+                    	<a href="#">A Night of Worship with John Smith</a>
+                    </div>
+                    <div class="clear"></div>
+                </li>
+                <li>
+                	<div class="list-post-thumb">
+                    	<img src="images/demo/footer5.png" alt="" />
+                    </div>
+                    <div class="list-post-desc">
+                    	<a href="#">Mission Viejo and Ocean Hills VBS</a>
+                    </div>
+                    <div class="clear"></div>
+                </li>
+                <li>
+                	<div class="list-post-thumb">
+                    	<img src="images/demo/footer6.png" alt="" />
+                    </div>
+                    <div class="list-post-desc">
+                    	<a href="#">Womens Spring Study Group</a>
+                    </div>
+                    <div class="clear"></div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="four columns footer-block">
+        	<h3>Popular Posts</h3>
+            
+            <ul class="list-posts">
+            	<li>
+                	<div class="list-post-thumb">
+                    	<img src="images/demo/footer1.png" alt="" />
+                    </div>
+                    <div class="list-post-desc">
+                    	<a href="#">Devotions to Our Lord Jesus Christ</a>
+                    </div>
+                    <div class="clear"></div>
+                </li>
+                <li>
+                	<div class="list-post-thumb">
+                    	<img src="images/demo/footer2.png" alt="" />
+                    </div>
+                    <div class="list-post-desc">
+                    	<a href="#">Prayer to the Blessed Virgin Mary</a>
+                    </div>
+                    <div class="clear"></div>
+                </li>
+                <li>
+                	<div class="list-post-thumb">
+                    	<img src="images/demo/footer3.png" alt="" />
+                    </div>
+                    <div class="list-post-desc">
+                    	<a href="#">Prayer to St. Michael the Archangel</a>
+                    </div>
+                    <div class="clear"></div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="four columns last footer-block">
+        	<h3>Contact Us</h3>
+            
+            <p>Suspendisse euismod, nunc eget pellentesque pellentesque, odio lectus tempor antea tristique sem. </p>
+            <div class="contact-details">
+            	<span>Address:</span><p>1600 Pacific Coast Highway, Laguna Beach, CA 92607</p>
+                <span>Phone:</span><p>000 011(949) 458-2300</p>
+                <span>Fax:</span><p>000 011(949) 458-4300</p>
+                <span>E-mail:</span><p><a href="mailto:info@reverence.com">info@reverence.com</a></p>
+            </div>
+
+            <div class="clearsmall"></div>
+
+        </div>
+
+        <div class="clear"></div>
+
+        <div id="footer-bottom-divider"><a href="#" id="toTop"><img src="images/back-top.png" width="49" height="49" alt="Back to top" /></a></div>
+        <div id="footer-bottom">
+             <div id="copyright">
+                © 2012 Reverence Responsive HTML 5 Template by <a href="index.html">ignitethemes</a>
+             </div>
+             <div id="footer-menu">
+                <ul>
+ 	              	<li><a href="index.html">Home</a></li>
+		            <li><a href="sitemap.html">Sitemap</a></li>
+					<li><a href="company.html">About</a></li>
+					<li><a href="contact.html">Contact</a></li>
+               </ul>
+             </div>
+
+             <div class="clear"></div>
+
+         </div>
+
+    </footer>
+
+</div>
+
+<!-- END Footer -->
+
+<!-- BEGIN BOTTOM bar -->
+<div class="bottom-wrapper">
+	<div class="container">
+    
+		<div id="bottombar">       
+            <div id="social">
+            <!--Social Networks-->
+        	<a href="#"><img src="images/social_icons/twitter.png" class="social fade" alt="Twitter"/></a>
+            <a href="#"><img src="images/social_icons/facebook.png" class="social fade" alt="Facebook"/></a>
+            <a href="#"><img src="images/social_icons/linkedin.png" class="social fade" alt="Linkedin"/></a>
+            <a href="#"><img src="images/social_icons/vimeo.png" class="social fade" alt="Vimeo"/></a>            
+            <a href="#"><img src="images/social_icons/flickr.png" class="social fade" alt="Flickr"/></a>
+        	<!--End Social Networks--> 
+             </div>
+             <div class="clear"></div>
+         </div>
+
+	</div>
+</div>
+<!-- END BOTTOM bar -->
+
+<!-- Slider -->
+
+			<script type="text/javascript">
+								
+				var tpj=jQuery;
+				tpj.noConflict();
+				
+				tpj(document).ready(function() {
+				
+				if (tpj.fn.cssOriginal!=undefined)
+					tpj.fn.css = tpj.fn.cssOriginal;
+
+					tpj('.fullwidthbanner').revolution(
+						{	
+							delay:9000,												
+							startwidth:890,
+							startheight:450,
+							
+							onHoverStop:"off",						// Stop Banner Timet at Hover on Slide on/off
+							
+							thumbWidth:100,							// Thumb With and Height and Amount (only if navigation Tyope set to thumb !)
+							thumbHeight:50,
+							thumbAmount:3,
+							
+							hideThumbs:200,
+							navigationType:"none",					//bullet, thumb, none, both	 (No Shadow in Fullwidth Version !)
+							navigationArrows:"verticalcentered",		//nexttobullets, verticalcentered, none
+							navigationStyle:"round",				//round,square,navbar
+							
+							touchenabled:"on",						// Enable Swipe Function : on/off
+							
+							navOffsetHorizontal:0,
+							navOffsetVertical:20,
+							
+							fullWidth:"on",
+							
+							shadow:0,								//0 = no Shadow, 1,2,3 = 3 Different Art of Shadows -  (No Shadow in Fullwidth Version !)
+							
+							stopLoop:"on"							// on == Stop loop at the last Slie,  off== Loop all the time.
+														
+						});	
+					
+					
+					
+						
+			});
+			</script>
+
+</body>
+</html>

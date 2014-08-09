@@ -1,0 +1,338 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Template Documentation "vCard HTML Template"</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+    <div class="main">
+        
+        <h1>“vCard HTML Template” Documentation by “RoyalMasters”</h1>
+        
+        <div class="line"></div><!-- line end -->
+        
+        <h2>“vCard Template”</h2>
+        
+        <div class="line"></div><!-- line end -->
+        
+        	<div class="author">
+            	<p style="line-height:21px;">
+                	Created: 15 December 2013<br />
+                    By: RoyalMasters<br />
+                    Contact: <a href="http://themeforest.net/user/RoyalMasters" target="_blank">RoyalMasters Profile</a>
+                </p>
+            </div><!-- author end -->
+            
+            <div class="description">
+            	<p style="line-height:21px;">
+                	Thank you for buying my theme. If you have any questions, please ask them via the contact form on <a target="_blank" href="http://themeforest.net/user/RoyalMasters"><strong>our Profile page</strong></a>. Thank you!
+                </p>
+            </div><br clear="all" /><!-- description end -->
+        
+        <div class="line"></div><!-- line end --><br />
+        
+        <h3>Table of Contents</h3><br />
+        
+        <p>
+			<font color="#023e54">A:</font>&nbsp;&nbsp;<a href="#features">Features</a><br />
+        	<font color="#023e54">B:</font>&nbsp;&nbsp;<a href="#html">HTML Structure</a><br />
+			<font color="#023e54">C:</font>&nbsp;&nbsp;<a href="#styles">Theme Styles/Colors</a><br />
+            <font color="#023e54">D:</font>&nbsp;&nbsp;<a href="#js">JavaScript</a><br />
+			<font color="#023e54">E:</font>&nbsp;&nbsp;<a href="#contact">Contact Form</a><br />
+            <font color="#023e54">F:</font>&nbsp;&nbsp;<a href="#psd">PSD Files</a><br />
+            <font color="#023e54">G:</font>&nbsp;&nbsp;<a href="#credits">Sources and Credits</a><br />
+            <!-- font color="#023e54">G:</font>&nbsp;&nbsp;<a href="#contact">Contact Form</a -->
+        </p><br />
+		
+		<div class="line"></div><!-- line end --><br />
+        
+        <h4 id="features">A) Features - <a href="#">top</a></h4><br />
+        
+        <p>
+		<ul>
+			<li>User Friendly Theme Control Panel</li>
+			<li>Responsive design</li>
+			<li>Dark And Light Skin</li>
+			<li>Custom theme options panel</li>
+			<li>jQuery Powered</li>
+			<li>Easy editing</li>
+			<li>Clean and Simple Design</li>
+			<li>Cross browser compatible</li>
+			<li>14 predefined backgrounds</li>
+			<li>14 predefined colors</li>
+			<li>Build-In Portfolio With Lightbox</li>
+			<li>Blog post formats (image, gallery, video, audio)</li>
+			<li>Ajax Contact Form</li>
+			<li>Help documentation</li>
+		</ul>
+        </p><br />
+        
+        <div class="line"></div><!-- line end --><br />
+        
+        <h4 id="html">B) HTML Structure - <a href="#">top</a></h4><br />
+        
+        <p>
+        	   <font color="#272727" style="margin:0 102px 0 0px;"><strong>1. Home</strong></font> (index.html, index_alt_portfolio.html)<br />
+               <font color="#272727" style="margin:0 110px 0 0px;"><strong>2. Blog</strong></font> (blog.html)<br />
+               <font color="#272727" style="margin:0 83px 0 0px;"><strong>3. Single Blog Post</strong></font> (blog-post.html)<br />
+               <font color="#272727" style="margin:0 72px 0 0px;"><strong>4. Resume</strong></font>  (index.html)<br />
+               <font color="#272727" style="margin:0 68px 0 0px;"><strong>5. Portfolio</strong></font>  (index.html)<br />
+               <font color="#272727" style="margin:0 42px 0 0px;"><strong>6. Contact</strong></font>  (index.html)<br />
+        </p><br />
+        
+        <h5>Main menu</h5><br />
+        <p>
+        	   All section in the page are listed as one page elements with the section titles on the left (My Profile, My Blog, Resume, My Portfolio, Contact Info).<br /><br />
+               
+               <b>Editing the Main menu</b><br />
+				U can easily edit the Main menu item by replacing or editing the text between the &lt;h2 class="item-title"&gt; element.<br /><br />
+                
+                <pre><i>&lt;h2 class="item-title"&gt;&lt;span class="title"&gt;my Profile&lt;/span&gt; &lt;span class="icon-user"&gt;&lt;/span&gt;&lt;/h2&gt;</i></pre>
+        </p><br />
+        
+        <h5>Header</h5><br />
+        <p>
+        	   The header is a block with logo and social links:
+			   
+		<pre><i>&lt;header id="header" class="row noprint"&gt;
+	&lt;h1 class="head-name"&gt;Amanda Smith&lt;/h1&gt;
+	&lt;div class="head-social"&gt;
+		&lt;ul&gt;
+			&lt;li class="tw"&gt;&lt;a href="https://twitter.com/" target="_blank"&gt;Twitter&lt;/a&gt;&lt;/li&gt;
+			&lt;li class="fb"&gt;&lt;a href="https://www.facebook.com/" target="_blank"&gt;Facebook&lt;/a&gt;&lt;/li&gt;
+			&lt;li class="lnkd"&gt;&lt;a href="https://www.linkedin.com/" target="_blank"&gt;Linkedin&lt;/a&gt;&lt;/li&gt;
+			&lt;li class="gplus"&gt;&lt;a href="https://plus.google.com/" target="_blank"&gt;Google+&lt;/a&gt;&lt;/li&gt;
+			&lt;li class="drb"&gt;&lt;a href="http://dribbble.com/" target="_blank"&gt;Dribble&lt;/a&gt;&lt;/li&gt;
+			&lt;li class="inst"&gt;&lt;a href="http://instagram.com/" target="_blank"&gt;Instagram&lt;/a&gt;&lt;/li&gt;
+		&lt;/ul&gt;
+	&lt;/div&gt;
+&lt;/header&gt;
+</i></pre>
+        </p><br />
+        
+        <h5>Content</h5><br />
+        <p>
+        	   The Content section contains the whole content with pictures and text. The heigth of the Content depends on the height of the content inside. For customization see detail on each pages.
+        </p><br />
+        
+        <h5>Footer</h5><br />
+        <p>
+        	   The footer is a block link to top button:
+			   
+			   <pre><i>&lt;a id="up">&lt;/a></i></pre>
+        </p><br />
+        
+        <h5>Main Section - My Profile(index.html)</h5><br />
+        <pre><i>&lt;section id="profile" class="item noprint"&gt;
+	&lt;h2 class="item-title"&gt;&lt;span class="title"&gt;my Profile&lt;/span&gt; &lt;span class="icon-user"&gt;&lt;/span&gt;&lt;/h2&gt;
+
+	&lt;div class="item-cont clearfix"&gt;
+		&lt;div class="hidden"&gt;
+			&lt;div class="col500 clearfix fl-left"&gt;
+				&lt;div class="profile-img"&gt;&lt;img src="images/user_images/profile-img.jpg"&gt;&lt;/div&gt;
+				&lt;div class="profile-info"&gt;
+					&lt;h3&gt;I'm England Developer and Business Lady :)&lt;/h3&gt;
+					&lt;p&gt;Im Graphic designer and occasional author who specialises in designing
+						brand identities. People hire me because I help make their businesses
+						more profitable.&lt;/p&gt;
+					&lt;p&gt;Perspiciatis unde omnis iste natus error sit voluptatem accusantium
+						doloremque laudantium, totam rem aperiam, eaque ipsa quae.&lt;/p&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+
+			&lt;div class="col260 fl-right"&gt;
+				&lt;ul class="profile-data"&gt;
+					&lt;li&gt;&lt;h4&gt;name&lt;/h4&gt; &lt;div&gt;Amanda Smith&lt;/div&gt;&lt;/li&gt;
+					&lt;li&gt;&lt;h4&gt;Age&lt;/h4&gt; &lt;div&gt;25&lt;/div&gt;&lt;/li&gt;
+					&lt;li&gt;&lt;h4&gt;Address&lt;/h4&gt; &lt;div&gt;England, London, Street 27, UK&lt;/div&gt;&lt;/li&gt;
+					&lt;li&gt;&lt;h4&gt;E-mail&lt;/h4&gt; &lt;div&gt;amandasmith@mail.com&lt;/div&gt;&lt;/li&gt;
+					&lt;li&gt;&lt;h4&gt;phone&lt;/h4&gt; &lt;div&gt;+1 256 254 84 56&lt;/div&gt;&lt;/li&gt;
+					&lt;li&gt;&lt;h4&gt;freelance&lt;/h4&gt; &lt;div&gt;Available&lt;/div&gt;&lt;/li&gt;
+				&lt;/ul&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+		&lt;a class="blog-link" href="blog.html"&gt;
+			&lt;span class="icon"&gt;&lt;/span&gt;
+			&lt;span class="label"&gt;MY BLOG&lt;/span&gt;
+		&lt;/a&gt;
+	&lt;/div&gt;
+	&lt;div id="profile-brd" class="item-border"&gt;&lt;span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;/section&gt;&lt;!-- /#profile --&gt;
+</i></pre><br />
+
+<p>Where the slide link for the blog is:
+
+<pre><i>
+&lt;a class="blog-link" href="blog.html"&gt;
+	&lt;span class="icon"&gt;&lt;/span&gt;
+	&lt;span class="label"&gt;MY BLOG&lt;/span&gt;
+&lt;/a&gt;</i></pre>
+</p>
+
+		<h5>To make all sections expandable on page loading, not closed - do the following steps (index.php)</h5><br />
+		<p>
+			1. Find in the entire file <strong>item-title toggle noprint closed</strong> and replace with <strong>item-title toggle noprint opened</strong><br />
+			2. Find in the entire file <strong>item-title toggle closed</strong> and replace with <strong>item-title toggle opened</strong><br />
+			3. Find in the entire file <strong>class="item-cont clearfix"</strong> and replace with <strong>class="item-cont clearfix" style="display: block;"</strong>
+			3. Find in the entire file <strong>class="item-cont"</strong> and replace with <strong>class="item-cont" style="display: block;"</strong>
+        </p><br />
+        <br />
+        
+
+        <div class="line"></div><!-- line end --><br />
+
+		<h4 id="styles">C) Theme Styles/Colors - <a href="#">top</a></h4><br />
+        
+         <p>
+        	This template has light and dark versions with 14 different backgrounds, 14 color skins.<br /><br />
+			To switch mode you want you need to add corresponding classes to "<b>body</b>" tag. (&lt;<b>body</b> class="[<b>needed classes</b>]"&gt;)<br /><br />
+			
+			Here are options:<br /><br />
+			
+			<h5><u>Layout Colors:</u></h5><br />
+			
+			<b>Light Layout version:</b><br />
+			<pre><i>&lt;body class="light_skin"></i></pre><br />
+			
+			<b>Dark Layout version:</b>
+			<pre><i>&lt;body class="dark_skin"></i></pre><br />
+			
+			<h5><u>Color Schemes:</u></h5><br />
+			Color Scheme 1<pre><i>&lt;body class="color_53b7f9"></i></pre><br />
+			Color Scheme 2<pre><i>&lt;body class="color_ff3500"></i></pre><br />
+			Color Scheme 3<pre><i>&lt;body class="color_35bb2e"></i></pre><br />
+			Color Scheme 4<pre><i>&lt;body class="color_ff6800"></i></pre><br />
+			Color Scheme 5<pre><i>&lt;body class="color_197bbf"></i></pre><br />
+			Color Scheme 6<pre><i>&lt;body class="color_c7df2e"></i></pre><br />
+			Color Scheme 7<pre><i>&lt;body class="color_704f36"></i></pre><br />
+			Color Scheme 8<pre><i>&lt;body class="color_e35039"></i></pre><br />
+			Color Scheme 9<pre><i>&lt;body class="color_df5085"></i></pre><br />
+			Color Scheme 10<pre><i>&lt;body class="color_03ae91"></i></pre><br />
+			Color Scheme 11<pre><i>&lt;body class="color_ea3302"></i></pre><br />
+			Color Scheme 12<pre><i>&lt;body class="color_ea3302"></i></pre><br />
+			Color Scheme 13<pre><i>&lt;body class="color_976ad8"></i></pre><br />
+			Color Scheme 14<pre><i>&lt;body class="color_f9c100"></i></pre><br />
+			
+			
+			<h5><u>Background Colors:</u></h5><br />
+			Background Color 1<pre><i>&lt;body class="bg_f0f2f2"></i></pre><br />
+			Background Color 2<pre><i>&lt;body class="bg_f1d2c2"></i></pre><br />
+			Background Color 3<pre><i>&lt;body class="bg_c2f1f1"></i></pre><br />
+			Background Color 4<pre><i>&lt;body class="bg_6fa5d6"></i></pre><br />
+			Background Color 5<pre><i>&lt;body class="bg_197bbf"></i></pre><br />
+			Background Color 6<pre><i>&lt;body class="bg_f1efc2"></i></pre><br />
+			Background Color 7<pre><i>&lt;body class="bg_e4ddce"></i></pre><br />
+			Background Color 8<pre><i>&lt;body class="bg_cc3300"></i></pre><br />
+			Background Color 9<pre><i>&lt;body class="bg_e52b50"></i></pre><br />
+			Background Color 10<pre><i>&lt;body class="bg_d66fa5"></i></pre><br />
+			Background Color 11<pre><i>&lt;body class="bg_ffbe34"></i></pre><br />
+			Background Color 12<pre><i>&lt;body class="bg_e36009"></i></pre><br />
+			Background Color 13<pre><i>&lt;body class="bg_6f4e37"></i></pre><br />
+			Background Color 14<pre><i>&lt;body class="bg_132c42"></i></pre><br />
+			
+			
+			<h5><u>Background Patterns:</u></h5><br />
+			Background Patern 1<pre><i>&lt;body class="bg-pattern1"></i></pre><br />
+			Background Patern 2<pre><i>&lt;body class="bg-pattern2"></i></pre><br />
+			Background Patern 3<pre><i>&lt;body class="bg-pattern3"></i></pre><br />
+			Background Patern 4<pre><i>&lt;body class="bg-pattern4"></i></pre><br />
+			Background Patern 5<pre><i>&lt;body class="bg-pattern5"></i></pre><br />
+			Background Patern 6<pre><i>&lt;body class="bg-pattern6"></i></pre><br />
+			Background Patern 7<pre><i>&lt;body class="bg-pattern7"></i></pre><br />
+			Background Patern 8<pre><i>&lt;body class="bg-pattern8"></i></pre><br />
+			Background Patern 9<pre><i>&lt;body class="bg-pattern9"></i></pre><br />
+			Background Patern 10<pre><i>&lt;body class="bg-pattern10"></i></pre><br />
+			Background Patern 11<pre><i>&lt;body class="bg-pattern11"></i></pre><br />
+			Background Patern 12<pre><i>&lt;body class="bg-pattern12"></i></pre><br />
+			Background Patern 13<pre><i>&lt;body class="bg-pattern13"></i></pre><br />
+			Background Patern 14<pre><i>&lt;body class="bg-pattern14"></i></pre><br />
+			
+			
+			<h5><u>Text Logo Colors:</u></h5><br />
+			
+			<b>Logo Light version:</b><br />
+			<pre><i>&lt;body class="logo_light"></i></pre><br /><br />
+			
+			<b>Logo Dark version:</b>
+			<pre><i>&lt;body class="logo_dark"></i></pre><br /><br />
+			
+			
+			So if you want to use the light skin with color scheme number 5, background color number 1 and logo dark version, then use in the body these clases:
+			<pre><i>&lt;body class="color_53b7f9 light_skin bg_f0f2f2 logo_dark"></i></pre><br /><br />
+			
+			
+			
+        </p><br />
+		
+		
+		<div class="line"></div><!-- line end --><br />
+
+		
+        
+        <h4 id="js">D) JavaScript - <a href="#">top</a></h4><br />
+        
+        <p>
+            The theme makes use of various JavaScripts and the jQuery framework to add dynamic functionality. Some of the scripts used include:<br /><br />
+            
+            1. <a href="http://fancyapps.com/fancybox/" target="_blank">Fancybox</a><br />
+            2. <a href="http://mediaelementjs.com/" target="_blank">HTML5 <video> and <audio> shim and player</a><br />
+            3. <a href="http://gsgd.co.uk/sandbox/jquery/easing/" target="_blank">jQuery Easing</a><br />
+            4. <a href="http://mixitup.io" target="_blank">MIXITUP - A CSS3 and JQuery Filter & Sort Plugin</a><br />
+            5. <a href="http://slidesjs.com" target="_blank">SlidesJS</a><br />
+            6. <a href="http://lesscss.org" target="_blank">LESS - Leaner CSS</a><br />
+            
+            If you would like to edit the javascript/jQuery code all js files are in folder "<b>/js/</b>".
+
+        </p><br />
+        
+        <div class="line"></div><!-- line end --><br />
+        
+        <h4 id="contact">E) Contact - <a href="#">top</a></h4><br />
+		
+		<p>To receive emails set your email in the file <strong>/php/contact_form.php</strong>
+		
+		<pre><code>$emailTo = "email@sitename.com"; // Enter your email for feedbacks here</code></pre>
+		
+		<div class="line"></div><!-- line end --><br />
+		
+        <h4 id="psd">F) PSD Files - <a href="#">top</a></h4><br />
+        
+        <p>
+            I've included all PSDs with this themplate. In this PSDs you will find everything you need.
+
+        </p><br />
+        
+        <div class="line"></div><!-- line end --><br />
+        
+        <h4 id="credits">G) Sources and Credits - <a href="#">top</a></h4><br />
+        
+        <p>
+        	<font color="#272727">Google Web Fonts:</font><br />
+            
+			Patua One<br />
+			Montserrat<br />
+            Open Sans<br /><br />
+            
+            Google Web Fonts are from <a href="http://www.google.com/webfonts" target="_blank">Google Web Fonts</a><br /><br />
+            
+            <font color="#272727">Icons:</font><br />
+            
+            <a href="http://www.iconsweets2.com/" target="_blank">www.iconsweets2.com</a><br /><br />
+
+        </p><br />
+        
+        <div class="line"></div><!-- line end --><br />
+        
+        <p>
+        	Once again, thank you so much for purchasing this template. As I said at the beginning, I'd be glad to help you if you have any questions relating to this template. If you have a more general question relating to the themes on ThemeForest, you might consider visiting the forums and asking your question in the "Item Discussion" section.
+        </p><br />
+        
+        <h3>RoyalMasters</h3><br />
+        
+    </div><!-- main end -->
+
+</body>
+</html>

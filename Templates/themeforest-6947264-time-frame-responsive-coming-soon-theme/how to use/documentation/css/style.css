@@ -1,0 +1,37 @@
+@charset "utf-8";
+/* CSS Document */
+
+#wrapper{
+	width:100%;
+}
+body{
+	font:15px/20px 'Open Sans', sans-serif;
+}
+header h1{
+	font-family:'Fauna One';
+}
+.logo{
+	padding-top:40px;
+}
+.main-content{
+	overflow:hidden;
+}
+.main-content h4{
+	color:#428BCA;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

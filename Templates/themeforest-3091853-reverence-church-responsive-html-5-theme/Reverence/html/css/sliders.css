@@ -1,0 +1,484 @@
+/******** Horizontal Scroll slider ************/ 
+
+
+
+#container {width: 100%;background: #282828;display: block;position: relative;}
+
+
+
+#carousel-wrapper {width: 100%;overflow: hidden;display: block; height:353px}
+
+
+
+#carousel-holder {margin: 0px auto 0px auto;position: relative;display: block;padding:0;}
+
+
+
+#carousel {width: 980px;margin: 14px auto 0;border-bottom: 5px solid #FF9933; padding-top:5px}
+
+
+
+#carousel ul {list-style: none;width:20000px;margin: 0;padding: 0;position: relative;z-index: 12;}
+
+
+
+#carousel li {display: inline;float: left;} 
+
+
+
+#carousel li span p {display: none;}
+
+
+
+
+
+
+
+.thumbs {text-align: center;margin: 26px auto 0;z-index: 101;position: absolute; bottom:12px; left:50%; margin-left:-35px;padding: 12px 20px;}
+
+
+
+.thumb {display: block;width: 14px;height: 14px;float: left;margin: 2px;background: url('../images/sliders/hero-navigator.png') no-repeat;display: inline;cursor: pointer;text-indent: -9999px;}
+
+
+
+a.thumb:hover {background-position:0 -14px;}
+
+
+
+a.thumb.active {background-position:0 -28px;      }
+
+
+
+.column-text {-moz-column-width: 450px;-webkit-column-width: 450px;-moz-column-gap: 20px;-webkit-column-gap: 20px;text-align: justify;}
+
+
+
+.textholder {
+
+
+
+	
+
+
+
+	z-index:101;
+
+
+
+	top:56px;
+
+
+
+	left:20px !important;
+
+
+
+	padding:15px;
+
+
+
+	width:300px !important;
+
+
+
+	position:absolute;
+
+
+
+	height: 180px !important;
+
+
+
+	overflow:hidden;
+
+
+
+	text-shadow:#000000 0px 0px 0px;
+
+
+
+	background: rgb(70, 79, 92);
+
+
+
+	background: rgba(70, 79, 92, 0.8);
+
+
+
+	box-shadow: 0px 2px 2px #000000;
+
+
+
+	color:#ffffff;
+
+
+
+	font-size:16px;
+
+
+
+	text-align:center;
+
+
+
+	line-height:22px;
+
+
+
+	
+
+
+
+	font-family:'News Cycle';
+
+
+
+ }
+
+
+
+.textholder p, .textholder strong {color: #ccc;z-index: 100;font-size: 0.8em;}
+
+
+
+.textholder h1, h2, h3 { font-size:24px; padding: 5px 0 10px 0;}
+
+
+
+.textholder a {cursor:pointer; text-decoration:none; text-align:center; border-left:solid 5px #ff9933; background:#464f5c url('../images/button_bg.png'); padding:0px 12px; height:28px; line-height:24px; display:inline-block; color:#fff !important; font-family: 'News Cycle', sans-serif; float:right; padding-top:2px; margin-top:5px; }
+
+
+
+.textholder a:hover {background-color:#f8f8f8; color:#464f5c !important;}
+
+
+
+#hero-holder {position:absolute;top: 0px;width: 100%;display: block;z-index: 100;height: 353px;background: url('../images/sliders/heroholder.png') no-repeat top center;}
+
+
+
+.clear{clear:both}
+
+
+
+
+
+
+
+/******** Circular Navigation slider ************/ 
+
+
+.cn-slideshow{width: 980px;height: 377px;position: relative;margin: 0 auto;border-top: solid 5px #F93;border-bottom: solid 5px #F93;-webkit-box-shadow: 1px 1px 3px rgba(0,0,0,0.2);-moz-box-shadow: 1px 1px 3px rgba(0,0,0,0.2);box-shadow: 1px 1px 3px rgba(0,0,0,0.2);}
+.cn-loading{position: absolute;z-index:999;text-indent: -9000px;opacity:0.6;top:50%;left:50%;margin:-25px 0 0 -25px;width:50px;height:50px;background:#000;-moz-border-radius: 25px;-webkit-border-radius: 25px;border-radius: 25px;}
+.cn-images{width: 100%;height: 377px;overflow: hidden;position: relative;}
+.cn-images img{position: absolute;top: 0px;left: 0px;display: none;}
+.cn-bar{background: transparent url('../images/sliders/bar.png') repeat top left;height: 74px;position: absolute;bottom: 0px;right: 50px;left: 50px;color: #f8f8f8;z-index: 999;}
+.cn-nav-content{position: absolute;top: 0px;height: 100%;right: 70px;left: 70px;overflow: hidden;text-shadow:1px 1px 1px rgba(0,0,0,0.2);}
+.cn-nav-content div{float: left;width: 160px;color:#aaa;}
+.cn-nav-content span{color:#777;}
+.cn-nav-content div.cn-nav-content-current{text-align: center;width: 280px;position:absolute;top:0px;left:50%;margin-left:-140px;}
+.cn-nav-content h2,
+.cn-nav-content h3{padding: 0;margin: 0;font-size: 12px;line-height:24px;border-bottom: none !important; background: none !important;}
+.cn-nav-content h2{font-size:18px;color:#fff;}
+.cn-nav-content-current span{color:#ff9933;}
+.cn-nav-content div.cn-nav-content-prev{margin-left: 20px;}
+.cn-nav-content div.cn-nav-content-next{text-align: right;margin-right: 20px;float:right;}
+.cn-nav-content div span{display: block;padding-top: 18px;text-transform: uppercase;font-weight: bold;letter-spacing: 2px;}
+.cn-nav > a{position: absolute;top: 0px;height: 70px;width: 70px;}
+a.cn-nav-prev{left: 0px;}
+a.cn-nav-next{right: 0px}
+.cn-nav a span{width: 46px;height: 46px;display: block;text-indent: -9000px;-moz-border-radius: 23px;-webkit-border-radius: 23px;border-radius: 23px;cursor: pointer;opacity: 0.9;position: absolute;top: 50%;left: 50%;background-size: 17px 25px;margin: -23px 0 0 -23px;-webkit-transition: all 0.4s ease;-moz-transition: all 0.4s ease;-o-transition: all 0.4s ease;-ms-transition: all 0.4s ease;transition: all 0.4s ease;}
+.cn-nav a.cn-nav-prev span{background: #464F5C url('../images/sliders/prev.png') no-repeat center center;}
+.cn-nav a.cn-nav-next span{background: #464F5C url('../images/sliders/next.png') no-repeat center center;}
+.cn-nav a div{width: 0px;height: 0px;position: absolute;top: 50%;left: 50%;overflow: hidden;background-size: 100% 100%;background-position: center center;background-repeat: no-repeat;margin: 0px;-moz-border-radius: 0px;-webkit-border-radius: 0px;border-radius: 0px; -webkit-transition: all 0.2s ease-out;-moz-transition: all 0.2s ease-out;-o-transition: all 0.2s ease-out;-ms-transition: all 0.2s ease-out;transition: all 0.2s ease-out;}
+.cn-nav a:hover span{width: 100px;height: 100px;-moz-border-radius: 50px;-webkit-border-radius: 50px;border-radius: 50px;margin: -50px 0 0 -50px;background-size: 22px 32px;background-color:#ff9933;}
+.cn-nav a:hover div{width: 90px;height: 90px;background-size: 120% 120%;margin: -45px 0 0 -45px;-moz-border-radius: 45px;-webkit-border-radius: 45px;border-radius: 45px; }
+
+
+
+/*********** Piecemaker 2 Slider **************/
+
+
+
+#slider-wrapper{position:relative}
+
+
+
+#slider-container{width:1100px; margin:0px auto}
+
+
+
+#piecemaker{}
+
+
+
+
+
+
+
+/********** Kenburns Effect Slider ************/
+
+
+
+.kencaption {position:absolute;left: 35%;margin-top: -160px;margin-left: -80px;width: 200px;z-index:8;text-shadow:#000000 0px 0px 0px;background: rgb(70, 79, 92);background: rgba(70, 79, 92, 0.9);box-shadow: 0px 2px 2px #000000;color:#ffffff;padding:20px;font-size:16px;text-align:center;line-height:22px;border-left: 5px solid #FF9933;font-family:'News Cycle'; }
+
+
+
+#kbholder{position:relative; width:980px; height:404px; margin:0px auto;border-bottom:solid 5px #ff9933;border-top:solid 5px #ff9933;}
+
+
+
+#kbholder img{max-width:2560px}
+
+
+
+/*
+
+
+
+ * jQuery FlexSlider v1.8
+
+
+
+ * http://flex.madebymufffin.com
+
+
+
+ *
+
+
+
+ * Copyright 2011, Tyler Smith
+
+
+
+ * Free to use under the MIT license.
+
+
+
+ * http://www.opensource.org/licenses/mit-license.php
+
+
+
+ */
+
+
+
+ 
+
+
+
+/* Browser Resets */
+
+
+
+.flex-container a:active,
+
+
+
+.flexslider a:active {outline: none;}
+
+
+
+.slides,
+
+
+
+.flex-control-nav,
+
+
+
+.flex-direction-nav {margin: 0; padding: 0; list-style: none;} 
+
+
+
+
+
+
+
+/* FlexSlider Necessary Styles
+
+
+
+*********************************/ 
+
+
+
+.flexslider {width: 100%; margin: 0; padding: 0;}
+
+
+
+.flexslider .slides > li {display: none;} /* Hide the slides before the JS is loaded. Avoids image jumping */
+
+
+
+.flexslider .slides img {max-width: 100%; display: block;}
+
+
+
+.flex-pauseplay span {text-transform: capitalize;}
+
+
+
+
+
+
+
+/* Clearfix for the .slides element */
+
+
+
+.slides:after {content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0;} 
+
+
+
+html[xmlns] .slides {display: block;} 
+
+
+
+* html .slides {height: 1%;}
+
+
+
+
+
+
+
+/* No JavaScript Fallback */
+
+
+
+/* If you are not using another script, such as Modernizr, make sure you
+
+
+
+ * include js that eliminates this class on page load */
+
+
+
+.no-js .slides > li:first-child {display: block;}
+
+
+
+
+
+
+
+
+
+
+
+/* FlexSlider Default Theme
+
+
+
+*********************************/
+
+
+
+.flexslider-container{margin:0px auto; max-width:980px; position:relative}
+
+
+
+
+
+
+
+.flexslider {z-index:1; zoom: 1;}
+
+
+
+.flexslider .slides {zoom: 1;}
+
+
+
+.flexslider .slides > li {position: relative;}
+
+
+
+/* Suggested container for "Slide" animation setups. Can replace this with your own, if you wish */
+
+
+
+.flex-container {zoom: 1; position: relative;}
+
+
+
+
+
+
+
+/* Caption style */
+
+
+
+/* IE rgba() hack */
+
+
+
+.flex-caption {background:none; -ms-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#4C000000,endColorstr=#4C000000);
+
+
+
+filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#4C000000,endColorstr=#4C000000); zoom: 1;}
+
+
+
+.flex-caption {width: 96%; padding: 2%; position: absolute; left: 0; bottom: 0; background: rgba(0,0,0,.3); color: #fff; text-shadow: 0 -1px 0 rgba(0,0,0,.3); font-size: 14px; line-height: 18px;}
+
+
+
+
+
+
+
+/* Direction Nav */
+
+
+
+.flex-direction-nav li a {width: 52px; height: 52px; margin: -26px 0 0; display: block; background: url('../images/sliders/bg_direction_nav.png') no-repeat 0 0; position: absolute; top: 50%; cursor: pointer; text-indent: -9999px;}
+
+
+
+.flex-direction-nav li .next {background-position: -52px 0; right: 0px;}
+
+
+
+.flex-direction-nav li .prev {}
+
+
+
+.flex-direction-nav li .disabled {opacity: .3; filter:alpha(opacity=30); cursor: default;}
+
+
+
+
+
+
+
+/* Control Nav */
+
+
+
+.flex-control-nav {width: 100%; position: absolute; bottom: 10px; text-align: center;}
+
+
+
+.flex-control-nav li {margin: 0 0 0 5px; display: inline-block; zoom: 1; *display: inline;}
+
+
+
+.flex-control-nav li:first-child {margin: 0;}
+
+
+
+.flex-control-nav li a {width: 14px; height: 14px; display: block; background: url('../images/sliders/hero-navigator.png') no-repeat 0 0; cursor: pointer; text-indent: -9999px;}
+
+
+
+.flex-control-nav li a:hover {background-position: 0 -14px;}
+
+
+
+.flex-control-nav li a.active {background-position: 0 -28px; cursor: default;}
