@@ -7,3 +7,10 @@ C:\Desenvolvimento\SwBrasil\ORM\SWBrasil.ORM\SWBrasil.ORM\obj\Debug\SWBrasil.ORM
 C:\Desenvolvimento\SwBrasil\ORM\SWBrasil.ORM\SWBrasil.ORM\obj\Debug\SWBrasil.ORM.csproj.GenerateResource.Cache
 C:\Desenvolvimento\SwBrasil\ORM\SWBrasil.ORM\SWBrasil.ORM\obj\Debug\SWBrasil.ORM.exe
 C:\Desenvolvimento\SwBrasil\ORM\SWBrasil.ORM\SWBrasil.ORM\obj\Debug\SWBrasil.ORM.pdb
+C:\Desenvolvimento\SwBrasil\ORM\SWBrasil.ORM\SWBrasil.ORM\bin\Debug\SWBrasil.ORM.Common.dll
+C:\Desenvolvimento\SwBrasil\ORM\SWBrasil.ORM\SWBrasil.ORM\bin\Debug\SWBrasil.ORM.Common.pdb
+C:\Desenvolvimento\SwBrasil\ORM\SWBrasil.ORM\SWBrasil.ORM\bin\Debug\SWBrasil.ORM.exe.manifest
+C:\Desenvolvimento\SwBrasil\ORM\SWBrasil.ORM\SWBrasil.ORM\bin\Debug\SWBrasil.ORM.application
+C:\Desenvolvimento\SwBrasil\ORM\SWBrasil.ORM\SWBrasil.ORM\obj\Debug\SWBrasil.ORM.TrustInfo.xml
+C:\Desenvolvimento\SwBrasil\ORM\SWBrasil.ORM\SWBrasil.ORM\obj\Debug\SWBrasil.ORM.exe.manifest
+C:\Desenvolvimento\SwBrasil\ORM\SWBrasil.ORM\SWBrasil.ORM\obj\Debug\SWBrasil.ORM.application

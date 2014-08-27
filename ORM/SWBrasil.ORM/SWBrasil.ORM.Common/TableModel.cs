@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SWBrasil.ORM
+namespace SWBrasil.ORM.Common
 {
     public class TableModel
     {
@@ -23,6 +23,8 @@ namespace SWBrasil.ORM
         public int? Size { get; set; }
         public int? Precision { get; set; }
 
+        public string DefaultValue { get; set; }
+        public bool IsIdentity { get; set; }
         public bool IsPK { get; set; }
         public string RelatedTable{get;set;}
     }

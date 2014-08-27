@@ -1,0 +1,7 @@
+C:\Desenvolvimento\SwBrasil\ORM\SWBrasil.ORM\SWBrasil.ORM.CommandTemplate\bin\Debug\SWBrasil.ORM.CommandTemplate.dll
+C:\Desenvolvimento\SwBrasil\ORM\SWBrasil.ORM\SWBrasil.ORM.CommandTemplate\bin\Debug\SWBrasil.ORM.CommandTemplate.pdb
+C:\Desenvolvimento\SwBrasil\ORM\SWBrasil.ORM\SWBrasil.ORM.CommandTemplate\bin\Debug\SWBrasil.ORM.Common.dll
+C:\Desenvolvimento\SwBrasil\ORM\SWBrasil.ORM\SWBrasil.ORM.CommandTemplate\bin\Debug\SWBrasil.ORM.Common.pdb
+C:\Desenvolvimento\SwBrasil\ORM\SWBrasil.ORM\SWBrasil.ORM.CommandTemplate\obj\Debug\SWBrasil.ORM.CommandTemplate.csprojResolveAssemblyReference.cache
+C:\Desenvolvimento\SwBrasil\ORM\SWBrasil.ORM\SWBrasil.ORM.CommandTemplate\obj\Debug\SWBrasil.ORM.CommandTemplate.dll
+C:\Desenvolvimento\SwBrasil\ORM\SWBrasil.ORM\SWBrasil.ORM.CommandTemplate\obj\Debug\SWBrasil.ORM.CommandTemplate.pdb

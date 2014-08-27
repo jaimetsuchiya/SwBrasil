@@ -1,0 +1,5 @@
+C:\Desenvolvimento\SwBrasil\ORM\SWBrasil.ORM\SWBrasil.ORM.Common\bin\Debug\SWBrasil.ORM.Common.dll
+C:\Desenvolvimento\SwBrasil\ORM\SWBrasil.ORM\SWBrasil.ORM.Common\bin\Debug\SWBrasil.ORM.Common.pdb
+C:\Desenvolvimento\SwBrasil\ORM\SWBrasil.ORM\SWBrasil.ORM.Common\obj\Debug\SWBrasil.ORM.Common.dll
+C:\Desenvolvimento\SwBrasil\ORM\SWBrasil.ORM\SWBrasil.ORM.Common\obj\Debug\SWBrasil.ORM.Common.pdb
+C:\Desenvolvimento\SwBrasil\ORM\SWBrasil.ORM\SWBrasil.ORM.Common\bin\Debug\SWBrasil.ORM.Common.dll.config

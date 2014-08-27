@@ -53,12 +53,18 @@
             this.label4 = new System.Windows.Forms.Label();
             this.btnBack2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.chkTemplates = new System.Windows.Forms.CheckedListBox();
             this.tabBuild = new System.Windows.Forms.TabPage();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtOutputPath = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.btnGerar = new System.Windows.Forms.Button();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.tabControl1.SuspendLayout();
             this.tabSetup.SuspendLayout();
             this.tabTables.SuspendLayout();
             this.tabTemplates.SuspendLayout();
+            this.tabBuild.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -101,10 +107,10 @@
             this.btnNext1.Location = new System.Drawing.Point(376, 444);
             this.btnNext1.Name = "btnNext1";
             this.btnNext1.Size = new System.Drawing.Size(92, 23);
-            this.btnNext1.TabIndex = 14;
+            this.btnNext1.TabIndex = 5;
             this.btnNext1.Text = "Next »";
             this.btnNext1.UseVisualStyleBackColor = true;
-            this.btnNext1.Visible = false;
+            this.btnNext1.Click += new System.EventHandler(this.btnNext1_Click);
             // 
             // lblPassword
             // 
@@ -121,7 +127,8 @@
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(206, 22);
-            this.txtPassword.TabIndex = 12;
+            this.txtPassword.TabIndex = 4;
+            this.txtPassword.Text = "S!sTeM@s";
             // 
             // lblUserId
             // 
@@ -137,7 +144,8 @@
             this.txtUserID.Location = new System.Drawing.Point(171, 210);
             this.txtUserID.Name = "txtUserID";
             this.txtUserID.Size = new System.Drawing.Size(206, 22);
-            this.txtUserID.TabIndex = 10;
+            this.txtUserID.TabIndex = 3;
+            this.txtUserID.Text = "sa";
             // 
             // label2
             // 
@@ -153,7 +161,8 @@
             this.txtInitialCatalog.Location = new System.Drawing.Point(171, 168);
             this.txtInitialCatalog.Name = "txtInitialCatalog";
             this.txtInitialCatalog.Size = new System.Drawing.Size(206, 22);
-            this.txtInitialCatalog.TabIndex = 8;
+            this.txtInitialCatalog.TabIndex = 2;
+            this.txtInitialCatalog.Text = "Lotecando";
             // 
             // label1
             // 
@@ -172,7 +181,7 @@
             this.cboDataBase.Location = new System.Drawing.Point(171, 81);
             this.cboDataBase.Name = "cboDataBase";
             this.cboDataBase.Size = new System.Drawing.Size(225, 24);
-            this.cboDataBase.TabIndex = 6;
+            this.cboDataBase.TabIndex = 0;
             this.cboDataBase.Text = "SQL Server";
             // 
             // lblDataSource
@@ -189,7 +198,8 @@
             this.txtDataSource.Location = new System.Drawing.Point(171, 125);
             this.txtDataSource.Name = "txtDataSource";
             this.txtDataSource.Size = new System.Drawing.Size(206, 22);
-            this.txtDataSource.TabIndex = 4;
+            this.txtDataSource.TabIndex = 1;
+            this.txtDataSource.Text = "SWBRASIL-02\\PREPAGO";
             // 
             // btnReadDataBase
             // 
@@ -241,7 +251,7 @@
             this.btnBack1.TabIndex = 16;
             this.btnBack1.Text = "« Back";
             this.btnBack1.UseVisualStyleBackColor = true;
-            this.btnBack1.Visible = false;
+            this.btnBack1.Click += new System.EventHandler(this.btnBack1_Click);
             // 
             // btnNext2
             // 
@@ -251,7 +261,7 @@
             this.btnNext2.TabIndex = 15;
             this.btnNext2.Text = "Next »";
             this.btnNext2.UseVisualStyleBackColor = true;
-            this.btnNext2.Visible = false;
+            this.btnNext2.Click += new System.EventHandler(this.btnNext2_Click);
             // 
             // chkTables
             // 
@@ -276,7 +286,7 @@
             this.tabTemplates.Controls.Add(this.label4);
             this.tabTemplates.Controls.Add(this.btnBack2);
             this.tabTemplates.Controls.Add(this.button3);
-            this.tabTemplates.Controls.Add(this.checkedListBox1);
+            this.tabTemplates.Controls.Add(this.chkTemplates);
             this.tabTemplates.Location = new System.Drawing.Point(4, 25);
             this.tabTemplates.Name = "tabTemplates";
             this.tabTemplates.Size = new System.Drawing.Size(489, 489);
@@ -301,7 +311,7 @@
             this.btnBack2.TabIndex = 19;
             this.btnBack2.Text = "« Back";
             this.btnBack2.UseVisualStyleBackColor = true;
-            this.btnBack2.Visible = false;
+            this.btnBack2.Click += new System.EventHandler(this.btnBack2_Click);
             // 
             // button3
             // 
@@ -311,24 +321,64 @@
             this.button3.TabIndex = 18;
             this.button3.Text = "Next »";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Visible = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // checkedListBox1
+            // chkTemplates
             // 
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(24, 72);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(441, 327);
-            this.checkedListBox1.TabIndex = 17;
+            this.chkTemplates.FormattingEnabled = true;
+            this.chkTemplates.Location = new System.Drawing.Point(24, 72);
+            this.chkTemplates.Name = "chkTemplates";
+            this.chkTemplates.Size = new System.Drawing.Size(441, 327);
+            this.chkTemplates.TabIndex = 17;
             // 
             // tabBuild
             // 
+            this.tabBuild.Controls.Add(this.btnGerar);
+            this.tabBuild.Controls.Add(this.button1);
+            this.tabBuild.Controls.Add(this.label5);
+            this.tabBuild.Controls.Add(this.txtOutputPath);
             this.tabBuild.Location = new System.Drawing.Point(4, 25);
             this.tabBuild.Name = "tabBuild";
             this.tabBuild.Size = new System.Drawing.Size(489, 489);
             this.tabBuild.TabIndex = 3;
             this.tabBuild.Text = "Build";
             this.tabBuild.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(62, 93);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(84, 17);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "Output Path";
+            // 
+            // txtOutputPath
+            // 
+            this.txtOutputPath.Location = new System.Drawing.Point(153, 90);
+            this.txtOutputPath.Name = "txtOutputPath";
+            this.txtOutputPath.Size = new System.Drawing.Size(206, 22);
+            this.txtOutputPath.TabIndex = 6;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(365, 90);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(31, 23);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "...";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // btnGerar
+            // 
+            this.btnGerar.Location = new System.Drawing.Point(373, 445);
+            this.btnGerar.Name = "btnGerar";
+            this.btnGerar.Size = new System.Drawing.Size(92, 23);
+            this.btnGerar.TabIndex = 19;
+            this.btnGerar.Text = "Gerar";
+            this.btnGerar.UseVisualStyleBackColor = true;
+            this.btnGerar.Click += new System.EventHandler(this.btnGerar_Click);
             // 
             // Form1
             // 
@@ -347,6 +397,8 @@
             this.tabTables.PerformLayout();
             this.tabTemplates.ResumeLayout(false);
             this.tabTemplates.PerformLayout();
+            this.tabBuild.ResumeLayout(false);
+            this.tabBuild.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -377,9 +429,14 @@
         private System.Windows.Forms.Button btnBack1;
         private System.Windows.Forms.Button btnBack2;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.CheckedListBox chkTemplates;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnGerar;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtOutputPath;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
 
     }
 }
