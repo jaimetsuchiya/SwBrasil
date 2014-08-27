@@ -1,0 +1,9 @@
+C:\Desenvolvimento\SwBrasil\ORM\SWBrasil.ORM\SWBrasil.ORM\bin\Debug\SWBrasil.ORM.exe.config
+C:\Desenvolvimento\SwBrasil\ORM\SWBrasil.ORM\SWBrasil.ORM\bin\Debug\SWBrasil.ORM.exe
+C:\Desenvolvimento\SwBrasil\ORM\SWBrasil.ORM\SWBrasil.ORM\bin\Debug\SWBrasil.ORM.pdb
+C:\Desenvolvimento\SwBrasil\ORM\SWBrasil.ORM\SWBrasil.ORM\obj\Debug\SWBrasil.ORM.csprojResolveAssemblyReference.cache
+C:\Desenvolvimento\SwBrasil\ORM\SWBrasil.ORM\SWBrasil.ORM\obj\Debug\SWBrasil.ORM.Form1.resources
+C:\Desenvolvimento\SwBrasil\ORM\SWBrasil.ORM\SWBrasil.ORM\obj\Debug\SWBrasil.ORM.Properties.Resources.resources
+C:\Desenvolvimento\SwBrasil\ORM\SWBrasil.ORM\SWBrasil.ORM\obj\Debug\SWBrasil.ORM.csproj.GenerateResource.Cache
+C:\Desenvolvimento\SwBrasil\ORM\SWBrasil.ORM\SWBrasil.ORM\obj\Debug\SWBrasil.ORM.exe
+C:\Desenvolvimento\SwBrasil\ORM\SWBrasil.ORM\SWBrasil.ORM\obj\Debug\SWBrasil.ORM.pdb
