@@ -21,7 +21,9 @@ namespace SWBrasil.ORM.CommandTemplate
 
         public string ApplyTemplate(TableModel table)
         {
-            throw new NotImplementedException();
+            string restService = @"
+";
+            return "";
         }
     }
 }

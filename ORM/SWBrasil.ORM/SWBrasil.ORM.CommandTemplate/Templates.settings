@@ -1,0 +1,108 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SWBrasil.ORM.CommandTemplate" GeneratedClassName="Templates">
+  <Profiles />
+  <Settings>
+    <Setting Name="Procedure_Base" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">IF EXISTS ( SELECT 1 FROM sys.objects WHERE type='P' AND name='{0}')
+	DROP PROC {0}
+GO
+
+
+CREATE PROC dbo.{0} 
+(
+	{1}
+	,@AbreTransacao		char(1)		= 'N'
+	,@CodigoRetorno		int			=  0	output
+	,@DescricaoRetorno	varchar(max)= ''	output
+) AS
+BEGIN
+
+	DECLARE @TransacaoAberta char(1)
+		SET @TransacaoAberta = 'N'
+
+	BEGIN TRY
+
+		IF @AbreTransacao = 'S'
+		BEGIN
+			BEGIN TRAN 
+			SET @TransacaoAberta = 'S'
+		END
+
+
+		{2}
+
+
+		SELECT 	 @CodigoRetorno		= 0
+				,@DescricaoRetorno	= ''
+
+
+		IF @TransacaoAberta = 'S'
+		BEGIN
+			COMMIT TRAN
+			SET @TransacaoAberta = 'N'
+		END
+
+	END TRY
+	BEGIN CATCH
+
+		SELECT 	 @CodigoRetorno		= -9
+				,@DescricaoRetorno	= 'Erro de Processamento'
+				
+
+		IF @TransacaoAberta = 'S'
+		BEGIN
+			ROLLBACK TRAN
+			SET @TransacaoAberta = 'N'
+		END
+
+	END CATCH
+
+END
+GO
+</Value>
+    </Setting>
+    <Setting Name="Procedure_Save" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">
+--SAVE
+IF EXISTS( SELECT 1 FROM {0} WHERE {1})
+BEGIN
+
+	UPDATE
+		{0}
+	SET
+		{2}
+	WHERE
+		{1}
+
+END
+ELSE
+BEGIN
+
+	INSERT
+		INTO {0}
+		(
+			{3}
+		)
+		VALUES
+		(
+			{4}
+		)
+
+	{5}
+
+END</Value>
+    </Setting>
+    <Setting Name="Procedure_Select" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">
+SELECT 
+	{0}
+FROM
+	{1}
+WHERE
+	{2}</Value>
+    </Setting>
+    <Setting Name="Procedure_Delete" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">DELETE FROM {0} WHERE {1}</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

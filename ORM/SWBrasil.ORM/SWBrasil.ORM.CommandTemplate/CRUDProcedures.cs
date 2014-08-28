@@ -13,70 +13,60 @@ namespace SWBrasil.ORM.CommandTemplate
         public string Description { get { return "Gera as Procedures de CRUD para a Tabela Informada!"; } }
 
         public string ApplyTemplate(TableModel table)
-        {
-            string ret = "";
-            string pDelete = @"
-    CREATE PROC dbo.pDel{0}
-    (
-	    {1}
-    ) AS
-    BEGIN
-
-        DELETE FROM {0} WHERE {2}
-
-    END
-    GO
-
-";
+        {            
             string indexFields = "";
+            string saveFields = "";
             string whereFields = "";
+            string nonIndexFields = "";
+            string nonIFValues = "";
+            string updFields = "";
+            string identity = "";
 
             foreach (ColumnModel col in table.Columns.Where(c => c.IsPK == true).ToList())
             {
                 indexFields += (indexFields != "" ? (Environment.NewLine + ",") : "");
                 indexFields += "@" + col.Name + " \t" + col.DbType + (col.Size.HasValue ? "(" + col.Size.ToString() + ")" : "");
+                if (col.IsIdentity)
+                    indexFields += " = null output";
+
                 whereFields += (whereFields != "" ? " AND " : "");
                 whereFields += col.Name + " = @" + col.Name;
+
+                nonIndexFields += (nonIndexFields != "" ? ", " : "");
+                nonIndexFields += col.Name;
+
+                nonIFValues += (nonIFValues != "" ? ", " : "");
+                nonIFValues += "@" + col.Name;
             }
+            foreach (ColumnModel col in table.Columns.Where(c => c.IsPK == false).ToList())
+            {
+                nonIndexFields += (nonIndexFields != "" ? ", " : "");
+                nonIndexFields += col.Name;
 
-            ret = string.Format(pDelete, table.Name, indexFields, whereFields);
+                nonIFValues += (nonIFValues != "" ? ", " : "");
+                nonIFValues += "@" + col.Name;
 
-            string pSave = @"
-    CREATE PROC dbo.pSave{0}
-    (
-	    {1}
-    ) AS
-    BEGIN
+                updFields += (updFields != "" ? ", " : "");
+                updFields+= col.Name + " = @" + col.Name;
 
-        IF EXISTS(SELECT 1 FROM {0} WHERE {2})
-        BEGIN
-            UPDATE 
-                {0}
-            SET
-                {3}
-            WHERE
-                {2}
-        END
-        ELSE
-        BEGIN
-            
-            INSERT INTO {0}
-            (
-                {4}
-            )
-            VALUES
-            (
-                {5}
-            )
+                saveFields += (Environment.NewLine + ",");
+                saveFields += "@" + col.Name + " \t" + col.DbType + (col.Size.HasValue ? "(" + col.Size.ToString() + ")" : "");
+                if (col.Required == false)
+                    saveFields += " = null";
 
-            SET {6} = {7}
+            }
+            ColumnModel identityColumn = table.Columns.Where(c => c.IsIdentity == true).SingleOrDefault();
+            if (identityColumn != null)
+                identity = "SET @" + identityColumn.Name + " = SCOPE_IDENTITY()";
 
-        END
-    END
-    GO
+            string deleteCmd = string.Format(Templates.Default.Procedure_Delete, table.Name, whereFields);
+            string saveCmd = string.Format(Templates.Default.Procedure_Save, table.Name, whereFields, updFields, nonIndexFields, nonIFValues, identity);
+            string selectCmd = string.Format(Templates.Default.Procedure_Select, nonIndexFields, table.Name, whereFields);
 
-";
-           
+            string ret = string.Format(Templates.Default.Procedure_Base, ("pDel" + table.Name), indexFields.Replace(" = null output", ""), deleteCmd);
+                   ret += string.Format(Templates.Default.Procedure_Base, ("pSel" + table.Name), indexFields.Replace(" = null output", ""), selectCmd);
+                   ret += string.Format(Templates.Default.Procedure_Base, ("pSave" + table.Name), (indexFields + saveFields), saveCmd);
+
             return ret;
         }
 

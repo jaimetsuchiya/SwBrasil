@@ -65,7 +65,7 @@ namespace SWBrasil.ORM.Common
 
 
 
-        public abstract string ConvertDataType(string dataBaseType);
+        public abstract string ConvertDataType(string dataBaseType, bool nullable);
 
         public List<TableModel> Tables { get; set; }
     }

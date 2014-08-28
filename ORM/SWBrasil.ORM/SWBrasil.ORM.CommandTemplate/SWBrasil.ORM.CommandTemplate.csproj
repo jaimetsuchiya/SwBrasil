@@ -43,12 +43,24 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RESTController.cs" />
     <Compile Include="SimpleModel.cs" />
+    <Compile Include="Templates.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Templates.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SWBrasil.ORM.Common\SWBrasil.ORM.Common.csproj">
       <Project>{e48d7bbe-072d-4dc4-9f41-6fd88739a86d}</Project>
       <Name>SWBrasil.ORM.Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Templates.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Templates.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

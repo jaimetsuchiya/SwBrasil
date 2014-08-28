@@ -10,7 +10,7 @@ namespace SWBrasil.ORM.Common
 {
     public class SqlServerORM: BaseORM
     {
-        protected string QUERY_COLUMNS = @"SELECT C.COLUMN_NAME, IS_NULLABLE, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, NUMERIC_PRECISION, NUMERIC_SCALE, case when tblPK.IndexName is null then 0 else 1 end as PK, tblFK.ReferenceTableName,COLUMNPROPERTY(object_id(TABLE_NAME), COLUMN_NAME, 'IsIdentity') as IsIdentity, C.COLUMN_DEFAULT 
+        protected string QUERY_COLUMNS = @"SELECT DISTINCT C.COLUMN_NAME, IS_NULLABLE, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, NUMERIC_PRECISION, NUMERIC_SCALE, case when tblPK.IndexName is null then 0 else 1 end as PK, tblFK.ReferenceTableName,COLUMNPROPERTY(object_id(TABLE_NAME), COLUMN_NAME, 'IsIdentity') as IsIdentity, C.COLUMN_DEFAULT 
                                             FROM  INFORMATION_SCHEMA.COLUMNS C 
                                             LEFT JOIN (SELECT  i.name AS IndexName, OBJECT_NAME(ic.OBJECT_ID) AS TableName, COL_NAME(ic.OBJECT_ID,ic.column_id) AS ColumnName FROM    sys.indexes AS i INNER JOIN sys.index_columns AS ic ON  i.OBJECT_ID = ic.OBJECT_ID AND i.index_id = ic.index_id WHERE   i.is_primary_key = 1 ) as tblPK on tblPK.ColumnName = C.COLUMN_NAME and tblPK.TableName = C.TABLE_NAME 
                                             LEFT JOIN (SELECT f.name AS ForeignKey, OBJECT_NAME(f.parent_object_id) AS TableName, COL_NAME(fc.parent_object_id, fc.parent_column_id) AS ColumnName, OBJECT_NAME (f.referenced_object_id) AS ReferenceTableName, COL_NAME(fc.referenced_object_id, fc.referenced_column_id) AS ReferenceColumnName FROM sys.foreign_keys AS f INNER JOIN sys.foreign_key_columns AS fc ON f.OBJECT_ID = fc.constraint_object_id) as tblFK ON tblFK.TableName = C.TABLE_NAME AND tblFK.ColumnName = C.COLUMN_NAME 
@@ -78,7 +78,7 @@ namespace SWBrasil.ORM.Common
                 else
                     column.Precision = null;
 
-                column.DataType = ConvertDataType(column.DbType);
+                column.DataType = ConvertDataType(column.DbType, !column.Required);
                 column.IsPK = (rdr.GetInt32(6) == 1);
                 column.Required = rdr.GetString(1) == "NO";
                 if (rdr.IsDBNull(7) == false)
@@ -97,36 +97,39 @@ namespace SWBrasil.ORM.Common
             return ret;
         }
 
-        public override string ConvertDataType(string dataBaseType)
+        public override string ConvertDataType(string dataBaseType, bool nullable)
         {
-            string ret = "String";
+            string ret = "string";
 
             switch (dataBaseType.Trim().ToUpper())
             {
                 case "BIGINT":
-                    ret = ("Int64");
+                    ret = ("long");
                     break;
 
                 case "INT":
-                    ret = ("Int32");
+                    ret = ("int");
                     break;
 
                 case "SMALLINT":
-                    ret = ("Int16");
+                    ret = ("short");
                     break;
 
                 case "MONEY":
                 case "DECIMAL":
-                    ret = ("System.Decimal");
+                    ret = ("decimal");
                     break;
 
                 case "DATE":
                 case "DATETIME":
                 case "SMALLDATETIME":
                 case "TIME":
-                    ret = ("System.DateTime");
+                    ret = ("DateTime");
                     break;
             }
+
+            if (!nullable && ret != "string")
+                ret += "?";
 
             return ret;
         }
