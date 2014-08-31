@@ -40,6 +40,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CRUDProcedures.cs" />
+    <Compile Include="HtmlInputForm.cs" />
+    <Compile Include="NapierModel.cs" />
+    <Compile Include="NapierXML.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RESTController.cs" />
     <Compile Include="SimpleModel.cs" />

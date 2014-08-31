@@ -14,11 +14,12 @@ namespace SWBrasil.ORM
 {
     public partial class Form1 : Form
     {
+        string config = "";
         Common.BaseORM orm = null;
+
         public Form1()
         {
             InitializeComponent();
-            txtConnectionString.Text = @"Data Source=SWBRASIL-02\PREPAGO; User Id=sa; Password=S!sTeM@s; Initial Catalog=Lotecando;";
         }
 
         private void btnReadDataBase_Click(object sender, EventArgs e)
@@ -35,7 +36,40 @@ namespace SWBrasil.ORM
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+            config = Application.ExecutablePath.ToLower().Replace(".exe", ".log");
+            if (File.Exists(config))
+            {
+                string[] lines = File.ReadAllLines(config);
+                foreach (string line in lines)
+                {
+                    if( line.StartsWith("DataSource") )
+                        txtDataSource.Text = line.Replace("DataSource=", "");
+
+                    if (line.StartsWith("Initial Catalog"))
+                        txtInitialCatalog.Text = line.Replace("Initial Catalog=", "");
+
+                    if (line.StartsWith("User ID"))
+                        txtUserID.Text = line.Replace("User ID=", "");
+
+                    if (line.StartsWith("Password"))
+                        txtPassword.Text = line.Replace("Password=", "");
+
+                    if (line.StartsWith("OutPut"))
+                        txtOutputPath.Text = line.Replace("OutPut=", "");
+                }
+            }
+        }
+
+        private void writeLastExecution()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("DataSource=" + txtDataSource.Text);
+            sb.AppendLine("Initial Catalog=" + txtInitialCatalog.Text);
+            sb.AppendLine("User ID=" + txtUserID.Text);
+            sb.AppendLine("Password=" + txtPassword.Text);
+            sb.AppendLine("OutPut=" + txtOutputPath.Text);
+
+            File.WriteAllText(config, sb.ToString());
         }
 
         private void btnNext1_Click(object sender, EventArgs e)
@@ -115,6 +149,7 @@ namespace SWBrasil.ORM
                 File.WriteAllText(Path.Combine(txtOutputPath.Text, cmd.CommandID + ".result"), result);
             }
 
+            writeLastExecution();
             MessageBox.Show("Ok");
         }
 
@@ -123,6 +158,11 @@ namespace SWBrasil.ORM
             DialogResult result = folderBrowserDialog1.ShowDialog();
             if (result == System.Windows.Forms.DialogResult.OK)
                 txtOutputPath.Text = folderBrowserDialog1.SelectedPath;
+        }
+
+        private void chkAll_CheckedChanged_1(object sender, EventArgs e)
+        {
+            chkAll_CheckedChanged(null, null);
         }
     }
 }

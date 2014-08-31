@@ -2,6 +2,18 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SWBrasil.ORM.CommandTemplate" GeneratedClassName="Templates">
   <Profiles />
   <Settings>
+    <Setting Name="Procedure_Select" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">
+SELECT 
+	{0}
+FROM
+	{1}
+WHERE
+	{2}</Value>
+    </Setting>
+    <Setting Name="Procedure_Delete" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">DELETE FROM {0} WHERE {1}</Value>
+    </Setting>
     <Setting Name="Procedure_Base" Type="System.String" Scope="Application">
       <Value Profile="(Default)">IF EXISTS ( SELECT 1 FROM sys.objects WHERE type='P' AND name='{0}')
 	DROP PROC {0}
@@ -92,17 +104,74 @@ BEGIN
 
 END</Value>
     </Setting>
-    <Setting Name="Procedure_Select" Type="System.String" Scope="Application">
+    <Setting Name="NapierModel" Type="System.String" Scope="Application">
       <Value Profile="(Default)">
-SELECT 
-	{0}
-FROM
-	{1}
-WHERE
-	{2}</Value>
+[MapperClass(Storable = "mcs{0}")]
+    public class {0} : DataAccessLibrary
+    {
+        
+        {1}
+
+        #region Persistence Methods
+
+        public new int Save()
+        {
+            return base.Save();
+        }
+
+        public new int Delete()
+        {
+            return base.Delete();
+        }
+
+        #endregion Persistence Methods
+    }
+
+</Value>
     </Setting>
-    <Setting Name="Procedure_Delete" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">DELETE FROM {0} WHERE {1}</Value>
+    <Setting Name="Napier_Execution_XML" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">
+
+&lt;Storable name="mcs{0}"&gt;
+    &lt;Execution cod="SEL"&gt;
+      &lt;Summary&gt;SEL Summary&lt;/Summary&gt;
+      &lt;Table&gt;{0}&lt;/Table&gt;
+      &lt;Inputs&gt;
+       {1}
+      &lt;/Inputs&gt;
+    &lt;/Execution&gt;
+    &lt;Execution cod="INS"&gt;
+      &lt;Summary&gt;INS Summary&lt;/Summary&gt;
+      &lt;Table&gt;{0}&lt;/Table&gt;
+      &lt;Inputs&gt;
+        {2}
+      &lt;/Inputs&gt;
+    &lt;/Execution&gt;
+    &lt;Execution cod="UPD"&gt;
+      &lt;Summary&gt;UPD Summary&lt;/Summary&gt;
+      &lt;Table&gt;{0}&lt;/Table&gt;
+      &lt;Inputs&gt;
+        {1}
+      &lt;/Inputs&gt;
+    &lt;/Execution&gt;
+    &lt;Execution cod="DEL"&gt;
+      &lt;Summary&gt;DEL Summary&lt;/Summary&gt;
+      &lt;Table&gt;{0}&lt;/Table&gt;
+      &lt;Inputs&gt;
+        {3}
+      &lt;/Inputs&gt;
+    &lt;/Execution&gt;
+  &lt;/Storable&gt;
+
+</Value>
+    </Setting>
+    <Setting Name="HtmlInput" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">
+&lt;div class="form-group"&gt;
+	&lt;label for="{0}"&gt;{0}&lt;/label&gt;&lt;br /&gt;
+	&lt;input value="@Model.{0}" type="text" id="{0}" name="{0}"  class="form-control" {1} /&gt;
+&lt;/div&gt;
+</Value>
     </Setting>
   </Settings>
 </SettingsFile>

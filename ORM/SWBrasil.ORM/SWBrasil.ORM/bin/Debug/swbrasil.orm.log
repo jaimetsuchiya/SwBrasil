@@ -1,0 +1,5 @@
+DataSource=DW01P287
+Initial Catalog=WMS
+User ID=sa
+Password=S!sTeM@s
+OutPut=C:\Temp\Result
