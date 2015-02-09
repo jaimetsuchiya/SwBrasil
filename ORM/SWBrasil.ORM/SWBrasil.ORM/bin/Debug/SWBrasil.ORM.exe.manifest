@@ -42,36 +42,36 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SWBrasil.ORM.exe" size="20480">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SWBrasil.ORM.exe" size="28672">
       <assemblyIdentity name="SWBrasil.ORM" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>IenwAUtbSxYdVcXz5HAEEN0S0NGUSeMzQn4BoV/Wg70=</dsig:DigestValue>
+        <dsig:DigestValue>wUNLdwYSGTHh9+SRqUsTDabX7mQOAJTdgFrnqUmGPwk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SWBrasil.ORM.Common.dll" size="14848">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SWBrasil.ORM.Common.dll" size="21504">
       <assemblyIdentity name="SWBrasil.ORM.Common" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>xlTlMld6aDkXRgNQBNhEQujxOLBYkpoATq1zjpQvLJ0=</dsig:DigestValue>
+        <dsig:DigestValue>gx0S/1l6yntaEj6+sxEGf48bv1qae7X0JCGVNqqNfaA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="SWBrasil.ORM.exe.config" size="847">
+  <file name="SWBrasil.ORM.exe.config" size="1032">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>v+iqm7GAIyeoLf0qIB59Q6+YUGu62AkMYKCcaJD2gi4=</dsig:DigestValue>
+      <dsig:DigestValue>i13zyYZlDLfBf5wEZf50tEPKiQ3fU8zlaRHtdXS1ak4=</dsig:DigestValue>
     </hash>
   </file>
   <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">

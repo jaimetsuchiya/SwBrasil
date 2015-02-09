@@ -9,8 +9,18 @@ namespace SWBrasil.ORM.Common
     public interface ICommand
     {
         string CommandID { get; }
+        string Extension { get; }
         string Description { get; }
+        string FileName { get; }
+    }
 
-        string ApplyTemplate(TableModel table);
+    public interface ITableTransformation: ICommand
+    {
+        string ApplyTemplate(TableModel table, List<TableModel> tables = null);
+    }
+
+    public interface IProcedureTransformation : ICommand
+    {
+        string ApplyTemplate(ProcModel procedure);
     }
 }

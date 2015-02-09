@@ -7,12 +7,22 @@ using SWBrasil.ORM.Common;
 
 namespace SWBrasil.ORM.CommandTemplate
 {
-    public class CRUDProcedures: ICommand
+    public class CRUDProcedures : CommandBase, ITableTransformation
     {
         public string CommandID { get { return "CRUDProcedures"; } }
         public string Description { get { return "Gera as Procedures de CRUD para a Tabela Informada!"; } }
 
-        public string ApplyTemplate(TableModel table)
+        public string Extension
+        {
+            get { return ".sql"; }
+        }
+
+        public string FileName
+        {
+            get { return _fileName; }
+        }
+
+        public string ApplyTemplate(TableModel table, List<TableModel> tables = null)
         {            
             string indexFields = "";
             string saveFields = "";
@@ -21,6 +31,7 @@ namespace SWBrasil.ORM.CommandTemplate
             string nonIFValues = "";
             string updFields = "";
             string identity = "";
+            _fileName = table.Name.Replace("tb_", "") + "_scripts";
 
             foreach (ColumnModel col in table.Columns.Where(c => c.IsPK == true).ToList())
             {

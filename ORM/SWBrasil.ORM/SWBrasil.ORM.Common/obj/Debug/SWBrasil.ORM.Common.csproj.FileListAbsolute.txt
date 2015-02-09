@@ -8,3 +8,9 @@ C:\Temp\ORM\SWBrasil.ORM\SWBrasil.ORM.Common\bin\Debug\SWBrasil.ORM.Common.dll
 C:\Temp\ORM\SWBrasil.ORM\SWBrasil.ORM.Common\bin\Debug\SWBrasil.ORM.Common.pdb
 C:\Temp\ORM\SWBrasil.ORM\SWBrasil.ORM.Common\obj\Debug\SWBrasil.ORM.Common.dll
 C:\Temp\ORM\SWBrasil.ORM\SWBrasil.ORM.Common\obj\Debug\SWBrasil.ORM.Common.pdb
+C:\Jaime\Ferramentas\ORM\SWBrasil.ORM\SWBrasil.ORM.Common\bin\Debug\SWBrasil.ORM.Common.dll.config
+C:\Jaime\Ferramentas\ORM\SWBrasil.ORM\SWBrasil.ORM.Common\bin\Debug\SWBrasil.ORM.Common.dll
+C:\Jaime\Ferramentas\ORM\SWBrasil.ORM\SWBrasil.ORM.Common\bin\Debug\SWBrasil.ORM.Common.pdb
+C:\Jaime\Ferramentas\ORM\SWBrasil.ORM\SWBrasil.ORM.Common\obj\Debug\SWBrasil.ORM.Common.dll
+C:\Jaime\Ferramentas\ORM\SWBrasil.ORM\SWBrasil.ORM.Common\obj\Debug\SWBrasil.ORM.Common.pdb
+C:\Jaime\Ferramentas\ORM\SWBrasil.ORM\SWBrasil.ORM.Common\obj\Debug\SWBrasil.ORM.Common.csprojResolveAssemblyReference.cache

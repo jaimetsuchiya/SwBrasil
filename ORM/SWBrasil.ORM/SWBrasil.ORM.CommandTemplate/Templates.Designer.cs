@@ -120,7 +120,7 @@ GO
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(@"
-[MapperClass(Storable = ""mcs{0}"")]
+[MapperClass(Storable = ""{0}"")]
     public class {0} : DataAccessLibrary
     {
         
@@ -139,9 +139,13 @@ GO
         }
 
         #endregion Persistence Methods
-    }
+		
+		#region Search Methods
+		
+		{2}
 
-")]
+		#endregion Search Methods
+    }")]
         public string NapierModel {
             get {
                 return ((string)(this["NapierModel"]));
@@ -198,6 +202,15 @@ GO
         public string HtmlInput {
             get {
                 return ((string)(this["HtmlInput"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("[NapierClassMapper(\"{2}\")]\r\npublic class {0}\r\n{\r\n\t{1}\r\n}\r\n")]
+        public string DTOModel {
+            get {
+                return ((string)(this["DTOModel"]));
             }
         }
     }

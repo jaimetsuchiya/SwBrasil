@@ -7,7 +7,7 @@ using SWBrasil.ORM.Common;
 
 namespace SWBrasil.ORM.CommandTemplate
 {
-    public class SimpleModel: ICommand
+    public class SimpleModel: CommandBase, ITableTransformation
     {
         public string CommandID
         {
@@ -19,8 +19,19 @@ namespace SWBrasil.ORM.CommandTemplate
             get { return "Create a Simple Model for DTO"; }
         }
 
-        public string ApplyTemplate(TableModel table)
+        public string Extension
         {
+            get { return ".cs"; }
+        }
+
+        public string FileName
+        {
+            get { return _fileName; }
+        }
+
+        public string ApplyTemplate(TableModel table, List<TableModel> tables = null)
+        {
+            _fileName = table.Name;
             string template = @"
 public class {0}DTO
 {

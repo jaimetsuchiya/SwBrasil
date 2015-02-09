@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseORM.cs" />
+    <Compile Include="ProcModel.cs" />
     <Compile Include="ICommand.cs" />
     <Compile Include="ORM.Designer.cs">
       <AutoGen>True</AutoGen>

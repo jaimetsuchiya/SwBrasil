@@ -1,4 +1,4 @@
-DataSource=DW01P287
+DataSource=192.168.2.122
 Initial Catalog=WMS
 User ID=sa
 Password=S!sTeM@s

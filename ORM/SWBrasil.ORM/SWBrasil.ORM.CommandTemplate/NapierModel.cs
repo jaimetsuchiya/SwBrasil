@@ -7,7 +7,7 @@ using SWBrasil.ORM.Common;
 
 namespace SWBrasil.ORM.CommandTemplate
 {
-    public class NapierModel: ICommand
+    public class NapierModel : CommandBase, ITableTransformation
     {
         public string CommandID
         {
@@ -18,8 +18,17 @@ namespace SWBrasil.ORM.CommandTemplate
         {
             get { return "Cria Model´s de Persistência no Padrão Napier"; }
         }
+        public string Extension
+        {
+            get { return ".cs"; }
+        }
 
-        public string ApplyTemplate(TableModel table)
+        public string FileName
+        {
+            get { return _fileName; }
+        }
+
+        public string ApplyTemplate(TableModel table, List<TableModel> tables = null)
         {
             /*
              * 0 - Table Name
@@ -31,11 +40,13 @@ namespace SWBrasil.ORM.CommandTemplate
             [MapperAttribute(Name = "Nome")]
             public string NomeTeste { get; set; }
             */
+            string className = table.Name.Replace("tb_", "") + "Model";
+            _fileName = className;
 
             string columns = "";
             string isPK = "";
             string isIdentity = "";
-
+            string search = "";
             foreach (ColumnModel col in table.Columns)
             {
                 isPK = col.IsPK ? ", IsKey = true" : "";
@@ -43,12 +54,30 @@ namespace SWBrasil.ORM.CommandTemplate
                 
                 columns += (columns == "" ? "" : Environment.NewLine);
                 columns += col.Required && col.IsIdentity == false ? ("\t\t[Required]" + Environment.NewLine) : "";
-                columns += string.Format("\t\t[MapperAttribute(Name = \"{0}\" {1} {2})]\r\n", col.Name, isPK, isIdentity);
-                columns += string.Format("\t\tpublic {0} {1}", col.DataType, col.Name) + " { get; set; }";
+                columns += string.Format("\t\t[MapperAttribute(Name = \"{0}\" {1} {2})]", col.Name, isPK, isIdentity) + Environment.NewLine;
+                columns += string.Format("\t\tpublic {0} {1}", col.DataType, col.Name) + " { get; set; }" + Environment.NewLine;
                 columns += Environment.NewLine;
+
+                if (col.IsPK)
+                {
+                    search = "\t\tpublic static " + table.Name.Replace("tb_", "") + "Model" + " FindById(" + col.DataType + " id)" + Environment.NewLine;
+                    search += "\t\t{" + Environment.NewLine;
+                    search += "\t\t\t" + "return " + table.Name.Replace("tb_", "") + "Model.Find<" + table.Name.Replace("tb_", "") + "_Model>(\"SEL\", \"" + col.Name + "='\" + id + \"'\");" + Environment.NewLine;
+                    search += "\t\t}" + Environment.NewLine;
+                    search += Environment.NewLine;
+                }
+
+                if (col.IsUniqueKey)
+                {
+                    search = "\t\tpublic static " + table.Name.Replace("tb_", "") + "Model" + " FindBy" + col.Name + "(" + col.DataType + " value)" + Environment.NewLine;
+                    search += "\t\t{" + Environment.NewLine;
+                    search += "\t\t\t" + "return " + table.Name.Replace("tb_", "") + "Model.Find<" + table.Name.Replace("tb_", "") + "_Model>(\"SEL\", \"" + col.Name + "='\" + value + \"'\");" + Environment.NewLine;
+                    search += "\t\t}" + Environment.NewLine;
+                    search += Environment.NewLine;
+                }
             }
 
-            return Templates.Default.NapierModel.Replace("{0}", table.Name).Replace("{1}", columns);
+            return Templates.Default.NapierModel.Replace("{0}", className).Replace("{1}", columns).Replace("{2}", search);
         }
     }
 }

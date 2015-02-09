@@ -14,3 +14,11 @@ C:\Temp\ORM\SWBrasil.ORM\SWBrasil.ORM.CommandTemplate\bin\Debug\SWBrasil.ORM.Com
 C:\Temp\ORM\SWBrasil.ORM\SWBrasil.ORM.CommandTemplate\obj\Debug\SWBrasil.ORM.CommandTemplate.csprojResolveAssemblyReference.cache
 C:\Temp\ORM\SWBrasil.ORM\SWBrasil.ORM.CommandTemplate\obj\Debug\SWBrasil.ORM.CommandTemplate.dll
 C:\Temp\ORM\SWBrasil.ORM\SWBrasil.ORM.CommandTemplate\obj\Debug\SWBrasil.ORM.CommandTemplate.pdb
+C:\Jaime\Ferramentas\ORM\SWBrasil.ORM\SWBrasil.ORM.CommandTemplate\bin\Debug\SWBrasil.ORM.CommandTemplate.dll.config
+C:\Jaime\Ferramentas\ORM\SWBrasil.ORM\SWBrasil.ORM.CommandTemplate\bin\Debug\SWBrasil.ORM.CommandTemplate.dll
+C:\Jaime\Ferramentas\ORM\SWBrasil.ORM\SWBrasil.ORM.CommandTemplate\bin\Debug\SWBrasil.ORM.CommandTemplate.pdb
+C:\Jaime\Ferramentas\ORM\SWBrasil.ORM\SWBrasil.ORM.CommandTemplate\bin\Debug\SWBrasil.ORM.Common.dll
+C:\Jaime\Ferramentas\ORM\SWBrasil.ORM\SWBrasil.ORM.CommandTemplate\bin\Debug\SWBrasil.ORM.Common.pdb
+C:\Jaime\Ferramentas\ORM\SWBrasil.ORM\SWBrasil.ORM.CommandTemplate\obj\Debug\SWBrasil.ORM.CommandTemplate.csprojResolveAssemblyReference.cache
+C:\Jaime\Ferramentas\ORM\SWBrasil.ORM\SWBrasil.ORM.CommandTemplate\obj\Debug\SWBrasil.ORM.CommandTemplate.dll
+C:\Jaime\Ferramentas\ORM\SWBrasil.ORM\SWBrasil.ORM.CommandTemplate\obj\Debug\SWBrasil.ORM.CommandTemplate.pdb

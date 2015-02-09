@@ -34,6 +34,14 @@ namespace SWBrasil.ORM
                 chkTables.SetItemChecked(i, chkAll.Checked);
         }
 
+        private void chkAll2_CheckedChanged(object sender, EventArgs e)
+        {
+            checkBox2.Text = (checkBox2.Checked ? "UnCheck All" : "Check All");
+            for (int i = 0; i < chkProcedures.Items.Count; i++)
+                chkProcedures.SetItemChecked(i, checkBox2.Checked);
+        }
+
+
         private void Form1_Load(object sender, EventArgs e)
         {
             config = Application.ExecutablePath.ToLower().Replace(".exe", ".log");
@@ -75,11 +83,19 @@ namespace SWBrasil.ORM
         private void btnNext1_Click(object sender, EventArgs e)
         {
             orm = new Common.SqlServerORM();
-            if (orm.Connect(string.Format("Data Source={0}; Initial Catalog={1}; User Id={2}; Password={3};", txtDataSource.Text, txtInitialCatalog.Text, txtUserID.Text, txtPassword.Text)))
+            string connectionString = string.Format("Data Source={0}; Initial Catalog={1}; User Id={2}; Password={3};", txtDataSource.Text, txtInitialCatalog.Text, txtUserID.Text, txtPassword.Text);
+            if( checkBox1.Checked )
+                connectionString = string.Format("Data Source={0}; Initial Catalog={1}; Trusted_Connection=true;", txtDataSource.Text, txtInitialCatalog.Text);
+
+            if (orm.Connect(connectionString))
             {
                 chkTables.Items.Clear();
                 foreach (Common.TableModel tabela in orm.Tables)
                     chkTables.Items.Add(tabela.Name);
+
+                chkProcedures.Items.Clear();
+                foreach (Common.ProcModel proc in orm.Procedures)
+                    chkProcedures.Items.Add(proc.Name);
 
                 tabControl1.SelectedIndex = 1;
             }
@@ -94,11 +110,11 @@ namespace SWBrasil.ORM
 
         private void btnNext2_Click(object sender, EventArgs e)
         {
-            if (chkTables.SelectedItems.Count == 0)
+            if (chkTables.CheckedItems.Count == 0)
                 MessageBox.Show("Nenhuma tabela selecionada");
             else
             {
-                List<Common.ICommand> lstCmd = orm.AvailableTemplates();
+                List<Common.ITableTransformation> lstCmd = orm.AvailableTableTemplates();
 
                 chkTemplates.Items.Clear();
                 foreach (Common.ICommand cmd in lstCmd)
@@ -110,7 +126,7 @@ namespace SWBrasil.ORM
 
         private void btnBack2_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectedIndex = 1;
+            tabControl1.SelectedIndex = 2;
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -118,7 +134,7 @@ namespace SWBrasil.ORM
             if (chkTemplates.SelectedItems.Count == 0)
                 MessageBox.Show("Nenhum template selecionado");
             else
-                tabControl1.SelectedIndex = 3;
+                tabControl1.SelectedIndex = 4;
         }
 
         private void btnGerar_Click(object sender, EventArgs e)
@@ -134,23 +150,94 @@ namespace SWBrasil.ORM
                 return;
             }
 
+            if (txtTemplateProject.Text != "")
+            {
+                if (Directory.Exists(txtTemplateProject.Text) == false)
+                {
+                    MessageBox.Show("Template não encontrado!");
+                    return;
+                }
+                else
+                {
+                    if (Directory.Exists(Path.Combine(txtOutputPath.Text, txtProjectName.Text)) == false)
+                        DirectoryCopy(txtTemplateProject.Text, Path.Combine(txtOutputPath.Text, txtProjectName.Text), true);
+                }
+            }
+
             foreach (var template in chkTemplates.CheckedItems) 
             {
-                Common.ICommand cmd = orm.AvailableTemplates().Where(t => t.CommandID == template).Single();
+                Common.ITableTransformation cmd = orm.AvailableTableTemplates().Where(t => t.CommandID == template).Single();
                 string result = "";
                 foreach (var table in chkTables.CheckedItems)
                 {
                     Common.TableModel tabela = orm.Tables.Where(t => t.Name == table).Single();
-                    result += cmd.ApplyTemplate(tabela);
-                    result += Environment.NewLine;
-                    result += Environment.NewLine;
+                    string tmp = cmd.ApplyTemplate(tabela, orm.Tables);
+
+                    if (Directory.Exists(Path.Combine(txtOutputPath.Text, cmd.CommandID)) == false)
+                        Directory.CreateDirectory(Path.Combine(txtOutputPath.Text, cmd.CommandID));
+
+                    File.WriteAllText(Path.Combine(txtOutputPath.Text, cmd.CommandID + "\\" + cmd.FileName + cmd.Extension), tmp);
                 }
 
-                File.WriteAllText(Path.Combine(txtOutputPath.Text, cmd.CommandID + ".result"), result);
+                //if( chkArquivoUnico.Checked )
+                //    File.WriteAllText(Path.Combine(txtOutputPath.Text, cmd.CommandID + ".result"), result);
+            }
+
+            if (chkProcedures.CheckedItems.Count > 0)
+            {
+                Common.IProcedureTransformation cmd = orm.AvailableProcTemplates().SingleOrDefault();
+                foreach (var proc in chkProcedures.CheckedItems)
+                {
+                    Common.ProcModel procedure = orm.Procedures.Where(t => t.Name == proc).Single();
+                    string tmp = cmd.ApplyTemplate(procedure);
+
+                    if (Directory.Exists(Path.Combine(txtOutputPath.Text, cmd.CommandID)) == false)
+                        Directory.CreateDirectory(Path.Combine(txtOutputPath.Text, cmd.CommandID));
+
+                    File.WriteAllText(Path.Combine(txtOutputPath.Text, cmd.CommandID + "\\" + cmd.FileName + cmd.Extension), tmp);
+                }
             }
 
             writeLastExecution();
             MessageBox.Show("Ok");
+        }
+
+        private static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
+        {
+            // Get the subdirectories for the specified directory.
+            DirectoryInfo dir = new DirectoryInfo(sourceDirName);
+            DirectoryInfo[] dirs = dir.GetDirectories();
+
+            if (!dir.Exists)
+            {
+                throw new DirectoryNotFoundException(
+                    "Source directory does not exist or could not be found: "
+                    + sourceDirName);
+            }
+
+            // If the destination directory doesn't exist, create it. 
+            if (!Directory.Exists(destDirName))
+            {
+                Directory.CreateDirectory(destDirName);
+            }
+
+            // Get the files in the directory and copy them to the new location.
+            FileInfo[] files = dir.GetFiles();
+            foreach (FileInfo file in files)
+            {
+                string temppath = Path.Combine(destDirName, file.Name);
+                file.CopyTo(temppath, false);
+            }
+
+            // If copying subdirectories, copy them and their contents to new location. 
+            if (copySubDirs)
+            {
+                foreach (DirectoryInfo subdir in dirs)
+                {
+                    string temppath = Path.Combine(destDirName, subdir.Name);
+                    DirectoryCopy(subdir.FullName, temppath, copySubDirs);
+                }
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -163,6 +250,23 @@ namespace SWBrasil.ORM
         private void chkAll_CheckedChanged_1(object sender, EventArgs e)
         {
             chkAll_CheckedChanged(null, null);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            DialogResult result = folderBrowserDialog1.ShowDialog();
+            if (result == System.Windows.Forms.DialogResult.OK)
+                txtTemplateProject.Text = folderBrowserDialog1.SelectedPath;
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 3;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 1;
         }
     }
 }

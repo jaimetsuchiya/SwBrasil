@@ -106,7 +106,7 @@ END</Value>
     </Setting>
     <Setting Name="NapierModel" Type="System.String" Scope="Application">
       <Value Profile="(Default)">
-[MapperClass(Storable = "mcs{0}")]
+[MapperClass(Storable = "{0}")]
     public class {0} : DataAccessLibrary
     {
         
@@ -125,9 +125,13 @@ END</Value>
         }
 
         #endregion Persistence Methods
-    }
+		
+		#region Search Methods
+		
+		{2}
 
-</Value>
+		#endregion Search Methods
+    }</Value>
     </Setting>
     <Setting Name="Napier_Execution_XML" Type="System.String" Scope="Application">
       <Value Profile="(Default)">
@@ -171,6 +175,14 @@ END</Value>
 	&lt;label for="{0}"&gt;{0}&lt;/label&gt;&lt;br /&gt;
 	&lt;input value="@Model.{0}" type="text" id="{0}" name="{0}"  class="form-control" {1} /&gt;
 &lt;/div&gt;
+</Value>
+    </Setting>
+    <Setting Name="DTOModel" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">[NapierClassMapper("{2}")]
+public class {0}
+{
+	{1}
+}
 </Value>
     </Setting>
   </Settings>

@@ -13,21 +13,21 @@ namespace SWBrasil.ORM.Common
     {
         public abstract bool Connect(string connectionString);
 
-        public string ApplyTemplate(TableModel table, ICommand template)
-        {
-            return template.ApplyTemplate(table);
-        }
+        //public string ApplyTemplate(TableModel table, ICommand template)
+        //{
+        //    return template.ApplyTemplate(table);
+        //}
 
         public static bool InterfaceFilter(Type typeObj, Object criteriaObj)
         {
             return typeObj.ToString() == criteriaObj.ToString();
         }
 
-        public List<ICommand> AvailableTemplates()
+        public List<IProcedureTransformation> AvailableProcTemplates()
         {
-            List<ICommand> lstRet = new List<ICommand>();
+            List<IProcedureTransformation> lstRet = new List<IProcedureTransformation>();
 
-            const string qualifiedInterfaceName = "SWBrasil.ORM.Common.ICommand";
+            const string qualifiedInterfaceName = "SWBrasil.ORM.Common.IProcedureTransformation";
             var interfaceFilter = new TypeFilter(InterfaceFilter);
             AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += new ResolveEventHandler(CurrentDomain_ReflectionOnlyAssemblyResolve);
 
@@ -44,7 +44,7 @@ namespace SWBrasil.ORM.Common
                         if (myInterfaces.Length > 0)
                         {
                             for( int i=0; i < myInterfaces.Length; i++ )
-                                lstRet.Add( (ICommand)Activator.CreateInstance(type) );
+                                lstRet.Add((IProcedureTransformation)Activator.CreateInstance(type));
 
                         }
                     }
@@ -58,6 +58,42 @@ namespace SWBrasil.ORM.Common
             return lstRet;
         }
 
+        public List<ITableTransformation> AvailableTableTemplates()
+        {
+            List<ITableTransformation> lstRet = new List<ITableTransformation>();
+
+            const string qualifiedInterfaceName = "SWBrasil.ORM.Common.ITableTransformation";
+            var interfaceFilter = new TypeFilter(InterfaceFilter);
+            AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += new ResolveEventHandler(CurrentDomain_ReflectionOnlyAssemblyResolve);
+
+            var di = new DirectoryInfo(ORM.Default.TemplatesPath);
+            foreach (FileInfo file in di.GetFiles("*.dll"))
+            {
+                try
+                {
+                    var nextAssembly = Assembly.UnsafeLoadFrom(file.FullName);
+
+                    foreach (var type in nextAssembly.GetTypes())
+                    {
+                        var myInterfaces = type.FindInterfaces(interfaceFilter, qualifiedInterfaceName);
+                        if (myInterfaces.Length > 0)
+                        {
+                            for (int i = 0; i < myInterfaces.Length; i++)
+                                lstRet.Add((ITableTransformation)Activator.CreateInstance(type));
+
+                        }
+                    }
+                }
+                catch (BadImageFormatException)
+                {
+                    // Not a .net assembly  - ignore
+                }
+            }
+
+            return lstRet;
+        }
+
+
         private Assembly CurrentDomain_ReflectionOnlyAssemblyResolve(object sender, ResolveEventArgs args)
         {
             return System.Reflection.Assembly.ReflectionOnlyLoad(args.Name);
@@ -68,5 +104,7 @@ namespace SWBrasil.ORM.Common
         public abstract string ConvertDataType(string dataBaseType, bool nullable);
 
         public List<TableModel> Tables { get; set; }
+
+        public List<ProcModel> Procedures { get; set; }
     }
 }
