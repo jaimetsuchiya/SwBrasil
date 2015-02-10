@@ -17,9 +17,9 @@ namespace SWBrasil.ORM.Common
                                             LEFT JOIN (SELECT  i.name AS IndexName, OBJECT_NAME(ic.OBJECT_ID) AS TableName, COL_NAME(ic.OBJECT_ID,ic.column_id) AS ColumnName FROM    sys.indexes AS i INNER JOIN sys.index_columns AS ic ON  i.OBJECT_ID = ic.OBJECT_ID AND i.index_id = ic.index_id WHERE   i.is_primary_key = 1 ) as tblPK on tblPK.ColumnName = C.COLUMN_NAME and tblPK.TableName = C.TABLE_NAME 
                                             LEFT JOIN (SELECT f.name AS ForeignKey, OBJECT_NAME(f.parent_object_id) AS TableName, COL_NAME(fc.parent_object_id, fc.parent_column_id) AS ColumnName, OBJECT_NAME (f.referenced_object_id) AS ReferenceTableName, COL_NAME(fc.referenced_object_id, fc.referenced_column_id) AS ReferenceColumnName FROM sys.foreign_keys AS f INNER JOIN sys.foreign_key_columns AS fc ON f.OBJECT_ID = fc.constraint_object_id) as tblFK ON tblFK.TableName = C.TABLE_NAME AND tblFK.ColumnName = C.COLUMN_NAME 
                                             LEFT JOIN (SELECT col.name as ColName, obj.name as TableName FROM sys.objects AS obj INNER JOIN sys.columns AS col ON col.object_id = obj.object_id INNER JOIN sys.index_columns AS idx_cols ON idx_cols.column_id = col.column_id AND idx_cols.object_id = col.object_id INNER JOIN sys.indexes AS idx ON idx_cols.index_id = idx.index_id AND idx.object_id = col.object_id WHERE idx.is_unique = 1 AND idx.is_primary_key = 0) as tblUK ON tblUK.Colname = C.COLUMN_NAME AND tblUK.TableName = C.TABLE_NAME
-                                            LEFT JOIN (SELECT major_id, minor_id, t.name AS [Table], c.name AS [Column], value AS [Extended Property]  FROM sys.extended_properties AS ep  INNER JOIN sys.tables AS t ON ep.major_id = t.object_id    INNER JOIN sys.columns AS c ON ep.major_id = c.object_id AND ep.minor_id = c.column_id   WHERE class = 1 ) as ep ON ep.[Table] = C.TABLE_NAME AND ep.[Column] = C.COLUMN_NAME
+                                            LEFT JOIN (SELECT major_id, minor_id, ep.name, t.name AS [Table], c.name AS [Column], value AS [Extended Property]  FROM sys.extended_properties AS ep  INNER JOIN sys.tables AS t ON ep.major_id = t.object_id    INNER JOIN sys.columns AS c ON ep.major_id = c.object_id AND ep.minor_id = c.column_id   WHERE class = 1 ) as ep ON ep.[Table] = C.TABLE_NAME AND ep.[Column] = C.COLUMN_NAME
                                             WHERE C.TABLE_NAME = N'{0}'";
-        protected string QUERY_TABLES = "SELECT * FROM information_schema.tables ORDER BY TABLE_NAME";
+        protected string QUERY_TABLES = "SELECT t.name AS [Table], value AS [Extended Property], ep.name as [Extended Property Type]  FROM sys.tables AS t LEFT JOIN sys.extended_properties AS ep  ON ep.major_id = t.object_id and class = 1 and ep.minor_id = 0 ORDER BY t.name";
 
         public override bool Connect(string connectionString)
         {
@@ -36,13 +36,13 @@ namespace SWBrasil.ORM.Common
                     SqlCommand cmd = new SqlCommand(QUERY_TABLES, cnx);
                     cmd.CommandType = CommandType.Text;
                     SqlDataReader rdr = cmd.ExecuteReader();
-                    List<string> _tables = new List<string>();
+                    List<TableModel> _tables = new List<TableModel>();
 
                     while (rdr.Read())
-                        _tables.Add(rdr.GetString(2));
+                        _tables.Add(new TableModel() { Name = rdr.GetString(0), Group = (rdr.IsDBNull(1) == false && rdr.GetString(2) == "MS_Group" ? rdr.GetString(1) : null) });
                     rdr.Close();
 
-                    foreach (string table in _tables)
+                    foreach (TableModel table in _tables)
                         this.Tables.Add(createTableModel(table, cnx));
 
 
@@ -107,13 +107,14 @@ namespace SWBrasil.ORM.Common
             return ret;
         }
 
-        protected virtual TableModel createTableModel(string tableName, SqlConnection connection)
+        protected virtual TableModel createTableModel(TableModel table, SqlConnection connection)
         {
             TableModel ret = new TableModel();
             ret.Columns = new List<ColumnModel>();
-            ret.Name = tableName;
+            ret.Name = table.Name;
+            ret.Group = table.Group;
 
-            SqlCommand cmd = new SqlCommand(string.Format(QUERY_COLUMNS, tableName), connection);
+            SqlCommand cmd = new SqlCommand(string.Format(QUERY_COLUMNS, table.Name), connection);
             cmd.CommandType = CommandType.Text;
             SqlDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())

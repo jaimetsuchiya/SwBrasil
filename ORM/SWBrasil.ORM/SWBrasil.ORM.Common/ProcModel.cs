@@ -11,6 +11,7 @@ namespace SWBrasil.ORM.Common
     {
         public string Name { get; set; }
         public List<ColumnModel> Columns { get; set; }
+        public string Group { get; set; }
     }
 
     public class ColumnModel

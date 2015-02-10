@@ -9,6 +9,9 @@ namespace SWBrasil.ORM.CommandTemplate
 {
     public abstract class CommandBase
     {
+        public string ProjectName { get; set; }
+        public string NameSpace { get; set; }
+
         protected string _fileName = "";
         protected ColumnModel RelatedColumn(ColumnModel column, List<TableModel> tables)
         {

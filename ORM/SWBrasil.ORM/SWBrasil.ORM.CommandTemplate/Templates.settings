@@ -185,5 +185,176 @@ public class {0}
 }
 </Value>
     </Setting>
+    <Setting Name="RESTController" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">
+        [HttpGet]
+        [Route("api/{GROUP}/{TABLE_NAME}/{id}")]
+        [ResponseType(typeof(OutputTransport&lt;{TABLE_NAME}DTO&gt;))]
+        [TokenValidation]
+        public HttpResponseMessage Get{TABLE_NAME}(object id)
+        {
+            OutputTransport&lt;{TABLE_NAME}DTO&gt; ret = new OutputTransport&lt;{TABLE_NAME}DTO&gt;();
+            ret.Data = _{TABLE_NAME}BO.FindById(id);
+
+            return Request.CreateResponse&lt;OutputTransport&lt;{TABLE_NAME}DTO&gt;&gt;(HttpStatusCode.OK, ret);
+        }
+
+		
+        [HttpPost]
+        [Route("api/{GROUP}/{TABLE_NAME}/Search")]
+        [ResponseType(typeof(OutputTransport&lt;List&lt;{TABLE_NAME}DTO&gt;&gt;))]
+        [TokenValidation]
+        public HttpResponseMessage Search{TABLE_NAME}s({TABLE_NAME}Args args)
+        {
+            OutputTransport&lt;List&lt;{TABLE_NAME}DTO&gt;&gt; ret = new OutputTransport&lt;List&lt;{TABLE_NAME}DTO&gt;&gt;();
+            ret.Data = _{TABLE_NAME}BO.Search(args);
+
+            return Request.CreateResponse&lt;OutputTransport&lt;List&lt;{TABLE_NAME}DTO&gt;&gt;&gt;(HttpStatusCode.OK, ret);
+        }
+		
+		
+        [HttpPost]
+        [Route("api/{GROUP}/{TABLE_NAME}")]
+        [ResponseType(typeof(OutputTransport&lt;List&lt;{TABLE_NAME}DTO&gt;&gt;))]
+        [TokenValidation]
+		[ModelValidationHandling()]
+        public HttpResponseMessage Save{TABLE_NAME}s({TABLE_NAME}DTO model)
+        {
+            OutputTransport&lt;{TABLE_NAME}DTO&gt; ret = new OutputTransport&lt;{TABLE_NAME}DTO&gt;();
+			ret = _{TABLE_NAME}BO.Salvar(new InputTransport&lt;{TABLE_NAME}DTO&gt;() { Data = model, UserName = base.UserInfo.logon });
+
+            return Request.CreateResponse&lt;OutputTransport&lt;{TABLE_NAME}DTO&gt;&gt;(HttpStatusCode.OK, ret);
+        }
+</Value>
+    </Setting>
+    <Setting Name="PROXYMethods" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">public class {TABLE_NAME}Proxy : BaseProxy
+{
+	public OutputTransport&lt;{TABLE_NAME}DTO&gt; Get{TABLE_NAME}(object id)
+	{
+		OutputTransport&lt;{TABLE_NAME}DTO&gt; ret = new OutputTransport&lt;{TABLE_NAME}DTO&gt;();
+		string  uri = base.ServiceBaseURI("ServiceURI.{GROUP}");
+		uri += "{TABLE_NAME}";
+
+		string content = DoRequest(uri, "GET", null);
+		if (string.IsNullOrEmpty(content) == false)
+			ret = JsonConvert.DeserializeObject&lt;OutputTransport&lt;{TABLE_NAME}DTO&gt;&gt;(content);
+		else
+			ret.Code = -100;
+
+		return ret;
+	}	
+	
+	public OutputTransport&lt;{TABLE_NAME}DTO&gt; Search{TABLE_NAME}({TABLE_NAME}Args args)
+	{
+		string jsonString = JsonConvert.SerializeObject(args);
+        StringContent strContent = new StringContent(jsonString, System.Text.Encoding.UTF8, "application/json");
+
+		OutputTransport&lt;{TABLE_NAME}DTO&gt; ret = new OutputTransport&lt;{TABLE_NAME}DTO&gt;();
+		string  uri = base.ServiceBaseURI("ServiceURI.{GROUP}");
+		uri += "{TABLE_NAME}/Search";
+
+		string content = DoRequest(uri, "POST", strContent);
+		if (string.IsNullOrEmpty(content) == false)
+			ret = JsonConvert.DeserializeObject&lt;OutputTransport&lt;{TABLE_NAME}DTO&gt;&gt;(content);
+		else
+			ret.Code = -100;
+
+		return ret;
+	}	
+	
+	public OutputTransport&lt;{TABLE_NAME}DTO&gt; Save{TABLE_NAME}({TABLE_NAME}DTO model)
+	{
+		string jsonString = JsonConvert.SerializeObject(model);
+        StringContent strContent = new StringContent(jsonString, System.Text.Encoding.UTF8, "application/json");
+
+		OutputTransport&lt;{TABLE_NAME}DTO&gt; ret = new OutputTransport&lt;{TABLE_NAME}DTO&gt;();
+		string  uri = base.ServiceBaseURI("ServiceURI.{GROUP}");
+		uri += "{TABLE_NAME}";
+
+		string content = DoRequest(uri, "POST", strContent);
+		if (string.IsNullOrEmpty(content) == false)
+		{
+                try
+                {
+                    OutputTransport&lt;{TABLE_NAME}DTO&gt; ret = JsonConvert.DeserializeObject&lt;OutputTransport&lt;{TABLE_NAME}DTO&gt;&gt;(content);
+                    return ret;
+                }
+                catch
+                {
+                    OutputTransport&lt;string&gt; tmp = JsonConvert.DeserializeObject&lt;OutputTransport&lt;string&gt;&gt;(content);
+                    return new OutputTransport&lt;{TABLE_NAME}DTO&gt;() { Code = tmp.Code, Message = tmp.Message + "\n" + tmp.Data };
+                }
+            }
+		else
+			ret.Code = -10;
+
+		return ret;
+	}	
+	
+		
+}</Value>
+    </Setting>
+    <Setting Name="ListPage" Type="System.String" Scope="User">
+      <Value Profile="(Default)">@{
+    ViewBag.Title = "Cadastro de {TABLE_NAME}";
+}
+
+&lt;div class="panel panel-default" &gt;
+    &lt;div class="panel-heading"&gt;
+        &lt;h3 class="panel-title"&gt;Cadastro de {TABLE_NAME}&lt;/h3&gt;
+        &lt;ul class="panel-controls"&gt;
+            &lt;li&gt;&lt;a href="#" class="panel-fullscreen"&gt;&lt;span class="fa fa-expand"&gt;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#" class="panel-collapse"&gt;&lt;span class="fa fa-angle-down"&gt;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;!-- /.panel-heading --&gt;
+    &lt;div class="panel-body"&gt;
+        &lt;br /&gt;&lt;br /&gt;
+
+        &lt;div class="tab-container col-sm-12"&gt;
+	        &lt;ul class="nav nav-tabs" style="margin-left:0px;"&gt;
+		        &lt;li class="active"&gt;&lt;a href="#home" data-toggle="tab"&gt;Critérios para Pesquisa&lt;/a&gt;&lt;/li&gt;
+		        &lt;li&gt;&lt;a href="#resultado" data-toggle="tab"&gt;Resultado da Pesquisa&lt;/a&gt;&lt;/li&gt;
+	        &lt;/ul&gt;
+	        &lt;div class="tab-content" style="margin-top:-10px;"&gt;
+		        &lt;div class="tab-pane active cont" id="home" style="height:200px;"&gt;
+                    &lt;form id="frmCriterios"&gt;
+						@{Html.RenderAction("{TABLE_NAME}Form", "Widget");}
+                    &lt;/form&gt;
+					&lt;button type="button" class="btn btn-success btn-flat" id="btnPesquisar" onclick="btnPesquisar_Click"&gt;Pesquisar&lt;/button&gt;   
+		        &lt;/div&gt;
+		        &lt;div class="tab-pane cont" id="resultado"&gt;
+                    &lt;br /&gt;&lt;br /&gt;
+					@{Html.RenderAction("{TABLE_NAME}Grid", "Widget");}
+		        &lt;/div&gt;
+	        &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="panel-footer"&gt;
+        &lt;button type="button" class="btn btn-success btn-flat" id="btnNovo" onclick="document.location.href='/{GROUP}/{TABLE_NAME}?id=0'"&gt;Novo {TABLE_NAME}&lt;/button&gt;   
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+@section scripts {
+
+ &lt;script type="text/javascript"&gt;
+	$(document).ready(function(){
+		{TABLE_NAME}Grid.ServiceURI = "";
+		{TABLE_NAME}Grid.LinkURI = "/{GROUP}/{TABLE_NAME}?id="
+		{TABLE_NAME}Grid.ExibirLink = true;
+	});
+	
+	function btnPesquisar_Click() {
+		var model = _helper.formToModel($("#frmCriterios"));
+		{TABLE_NAME} Grid.Pesquisar(model);
+		$('.nav-tabs a[href="#resultado"]').tab('show')
+	}
+			
+    &lt;/script&gt;   
+}</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -7,16 +7,16 @@ using SWBrasil.ORM.Common;
 
 namespace SWBrasil.ORM.CommandTemplate
 {
-    public class RESTController : CommandBase, ITableTransformation
+    public class ListPage : CommandBase, ITableTransformation
     {
         public string CommandID
         {
-            get { return "RESTCommand"; }
+            get { return "ListPage"; }
         }
 
         public string Description
         {
-            get { return "Cria os métodos básicos de um controller REST"; }
+            get { return "Cria a Página de Pesquisa"; }
         }
 
         public string Extension
@@ -30,7 +30,7 @@ namespace SWBrasil.ORM.CommandTemplate
             if( string.IsNullOrEmpty(table.Group))
                 return "";
 
-            return Templates.Default.RESTController.Replace("{GROUP}", table.Group).Replace("{TABLE_NAME}", _fileName);
+            return Templates.Default.ListPage.Replace("{GROUP}", table.Group).Replace("{TABLE_NAME}", _fileName);
         }
 
         public string FileName

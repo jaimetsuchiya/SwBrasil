@@ -34,8 +34,10 @@ namespace SWBrasil.ORM.CommandTemplate
             _fileName = table.Name.Replace("tb_", "");
 
             StringBuilder ret = new StringBuilder();
+            StringBuilder js = new StringBuilder();
             foreach (ColumnModel col in table.Columns)
             {
+                
                 if(col.IsIdentity)
                     ret.AppendLine("@Html.HiddenFor(model => model." + col.Name + ");");
 
@@ -45,7 +47,7 @@ namespace SWBrasil.ORM.CommandTemplate
                 {
                     ret.AppendLine("    <label for=\"cbo" + col.Name + "\" class=\"col-sm-2 control-label\">" +col.Name +"</label>");
                     ret.AppendLine("    <div class=\"col-sm-4\">");
-                    ret.AppendLine("        @Html.DropDownListFor(model => model." + col.Name + ", (IEnumerable<SelectListItem>)ViewBag." + col.RelatedTable.Replace("tb_", "") + ", new {@class=\"form-control\" })");
+                    ret.AppendLine("        @Html.DropDownListFor(model => model." + col.Name + ", (IEnumerable<SelectListItem>)ViewBag." + col.RelatedTable.Replace("tb_", "") + "List, new {@class=\"form-control\" })");
                     ret.AppendLine("    </div>");
                 }
                 else

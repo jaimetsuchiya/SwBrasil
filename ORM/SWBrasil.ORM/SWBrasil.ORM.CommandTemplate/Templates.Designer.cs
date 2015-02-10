@@ -213,5 +213,110 @@ GO
                 return ((string)(this["DTOModel"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\r\n        [HttpGet]\r\n        [Route(\"api/{GROUP}/{TABLE_NAME}/{id}\")]\r\n        [R" +
+            "esponseType(typeof(OutputTransport<{TABLE_NAME}DTO>))]\r\n        [TokenValidation" +
+            "]\r\n        public HttpResponseMessage Get{TABLE_NAME}(object id)\r\n        {\r\n   " +
+            "         OutputTransport<{TABLE_NAME}DTO> ret = new OutputTransport<{TABLE_NAME}" +
+            "DTO>();\r\n            ret.Data = _{TABLE_NAME}BO.FindById(id);\r\n\r\n            ret" +
+            "urn Request.CreateResponse<OutputTransport<{TABLE_NAME}DTO>>(HttpStatusCode.OK, " +
+            "ret);\r\n        }\r\n\r\n\t\t\r\n        [HttpPost]\r\n        [Route(\"api/{GROUP}/{TABLE_N" +
+            "AME}/Search\")]\r\n        [ResponseType(typeof(OutputTransport<List<{TABLE_NAME}DT" +
+            "O>>))]\r\n        [TokenValidation]\r\n        public HttpResponseMessage Search{TAB" +
+            "LE_NAME}s({TABLE_NAME}Args args)\r\n        {\r\n            OutputTransport<List<{T" +
+            "ABLE_NAME}DTO>> ret = new OutputTransport<List<{TABLE_NAME}DTO>>();\r\n           " +
+            " ret.Data = _{TABLE_NAME}BO.Search(args);\r\n\r\n            return Request.CreateRe" +
+            "sponse<OutputTransport<List<{TABLE_NAME}DTO>>>(HttpStatusCode.OK, ret);\r\n       " +
+            " }\r\n\t\t\r\n\t\t\r\n        [HttpPost]\r\n        [Route(\"api/{GROUP}/{TABLE_NAME}\")]\r\n   " +
+            "     [ResponseType(typeof(OutputTransport<List<{TABLE_NAME}DTO>>))]\r\n        [To" +
+            "kenValidation]\r\n\t\t[ModelValidationHandling()]\r\n        public HttpResponseMessag" +
+            "e Save{TABLE_NAME}s({TABLE_NAME}DTO model)\r\n        {\r\n            OutputTranspo" +
+            "rt<{TABLE_NAME}DTO> ret = new OutputTransport<{TABLE_NAME}DTO>();\r\n\t\t\tret = _{TA" +
+            "BLE_NAME}BO.Salvar(new InputTransport<{TABLE_NAME}DTO>() { Data = model, UserNam" +
+            "e = base.UserInfo.logon });\r\n\r\n            return Request.CreateResponse<OutputT" +
+            "ransport<{TABLE_NAME}DTO>>(HttpStatusCode.OK, ret);\r\n        }\r\n")]
+        public string RESTController {
+            get {
+                return ((string)(this["RESTController"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("public class {TABLE_NAME}Proxy : BaseProxy\r\n{\r\n\tpublic OutputTransport<{TABLE_NAM" +
+            "E}DTO> Get{TABLE_NAME}(object id)\r\n\t{\r\n\t\tOutputTransport<{TABLE_NAME}DTO> ret = " +
+            "new OutputTransport<{TABLE_NAME}DTO>();\r\n\t\tstring  uri = base.ServiceBaseURI(\"Se" +
+            "rviceURI.{GROUP}\");\r\n\t\turi += \"{TABLE_NAME}\";\r\n\r\n\t\tstring content = DoRequest(ur" +
+            "i, \"GET\", null);\r\n\t\tif (string.IsNullOrEmpty(content) == false)\r\n\t\t\tret = JsonCo" +
+            "nvert.DeserializeObject<OutputTransport<{TABLE_NAME}DTO>>(content);\r\n\t\telse\r\n\t\t\t" +
+            "ret.Code = -100;\r\n\r\n\t\treturn ret;\r\n\t}\t\r\n\t\r\n\tpublic OutputTransport<{TABLE_NAME}D" +
+            "TO> Search{TABLE_NAME}({TABLE_NAME}Args args)\r\n\t{\r\n\t\tstring jsonString = JsonCon" +
+            "vert.SerializeObject(args);\r\n        StringContent strContent = new StringConten" +
+            "t(jsonString, System.Text.Encoding.UTF8, \"application/json\");\r\n\r\n\t\tOutputTranspo" +
+            "rt<{TABLE_NAME}DTO> ret = new OutputTransport<{TABLE_NAME}DTO>();\r\n\t\tstring  uri" +
+            " = base.ServiceBaseURI(\"ServiceURI.{GROUP}\");\r\n\t\turi += \"{TABLE_NAME}/Search\";\r\n" +
+            "\r\n\t\tstring content = DoRequest(uri, \"POST\", strContent);\r\n\t\tif (string.IsNullOrE" +
+            "mpty(content) == false)\r\n\t\t\tret = JsonConvert.DeserializeObject<OutputTransport<" +
+            "{TABLE_NAME}DTO>>(content);\r\n\t\telse\r\n\t\t\tret.Code = -100;\r\n\r\n\t\treturn ret;\r\n\t}\t\r\n" +
+            "\t\r\n\tpublic OutputTransport<{TABLE_NAME}DTO> Save{TABLE_NAME}({TABLE_NAME}DTO mod" +
+            "el)\r\n\t{\r\n\t\tstring jsonString = JsonConvert.SerializeObject(model);\r\n        Stri" +
+            "ngContent strContent = new StringContent(jsonString, System.Text.Encoding.UTF8, " +
+            "\"application/json\");\r\n\r\n\t\tOutputTransport<{TABLE_NAME}DTO> ret = new OutputTrans" +
+            "port<{TABLE_NAME}DTO>();\r\n\t\tstring  uri = base.ServiceBaseURI(\"ServiceURI.{GROUP" +
+            "}\");\r\n\t\turi += \"{TABLE_NAME}\";\r\n\r\n\t\tstring content = DoRequest(uri, \"POST\", strC" +
+            "ontent);\r\n\t\tif (string.IsNullOrEmpty(content) == false)\r\n\t\t{\r\n                tr" +
+            "y\r\n                {\r\n                    OutputTransport<{TABLE_NAME}DTO> ret =" +
+            " JsonConvert.DeserializeObject<OutputTransport<{TABLE_NAME}DTO>>(content);\r\n    " +
+            "                return ret;\r\n                }\r\n                catch\r\n         " +
+            "       {\r\n                    OutputTransport<string> tmp = JsonConvert.Deserial" +
+            "izeObject<OutputTransport<string>>(content);\r\n                    return new Out" +
+            "putTransport<{TABLE_NAME}DTO>() { Code = tmp.Code, Message = tmp.Message + \"\\n\" " +
+            "+ tmp.Data };\r\n                }\r\n            }\r\n\t\telse\r\n\t\t\tret.Code = -10;\r\n\r\n\t" +
+            "\treturn ret;\r\n\t}\t\r\n\t\r\n\t\t\r\n}")]
+        public string PROXYMethods {
+            get {
+                return ((string)(this["PROXYMethods"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("@{\r\n    ViewBag.Title = \"Cadastro de {TABLE_NAME}\";\r\n}\r\n\r\n<div class=\"panel panel" +
+            "-default\" >\r\n    <div class=\"panel-heading\">\r\n        <h3 class=\"panel-title\">Ca" +
+            "dastro de {TABLE_NAME}</h3>\r\n        <ul class=\"panel-controls\">\r\n            <l" +
+            "i><a href=\"#\" class=\"panel-fullscreen\"><span class=\"fa fa-expand\"></span></a></l" +
+            "i>\r\n            <li><a href=\"#\" class=\"panel-collapse\"><span class=\"fa fa-angle-" +
+            "down\"></span></a></li>\r\n        </ul>\r\n    </div>\r\n    <!-- /.panel-heading -->\r" +
+            "\n    <div class=\"panel-body\">\r\n        <br /><br />\r\n\r\n        <div class=\"tab-c" +
+            "ontainer col-sm-12\">\r\n\t        <ul class=\"nav nav-tabs\" style=\"margin-left:0px;\"" +
+            ">\r\n\t\t        <li class=\"active\"><a href=\"#home\" data-toggle=\"tab\">Critérios para" +
+            " Pesquisa</a></li>\r\n\t\t        <li><a href=\"#resultado\" data-toggle=\"tab\">Resulta" +
+            "do da Pesquisa</a></li>\r\n\t        </ul>\r\n\t        <div class=\"tab-content\" style" +
+            "=\"margin-top:-10px;\">\r\n\t\t        <div class=\"tab-pane active cont\" id=\"home\" sty" +
+            "le=\"height:200px;\">\r\n                    <form id=\"frmCriterios\">\r\n\t\t\t\t\t\t@{Html." +
+            "RenderAction(\"{TABLE_NAME}Form\", \"Widget\");}\r\n                    </form>\r\n\t\t\t\t\t" +
+            "<button type=\"button\" class=\"btn btn-success btn-flat\" id=\"btnPesquisar\" onclick" +
+            "=\"btnPesquisar_Click\">Pesquisar</button>   \r\n\t\t        </div>\r\n\t\t        <div cl" +
+            "ass=\"tab-pane cont\" id=\"resultado\">\r\n                    <br /><br />\r\n\t\t\t\t\t@{Ht" +
+            "ml.RenderAction(\"{TABLE_NAME}Grid\", \"Widget\");}\r\n\t\t        </div>\r\n\t        </di" +
+            "v>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"panel-footer\">\r\n        <butto" +
+            "n type=\"button\" class=\"btn btn-success btn-flat\" id=\"btnNovo\" onclick=\"document." +
+            "location.href=\'/{GROUP}/{TABLE_NAME}?id=0\'\">Novo {TABLE_NAME}</button>   \r\n    <" +
+            "/div>\r\n</div>\r\n\r\n\r\n@section scripts {\r\n\r\n <script type=\"text/javascript\">\r\n\t$(do" +
+            "cument).ready(function(){\r\n\t\t{TABLE_NAME}Grid.ServiceURI = \"\";\r\n\t\t{TABLE_NAME}Gr" +
+            "id.LinkURI = \"/{GROUP}/{TABLE_NAME}?id=\"\r\n\t\t{TABLE_NAME}Grid.ExibirLink = true;\r" +
+            "\n\t});\r\n\t\r\n\tfunction btnPesquisar_Click() {\r\n\t\tvar model = _helper.formToModel($(" +
+            "\"#frmCriterios\"));\r\n\t\t{TABLE_NAME} Grid.Pesquisar(model);\r\n\t\t$(\'.nav-tabs a[href" +
+            "=\"#resultado\"]\').tab(\'show\')\r\n\t}\r\n\t\t\t\r\n    </script>   \r\n}")]
+        public string ListPage {
+            get {
+                return ((string)(this["ListPage"]));
+            }
+            set {
+                this["ListPage"] = value;
+            }
+        }
     }
 }

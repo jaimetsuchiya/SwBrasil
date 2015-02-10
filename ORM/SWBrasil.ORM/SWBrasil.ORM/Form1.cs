@@ -167,7 +167,9 @@ namespace SWBrasil.ORM
             foreach (var template in chkTemplates.CheckedItems) 
             {
                 Common.ITableTransformation cmd = orm.AvailableTableTemplates().Where(t => t.CommandID == template).Single();
-                string result = "";
+                cmd.ProjectName = txtProjectName.Text;
+                cmd.NameSpace = txtNameSpace.Text;
+
                 foreach (var table in chkTables.CheckedItems)
                 {
                     Common.TableModel tabela = orm.Tables.Where(t => t.Name == table).Single();
@@ -186,6 +188,9 @@ namespace SWBrasil.ORM
             if (chkProcedures.CheckedItems.Count > 0)
             {
                 Common.IProcedureTransformation cmd = orm.AvailableProcTemplates().SingleOrDefault();
+                cmd.ProjectName = txtProjectName.Text;
+                cmd.NameSpace = txtNameSpace.Text;
+
                 foreach (var proc in chkProcedures.CheckedItems)
                 {
                     Common.ProcModel procedure = orm.Procedures.Where(t => t.Name == proc).Single();

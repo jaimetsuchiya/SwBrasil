@@ -7,16 +7,16 @@ using SWBrasil.ORM.Common;
 
 namespace SWBrasil.ORM.CommandTemplate
 {
-    public class RESTController : CommandBase, ITableTransformation
+    public class CRUDServiceProxy : CommandBase, ITableTransformation
     {
         public string CommandID
         {
-            get { return "RESTCommand"; }
+            get { return "CRUDServiceProxy"; }
         }
 
         public string Description
         {
-            get { return "Cria os métodos básicos de um controller REST"; }
+            get { return "Cria os métodos de Proxy para realização do CRUD (Serviço)"; }
         }
 
         public string Extension
@@ -30,7 +30,7 @@ namespace SWBrasil.ORM.CommandTemplate
             if( string.IsNullOrEmpty(table.Group))
                 return "";
 
-            return Templates.Default.RESTController.Replace("{GROUP}", table.Group).Replace("{TABLE_NAME}", _fileName);
+            return Templates.Default.PROXYMethods.Replace("{GROUP}", table.Group).Replace("{TABLE_NAME}", _fileName);
         }
 
         public string FileName

@@ -41,6 +41,11 @@
   <ItemGroup>
     <Compile Include="CommandBase.cs" />
     <Compile Include="BSProcedures.cs" />
+    <Compile Include="BusinessInterfaces.cs" />
+    <Compile Include="WidgetFormMethod.cs" />
+    <Compile Include="CRUDServiceProxy.cs" />
+    <Compile Include="SearchArguments.cs" />
+    <Compile Include="ImplementationClass.cs" />
     <Compile Include="JQueryDataTable.cs" />
     <Compile Include="FacadeClass.cs" />
     <Compile Include="DTOModel.cs" />

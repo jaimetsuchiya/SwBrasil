@@ -12,6 +12,9 @@ namespace SWBrasil.ORM.Common
         string Extension { get; }
         string Description { get; }
         string FileName { get; }
+
+        string ProjectName { get; set; }
+        string NameSpace { get; set; }
     }
 
     public interface ITableTransformation: ICommand

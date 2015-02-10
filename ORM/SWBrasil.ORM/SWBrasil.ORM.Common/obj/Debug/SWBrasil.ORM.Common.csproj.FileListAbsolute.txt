@@ -13,4 +13,3 @@ C:\Jaime\Ferramentas\ORM\SWBrasil.ORM\SWBrasil.ORM.Common\bin\Debug\SWBrasil.ORM
 C:\Jaime\Ferramentas\ORM\SWBrasil.ORM\SWBrasil.ORM.Common\bin\Debug\SWBrasil.ORM.Common.pdb
 C:\Jaime\Ferramentas\ORM\SWBrasil.ORM\SWBrasil.ORM.Common\obj\Debug\SWBrasil.ORM.Common.dll
 C:\Jaime\Ferramentas\ORM\SWBrasil.ORM\SWBrasil.ORM.Common\obj\Debug\SWBrasil.ORM.Common.pdb
-C:\Jaime\Ferramentas\ORM\SWBrasil.ORM\SWBrasil.ORM.Common\obj\Debug\SWBrasil.ORM.Common.csprojResolveAssemblyReference.cache
