@@ -22,6 +22,11 @@ namespace SWBrasil.ORM.CommandTemplate
             get { return _fileName; }
         }
 
+        public string Directory
+        {
+            get { return null; }
+        }
+
         public string ApplyTemplate(TableModel table, List<TableModel> tables = null)
         {            
             string indexFields = "";

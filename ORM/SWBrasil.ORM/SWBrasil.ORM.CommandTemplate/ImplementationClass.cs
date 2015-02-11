@@ -29,11 +29,17 @@ namespace SWBrasil.ORM.CommandTemplate
             get { return _fileName; }
         }
 
+        public string Directory
+        {
+            get { return _directoryName; }
+        }
+
         public string ApplyTemplate(TableModel table, List<TableModel> tables = null)
         {
             string className = table.Name.Replace("tb_", "");
             string DTO = className + "DTO";
-            _fileName = className;
+            _fileName = className + "Base";
+            _directoryName = this.ProjectName + ".Core\\Base\\" + table.Group;
 
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("public class " + className + "Base");

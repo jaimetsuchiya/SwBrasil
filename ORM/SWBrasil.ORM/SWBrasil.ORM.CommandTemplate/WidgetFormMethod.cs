@@ -24,6 +24,11 @@ namespace SWBrasil.ORM.CommandTemplate
             get { return ".cs"; }
         }
 
+        public string Directory
+        {
+            get { return null; }
+        }
+
         public string ApplyTemplate(TableModel table, List<TableModel> tables = null)
         {
             _fileName = table.Name.Replace("tb_", "");

@@ -21,12 +21,19 @@ namespace SWBrasil.ORM.CommandTemplate
 
         public string Extension
         {
-            get { return ".cs"; }
+            get { return ".html"; }
+        }
+
+        public string Directory
+        {
+            get { return _directoryName; }
         }
 
         public string ApplyTemplate(TableModel table, List<TableModel> tables = null)
         {
-            _fileName = table.Name.Replace("tb_", "");
+            _fileName = table.Name.Replace("tb_", "") + "s";
+            _directoryName = this.NameSpace + ".UI\\Views\\" + table.Group;
+
             if( string.IsNullOrEmpty(table.Group))
                 return "";
 

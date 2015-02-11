@@ -64,6 +64,15 @@ namespace SWBrasil.ORM
 
                     if (line.StartsWith("OutPut"))
                         txtOutputPath.Text = line.Replace("OutPut=", "");
+
+                    if (line.StartsWith("NameSpace"))
+                        txtNameSpace.Text = line.Replace("NameSpace=", "");
+
+                    if (line.StartsWith("Project"))
+                        txtProjectName.Text = line.Replace("Project=", "");
+
+                    if (line.StartsWith("Template"))
+                        txtTemplateProject.Text = line.Replace("Template=", "");
                 }
             }
         }
@@ -76,6 +85,9 @@ namespace SWBrasil.ORM
             sb.AppendLine("User ID=" + txtUserID.Text);
             sb.AppendLine("Password=" + txtPassword.Text);
             sb.AppendLine("OutPut=" + txtOutputPath.Text);
+            sb.AppendLine("NameSpace=" + txtNameSpace.Text);
+            sb.AppendLine("Project=" + txtProjectName.Text);
+            sb.AppendLine("Template=" + txtTemplateProject.Text);
 
             File.WriteAllText(config, sb.ToString());
         }
@@ -131,7 +143,7 @@ namespace SWBrasil.ORM
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (chkTemplates.SelectedItems.Count == 0)
+            if (chkTemplates.CheckedItems.Count == 0)
                 MessageBox.Show("Nenhum template selecionado");
             else
                 tabControl1.SelectedIndex = 4;
@@ -139,6 +151,7 @@ namespace SWBrasil.ORM
 
         private void btnGerar_Click(object sender, EventArgs e)
         {
+            bool copyToProject = false;
             if (txtOutputPath.Text == "")
             {
                 MessageBox.Show("Favor informar o Path de saída!");
@@ -160,7 +173,10 @@ namespace SWBrasil.ORM
                 else
                 {
                     if (Directory.Exists(Path.Combine(txtOutputPath.Text, txtProjectName.Text)) == false)
+                    {
                         DirectoryCopy(txtTemplateProject.Text, Path.Combine(txtOutputPath.Text, txtProjectName.Text), true);
+                        copyToProject = true;
+                    }
                 }
             }
 
@@ -178,7 +194,20 @@ namespace SWBrasil.ORM
                     if (Directory.Exists(Path.Combine(txtOutputPath.Text, cmd.CommandID)) == false)
                         Directory.CreateDirectory(Path.Combine(txtOutputPath.Text, cmd.CommandID));
 
-                    File.WriteAllText(Path.Combine(txtOutputPath.Text, cmd.CommandID + "\\" + cmd.FileName + cmd.Extension), tmp);
+                    string path = Path.Combine(txtOutputPath.Text, cmd.CommandID + "\\" + cmd.FileName + cmd.Extension);
+                    File.WriteAllText(path, tmp);
+                    if (copyToProject && string.IsNullOrEmpty(cmd.Directory) == false)
+                    {
+                        string destination = Path.Combine(txtOutputPath.Text, txtProjectName.Text, cmd.Directory);
+                        if(Directory.Exists(destination) == false )
+                            Directory.CreateDirectory(destination);
+
+                        string file = Path.Combine(destination, cmd.FileName + cmd.Extension);
+                        if( File.Exists(file) == true )
+                            file = Path.Combine(destination, cmd.FileName + Guid.NewGuid().ToString("D") + cmd.Extension);
+
+                        File.Copy(path, file);
+                    }
                 }
 
                 //if( chkArquivoUnico.Checked )
@@ -200,6 +229,7 @@ namespace SWBrasil.ORM
                         Directory.CreateDirectory(Path.Combine(txtOutputPath.Text, cmd.CommandID));
 
                     File.WriteAllText(Path.Combine(txtOutputPath.Text, cmd.CommandID + "\\" + cmd.FileName + cmd.Extension), tmp);
+
                 }
             }
 
@@ -207,8 +237,9 @@ namespace SWBrasil.ORM
             MessageBox.Show("Ok");
         }
 
-        private static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
+        private void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
         {
+            string[] editableFiles = new string[]{".cs", "sln", ".csproj", ".asax", ".user"};
             // Get the subdirectories for the specified directory.
             DirectoryInfo dir = new DirectoryInfo(sourceDirName);
             DirectoryInfo[] dirs = dir.GetDirectories();
@@ -221,6 +252,9 @@ namespace SWBrasil.ORM
             }
 
             // If the destination directory doesn't exist, create it. 
+            if (destDirName.Contains("{NAMESPACE}"))
+                destDirName = destDirName.Replace("{NAMESPACE}", txtNameSpace.Text);
+
             if (!Directory.Exists(destDirName))
             {
                 Directory.CreateDirectory(destDirName);
@@ -231,7 +265,21 @@ namespace SWBrasil.ORM
             foreach (FileInfo file in files)
             {
                 string temppath = Path.Combine(destDirName, file.Name);
+                if (temppath.Contains("{NAMESPACE}"))
+                    temppath = temppath.Replace("{NAMESPACE}", txtNameSpace.Text);
+
                 file.CopyTo(temppath, false);
+
+                if (editableFiles.Contains(file.Extension))
+                {
+                    string text = File.ReadAllText(temppath);
+                    text = text.Replace("{NAMESPACE}", txtNameSpace.Text);
+                    File.Delete(temppath);
+                    //char[] arr = Path.InvalidPathChars;
+                    //foreach( char chr in arr )
+                    //    temppath = temppath.Replace(chr, ' ');
+                    File.WriteAllText(temppath, text);
+                }
             }
 
             // If copying subdirectories, copy them and their contents to new location. 
@@ -272,6 +320,13 @@ namespace SWBrasil.ORM
         private void button4_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedIndex = 1;
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            checkBox3.Text = (checkBox3.Checked ? "UnCheck All" : "Check All");
+            for (int i = 0; i < chkTemplates.Items.Count; i++)
+                chkTemplates.SetItemChecked(i, checkBox3.Checked);
         }
     }
 }

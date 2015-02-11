@@ -24,13 +24,18 @@ namespace SWBrasil.ORM.CommandTemplate
             get { return ".cs"; }
         }
 
+        public string Directory
+        {
+            get { return this.NameSpace + ".UI\\App_Start"; }
+        }
+
         public string ApplyTemplate(TableModel table, List<TableModel> tables = null)
         {
             _fileName = table.Name.Replace("tb_", "");
             if( string.IsNullOrEmpty(table.Group))
                 return "";
 
-            return Templates.Default.ListPage.Replace("{GROUP}", table.Group).Replace("{TABLE_NAME}", _fileName);
+            return Templates.Default.ListPage.Replace("{GROUP}", table.Group).Replace("{TABLE_NAME}", _fileName).Replace("{NAMESPACE}", base.NameSpace);
         }
 
         public string FileName

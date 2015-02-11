@@ -28,10 +28,15 @@ namespace SWBrasil.ORM.CommandTemplate
         {
             get { return _fileName; }
         }
-        
+
+        public string Directory
+        {
+            get { return this.NameSpace + ".UI\\Views\\Widgets"; }
+        }
+
         public string ApplyTemplate(TableModel table, List<TableModel> tables = null)
         {
-            _fileName = table.Name.Replace("tb_", "");
+            _fileName = table.Name.Replace("tb_", "")+"Form";
 
             StringBuilder ret = new StringBuilder();
             StringBuilder js = new StringBuilder();

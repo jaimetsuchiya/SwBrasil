@@ -13,6 +13,7 @@ namespace SWBrasil.ORM.CommandTemplate
         public string NameSpace { get; set; }
 
         protected string _fileName = "";
+        protected string _directoryName = "";
         protected ColumnModel RelatedColumn(ColumnModel column, List<TableModel> tables)
         {
             ColumnModel ret= null;

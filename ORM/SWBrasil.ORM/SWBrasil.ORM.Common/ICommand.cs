@@ -13,6 +13,7 @@ namespace SWBrasil.ORM.Common
         string Description { get; }
         string FileName { get; }
 
+        string Directory { get; }
         string ProjectName { get; set; }
         string NameSpace { get; set; }
     }

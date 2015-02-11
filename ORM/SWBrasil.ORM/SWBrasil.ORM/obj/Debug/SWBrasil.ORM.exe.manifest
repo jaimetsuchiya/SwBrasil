@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SWBrasil.ORM.exe" size="29184">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SWBrasil.ORM.exe" size="30208">
       <assemblyIdentity name="SWBrasil.ORM" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>zd4zNM87vm3QBxwVnDtpNTELDvLkHReRO+8b+7SMI84=</dsig:DigestValue>
+        <dsig:DigestValue>Oxy9f0dM5vt6uMk9xp9sDIQr4VN9irzBGdQSqVjxSWw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -61,7 +61,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>/b+fOABzye5Y8eWhh4dAdFi87EZy5eUQG+X7zi6SMLI=</dsig:DigestValue>
+        <dsig:DigestValue>h80zdNNta3s7lsFtM4qDxro87dVHcieN/9QK45N1RCg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

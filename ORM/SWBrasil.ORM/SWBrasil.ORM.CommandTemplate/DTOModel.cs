@@ -29,6 +29,11 @@ namespace SWBrasil.ORM.CommandTemplate
             get { return _fileName; }
         }
 
+        public string Directory
+        {
+            get { return _directoryName; }
+        }
+
 
         public string ApplyTemplate(TableModel table, List<TableModel> tables = null)
         {
@@ -45,6 +50,7 @@ namespace SWBrasil.ORM.CommandTemplate
 
             string columns = "";
             _fileName = table.Name.Replace("tb_", "") + "DTO";
+            _directoryName = this.ProjectName + ".Common\\DTO\\" + table.Group;
 
             foreach (ColumnModel col in table.Columns)
             {
@@ -67,7 +73,7 @@ namespace SWBrasil.ORM.CommandTemplate
                 columns += Environment.NewLine;
             }
 
-            return Templates.Default.DTOModel.Replace("{0}", _fileName).Replace("{1}", columns).Replace("{2}", table.Name.Replace("tb_", "") + "Model");
+            return Templates.Default.DTOModel.Replace("{0}", _fileName).Replace("{1}", columns).Replace("{2}", table.Name.Replace("tb_", "") + "Model").Replace("{3}", base.NameSpace);
         }
     }
 }

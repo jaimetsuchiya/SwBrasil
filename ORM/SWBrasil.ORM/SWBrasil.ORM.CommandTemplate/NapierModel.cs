@@ -28,6 +28,11 @@ namespace SWBrasil.ORM.CommandTemplate
             get { return _fileName; }
         }
 
+        public string Directory
+        {
+            get { return _directoryName; }
+        }
+
         public string ApplyTemplate(TableModel table, List<TableModel> tables = null)
         {
             /*
@@ -42,6 +47,7 @@ namespace SWBrasil.ORM.CommandTemplate
             */
             string className = table.Name.Replace("tb_", "") + "Model";
             _fileName = className;
+            _directoryName = this.ProjectName + ".Data\\Models\\" + table.Group;
 
             string columns = "";
             string isPK = "";
@@ -77,7 +83,7 @@ namespace SWBrasil.ORM.CommandTemplate
                 }
             }
 
-            return Templates.Default.NapierModel.Replace("{0}", className).Replace("{1}", columns).Replace("{2}", search);
+            return Templates.Default.NapierModel.Replace("{0}", className).Replace("{1}", columns).Replace("{2}", search).Replace("{3}", base.NameSpace);
         }
     }
 }

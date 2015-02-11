@@ -42,6 +42,7 @@
     <Compile Include="CommandBase.cs" />
     <Compile Include="BSProcedures.cs" />
     <Compile Include="BusinessInterfaces.cs" />
+    <Compile Include="ListPage.cs" />
     <Compile Include="WidgetFormMethod.cs" />
     <Compile Include="CRUDServiceProxy.cs" />
     <Compile Include="SearchArguments.cs" />

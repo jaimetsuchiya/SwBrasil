@@ -29,6 +29,10 @@ namespace SWBrasil.ORM.CommandTemplate
             get { return _fileName; }
         }
 
+        public string Directory
+        {
+            get { return _directoryName; }
+        }
 
         public string ApplyTemplate(TableModel table, List<TableModel> tables = null)
         {
@@ -39,6 +43,8 @@ namespace SWBrasil.ORM.CommandTemplate
              * 3 - PK Fields
              */
             _fileName = table.Name;
+            _directoryName = this.ProjectName + ".Data\\NapierXML\\" + table.Group;
+
             string allFields = "";
             foreach (ColumnModel col in table.Columns)
                 allFields += string.Format("\t\t<Input>{0}</Input>", col.Name) + Environment.NewLine;

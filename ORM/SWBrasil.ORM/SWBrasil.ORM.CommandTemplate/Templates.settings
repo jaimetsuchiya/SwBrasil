@@ -105,8 +105,13 @@ BEGIN
 END</Value>
     </Setting>
     <Setting Name="NapierModel" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">
-[MapperClass(Storable = "{0}")]
+      <Value Profile="(Default)">using System;
+using Napier.Data;
+using Napier.Mapper;
+
+namespace {3}.Data.Models
+{
+	[MapperClass(Storable = "{0}")]
     public class {0} : DataAccessLibrary
     {
         
@@ -131,7 +136,9 @@ END</Value>
 		{2}
 
 		#endregion Search Methods
-    }</Value>
+    }
+}
+</Value>
     </Setting>
     <Setting Name="Napier_Execution_XML" Type="System.String" Scope="Application">
       <Value Profile="(Default)">
@@ -178,15 +185,49 @@ END</Value>
 </Value>
     </Setting>
     <Setting Name="DTOModel" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">[NapierClassMapper("{2}")]
-public class {0}
+      <Value Profile="(Default)">using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace {3}.Common
 {
-	{1}
+	[NapierClassMapper("{2}")]
+	public class {0}
+	{
+		{1}
+	}
 }
 </Value>
     </Setting>
     <Setting Name="RESTController" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">
+      <Value Profile="(Default)">using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using System.Web.Http.Description;
+using WebApi.OutputCache.V2;
+
+using {NAMESPACE}.Core;
+using {NAMESPACE}.Data;
+using {NAMESPACE}.Service.Infrastructure;
+using {NAMESPACE}.Service.Models;
+using {NAMESPACE}.Common;
+using {NAMESPACE}.Common.Integration;
+
+
+namespace {NAMESPACE}.Service.Controllers
+{
+	public class {GROUP}Controller : BaseController
+    {
+	
+		#region CRUD
+		
         [HttpGet]
         [Route("api/{GROUP}/{TABLE_NAME}/{id}")]
         [ResponseType(typeof(OutputTransport&lt;{TABLE_NAME}DTO&gt;))]
@@ -215,85 +256,100 @@ public class {0}
 		
         [HttpPost]
         [Route("api/{GROUP}/{TABLE_NAME}")]
-        [ResponseType(typeof(OutputTransport&lt;List&lt;{TABLE_NAME}DTO&gt;&gt;))]
+        [ResponseType(typeof(OutputTransport&lt;{TABLE_NAME}DTO&gt;))]
         [TokenValidation]
 		[ModelValidationHandling()]
-        public HttpResponseMessage Save{TABLE_NAME}s({TABLE_NAME}DTO model)
+        public HttpResponseMessage Save{TABLE_NAME}({TABLE_NAME}DTO model)
         {
             OutputTransport&lt;{TABLE_NAME}DTO&gt; ret = new OutputTransport&lt;{TABLE_NAME}DTO&gt;();
 			ret = _{TABLE_NAME}BO.Salvar(new InputTransport&lt;{TABLE_NAME}DTO&gt;() { Data = model, UserName = base.UserInfo.logon });
 
             return Request.CreateResponse&lt;OutputTransport&lt;{TABLE_NAME}DTO&gt;&gt;(HttpStatusCode.OK, ret);
         }
+
+		#endregion CRUD
+	}
+}
 </Value>
     </Setting>
     <Setting Name="PROXYMethods" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">public class {TABLE_NAME}Proxy : BaseProxy
+      <Value Profile="(Default)">using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
+using System.Net.Http;
+using System.Web;
+using {NAMESPACE}.Common;
+
+namespace {NAMESPACE}.Web.UI.WebApiProxy
 {
-	public OutputTransport&lt;{TABLE_NAME}DTO&gt; Get{TABLE_NAME}(object id)
+    public class {TABLE_NAME}Proxy : BaseProxy
 	{
-		OutputTransport&lt;{TABLE_NAME}DTO&gt; ret = new OutputTransport&lt;{TABLE_NAME}DTO&gt;();
-		string  uri = base.ServiceBaseURI("ServiceURI.{GROUP}");
-		uri += "{TABLE_NAME}";
-
-		string content = DoRequest(uri, "GET", null);
-		if (string.IsNullOrEmpty(content) == false)
-			ret = JsonConvert.DeserializeObject&lt;OutputTransport&lt;{TABLE_NAME}DTO&gt;&gt;(content);
-		else
-			ret.Code = -100;
-
-		return ret;
-	}	
-	
-	public OutputTransport&lt;{TABLE_NAME}DTO&gt; Search{TABLE_NAME}({TABLE_NAME}Args args)
-	{
-		string jsonString = JsonConvert.SerializeObject(args);
-        StringContent strContent = new StringContent(jsonString, System.Text.Encoding.UTF8, "application/json");
-
-		OutputTransport&lt;{TABLE_NAME}DTO&gt; ret = new OutputTransport&lt;{TABLE_NAME}DTO&gt;();
-		string  uri = base.ServiceBaseURI("ServiceURI.{GROUP}");
-		uri += "{TABLE_NAME}/Search";
-
-		string content = DoRequest(uri, "POST", strContent);
-		if (string.IsNullOrEmpty(content) == false)
-			ret = JsonConvert.DeserializeObject&lt;OutputTransport&lt;{TABLE_NAME}DTO&gt;&gt;(content);
-		else
-			ret.Code = -100;
-
-		return ret;
-	}	
-	
-	public OutputTransport&lt;{TABLE_NAME}DTO&gt; Save{TABLE_NAME}({TABLE_NAME}DTO model)
-	{
-		string jsonString = JsonConvert.SerializeObject(model);
-        StringContent strContent = new StringContent(jsonString, System.Text.Encoding.UTF8, "application/json");
-
-		OutputTransport&lt;{TABLE_NAME}DTO&gt; ret = new OutputTransport&lt;{TABLE_NAME}DTO&gt;();
-		string  uri = base.ServiceBaseURI("ServiceURI.{GROUP}");
-		uri += "{TABLE_NAME}";
-
-		string content = DoRequest(uri, "POST", strContent);
-		if (string.IsNullOrEmpty(content) == false)
+		public OutputTransport&lt;{TABLE_NAME}DTO&gt; Get{TABLE_NAME}(object id)
 		{
-                try
-                {
-                    OutputTransport&lt;{TABLE_NAME}DTO&gt; ret = JsonConvert.DeserializeObject&lt;OutputTransport&lt;{TABLE_NAME}DTO&gt;&gt;(content);
-                    return ret;
-                }
-                catch
-                {
-                    OutputTransport&lt;string&gt; tmp = JsonConvert.DeserializeObject&lt;OutputTransport&lt;string&gt;&gt;(content);
-                    return new OutputTransport&lt;{TABLE_NAME}DTO&gt;() { Code = tmp.Code, Message = tmp.Message + "\n" + tmp.Data };
-                }
-            }
-		else
-			ret.Code = -10;
+			OutputTransport&lt;{TABLE_NAME}DTO&gt; ret = new OutputTransport&lt;{TABLE_NAME}DTO&gt;();
+			string  uri = base.ServiceBaseURI("ServiceURI.{GROUP}");
+			uri += "{TABLE_NAME}";
 
-		return ret;
-	}	
-	
+			string content = DoRequest(uri, "GET", null);
+			if (string.IsNullOrEmpty(content) == false)
+				ret = JsonConvert.DeserializeObject&lt;OutputTransport&lt;{TABLE_NAME}DTO&gt;&gt;(content);
+			else
+				ret.Code = -100;
+
+			return ret;
+		}	
 		
-}</Value>
+		public OutputTransport&lt;{TABLE_NAME}DTO&gt; Search{TABLE_NAME}({TABLE_NAME}Args args)
+		{
+			string jsonString = JsonConvert.SerializeObject(args);
+			StringContent strContent = new StringContent(jsonString, System.Text.Encoding.UTF8, "application/json");
+
+			OutputTransport&lt;{TABLE_NAME}DTO&gt; ret = new OutputTransport&lt;{TABLE_NAME}DTO&gt;();
+			string  uri = base.ServiceBaseURI("ServiceURI.{GROUP}");
+			uri += "{TABLE_NAME}/Search";
+
+			string content = DoRequest(uri, "POST", strContent);
+			if (string.IsNullOrEmpty(content) == false)
+				ret = JsonConvert.DeserializeObject&lt;OutputTransport&lt;{TABLE_NAME}DTO&gt;&gt;(content);
+			else
+				ret.Code = -100;
+
+			return ret;
+		}	
+		
+		public OutputTransport&lt;{TABLE_NAME}DTO&gt; Save{TABLE_NAME}({TABLE_NAME}DTO model)
+		{
+			string jsonString = JsonConvert.SerializeObject(model);
+			StringContent strContent = new StringContent(jsonString, System.Text.Encoding.UTF8, "application/json");
+
+			OutputTransport&lt;{TABLE_NAME}DTO&gt; ret = new OutputTransport&lt;{TABLE_NAME}DTO&gt;();
+			string  uri = base.ServiceBaseURI("ServiceURI.{GROUP}");
+			uri += "{TABLE_NAME}";
+
+			string content = DoRequest(uri, "POST", strContent);
+			if (string.IsNullOrEmpty(content) == false)
+			{
+					try
+					{
+						OutputTransport&lt;{TABLE_NAME}DTO&gt; ret = JsonConvert.DeserializeObject&lt;OutputTransport&lt;{TABLE_NAME}DTO&gt;&gt;(content);
+						return ret;
+					}
+					catch
+					{
+						OutputTransport&lt;string&gt; tmp = JsonConvert.DeserializeObject&lt;OutputTransport&lt;string&gt;&gt;(content);
+						return new OutputTransport&lt;{TABLE_NAME}DTO&gt;() { Code = tmp.Code, Message = tmp.Message + "\n" + tmp.Data };
+					}
+				}
+			else
+				ret.Code = -10;
+
+			return ret;
+		}	
+	}
+}
+</Value>
     </Setting>
     <Setting Name="ListPage" Type="System.String" Scope="User">
       <Value Profile="(Default)">@{
@@ -342,8 +398,8 @@ public class {0}
 
  &lt;script type="text/javascript"&gt;
 	$(document).ready(function(){
-		{TABLE_NAME}Grid.ServiceURI = "";
-		{TABLE_NAME}Grid.LinkURI = "/{GROUP}/{TABLE_NAME}?id="
+		{TABLE_NAME}Grid.ServiceURI = "/{GROUP}/{TABLE_NAME}/Search";
+		{TABLE_NAME}Grid.LinkURI = "/{GROUP}/{TABLE_NAME}?id=";
 		{TABLE_NAME}Grid.ExibirLink = true;
 	});
 	

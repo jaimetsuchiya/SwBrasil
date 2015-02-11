@@ -22,6 +22,11 @@ namespace SWBrasil.ORM.CommandTemplate
             get { return _fileName; }
         }
 
+        public string Directory
+        {
+            get { return null; }
+        }
+
         public string ApplyTemplate(ProcModel procedure)
         {
             _fileName = procedure.Name;
@@ -31,6 +36,7 @@ namespace SWBrasil.ORM.CommandTemplate
             string methodParameters = "";
             string codigoRetorno = "";
             string descricaoRetorno = "";
+            bool hasOutputParameters = false;
 
             foreach( ParameterModel param in procedure.Parameters)
             {
@@ -52,16 +58,22 @@ namespace SWBrasil.ORM.CommandTemplate
                     }
 
                     if (param.Name.ToLower() == "@codigoretorno")
+                    {
                         codigoRetorno = param.Name;
-
+                        hasOutputParameters = true;
+                    }
                     if (param.Name.ToLower() == "@descricaoretorno")
+                    {
                         descricaoRetorno = param.Name;
+                        hasOutputParameters = true;
+                    }
 
-                    if (param.IsOutput == false || procedure.ReturnTable )
+                    if ((param.IsOutput == false || procedure.ReturnTable) && (param.Name.ToLower() != "@codigoretorno" && param.Name.ToLower() != "@descricaoretorno"))
                     {
                         methodParameters += methodParameters.Length == 0 ? "" : ", ";
                         if (param.IsOutput)
                             methodParameters += "out ";
+
                         methodParameters += param.DataType + " " + param.Name.Replace("@", "") + " " + (param.IsNullable ? " = null " : "");
                     }
                 }
@@ -69,9 +81,12 @@ namespace SWBrasil.ORM.CommandTemplate
 
             if( procedure.ReturnTable )
             {
-                ret.AppendLine("public DataTable " + procedure.Name + "("+ methodParameters+")");
+                if(hasOutputParameters)
+                    ret.AppendLine("public OutputTransport<DataTable> " + procedure.Name + "(" + methodParameters + ")");
+                else
+                    ret.AppendLine("public DataTable " + procedure.Name + "(" + methodParameters + ")");
                 ret.AppendLine("{");
-                ret.AppendLine("\tDataTable ret = new DataTable();");
+                ret.AppendLine("\tDataTable tmp = new DataTable();");
                 ret.AppendLine("\tSqlCommand cmd = this.Connection.CreateCommand();");
                 ret.AppendLine("\tcmd.CommandText = \"" + procedure.Name + "\";");
                 ret.AppendLine("\tcmd.CommandType = CommandType.StoredProcedure;");
@@ -80,14 +95,23 @@ namespace SWBrasil.ORM.CommandTemplate
                 ret.AppendLine("\tusing (SqlDataReader dr = cmd.ExecuteReader())");
                 ret.AppendLine("\t{");
                 ret.AppendLine("\t\tret = new DataTable();");
-                ret.AppendLine("\t\tret.Load(dr);");
+                ret.AppendLine("\t\tret.Load(tmp);");
                 ret.AppendLine("\t}");
-                ret.AppendLine("\treturn ret;");
+                if (hasOutputParameters)
+                {
+                    ret.AppendLine("\tOutputTransport<DataTable> ret = new OutputTransport<DataTable>();");
+                    ret.AppendLine("\tret.Data = tmp;");
+                    ret.AppendLine("\tret.Code = cmd.Parameters[\"" + codigoRetorno + "\"].Value == DBNull.Value ? 0 : Convert.ToInt32(cmd.Parameters[\"" + codigoRetorno + "\"].Value);");
+                    ret.AppendLine("\tret.Message = cmd.Parameters[\"" + descricaoRetorno + "\"].Value == DBNull.Value ? \"\" : cmd.Parameters[\"" + descricaoRetorno + "\"].Value.ToString();");
+                    ret.AppendLine("\treturn ret;");
+                }
+                else
+                    ret.AppendLine("\treturn tmp;");
                 ret.AppendLine("}");
             }
             else 
             {
-                if( procedure.Parameters.Where(p=>p.Name.ToLower() == "@codigoretorno").Count() > 0 )
+                if( hasOutputParameters)
                 {
                     ret.AppendLine("public OutputTransport<string> " + procedure.Name + "(" + methodParameters + ")");
                     ret.AppendLine("{");

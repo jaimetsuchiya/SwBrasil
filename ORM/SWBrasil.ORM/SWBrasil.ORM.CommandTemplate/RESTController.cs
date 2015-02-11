@@ -24,13 +24,20 @@ namespace SWBrasil.ORM.CommandTemplate
             get { return ".cs"; }
         }
 
+        public string Directory
+        {
+            get { return _directoryName; }
+        }
+
         public string ApplyTemplate(TableModel table, List<TableModel> tables = null)
         {
             _fileName = table.Name.Replace("tb_", "");
+            _directoryName = this.NameSpace + ".Service\\Controllers";
+
             if( string.IsNullOrEmpty(table.Group))
                 return "";
 
-            return Templates.Default.RESTController.Replace("{GROUP}", table.Group).Replace("{TABLE_NAME}", _fileName);
+            return Templates.Default.RESTController.Replace("{GROUP}", table.Group).Replace("{TABLE_NAME}", _fileName).Replace("{NAMESPACE}", base.NameSpace);
         }
 
         public string FileName

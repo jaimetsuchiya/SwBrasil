@@ -119,8 +119,13 @@ GO
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(@"
-[MapperClass(Storable = ""{0}"")]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"using System;
+using Napier.Data;
+using Napier.Mapper;
+
+namespace {3}.Data.Models
+{
+	[MapperClass(Storable = ""{0}"")]
     public class {0} : DataAccessLibrary
     {
         
@@ -145,7 +150,9 @@ GO
 		{2}
 
 		#endregion Search Methods
-    }")]
+    }
+}
+")]
         public string NapierModel {
             get {
                 return ((string)(this["NapierModel"]));
@@ -207,7 +214,22 @@ GO
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("[NapierClassMapper(\"{2}\")]\r\npublic class {0}\r\n{\r\n\t{1}\r\n}\r\n")]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace {3}.Common
+{
+	[NapierClassMapper(""{2}"")]
+	public class {0}
+	{
+		{1}
+	}
+}
+")]
         public string DTOModel {
             get {
                 return ((string)(this["DTOModel"]));
@@ -216,27 +238,34 @@ GO
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\r\n        [HttpGet]\r\n        [Route(\"api/{GROUP}/{TABLE_NAME}/{id}\")]\r\n        [R" +
-            "esponseType(typeof(OutputTransport<{TABLE_NAME}DTO>))]\r\n        [TokenValidation" +
-            "]\r\n        public HttpResponseMessage Get{TABLE_NAME}(object id)\r\n        {\r\n   " +
-            "         OutputTransport<{TABLE_NAME}DTO> ret = new OutputTransport<{TABLE_NAME}" +
-            "DTO>();\r\n            ret.Data = _{TABLE_NAME}BO.FindById(id);\r\n\r\n            ret" +
-            "urn Request.CreateResponse<OutputTransport<{TABLE_NAME}DTO>>(HttpStatusCode.OK, " +
-            "ret);\r\n        }\r\n\r\n\t\t\r\n        [HttpPost]\r\n        [Route(\"api/{GROUP}/{TABLE_N" +
-            "AME}/Search\")]\r\n        [ResponseType(typeof(OutputTransport<List<{TABLE_NAME}DT" +
-            "O>>))]\r\n        [TokenValidation]\r\n        public HttpResponseMessage Search{TAB" +
-            "LE_NAME}s({TABLE_NAME}Args args)\r\n        {\r\n            OutputTransport<List<{T" +
-            "ABLE_NAME}DTO>> ret = new OutputTransport<List<{TABLE_NAME}DTO>>();\r\n           " +
-            " ret.Data = _{TABLE_NAME}BO.Search(args);\r\n\r\n            return Request.CreateRe" +
-            "sponse<OutputTransport<List<{TABLE_NAME}DTO>>>(HttpStatusCode.OK, ret);\r\n       " +
-            " }\r\n\t\t\r\n\t\t\r\n        [HttpPost]\r\n        [Route(\"api/{GROUP}/{TABLE_NAME}\")]\r\n   " +
-            "     [ResponseType(typeof(OutputTransport<List<{TABLE_NAME}DTO>>))]\r\n        [To" +
-            "kenValidation]\r\n\t\t[ModelValidationHandling()]\r\n        public HttpResponseMessag" +
-            "e Save{TABLE_NAME}s({TABLE_NAME}DTO model)\r\n        {\r\n            OutputTranspo" +
-            "rt<{TABLE_NAME}DTO> ret = new OutputTransport<{TABLE_NAME}DTO>();\r\n\t\t\tret = _{TA" +
-            "BLE_NAME}BO.Salvar(new InputTransport<{TABLE_NAME}DTO>() { Data = model, UserNam" +
-            "e = base.UserInfo.logon });\r\n\r\n            return Request.CreateResponse<OutputT" +
-            "ransport<{TABLE_NAME}DTO>>(HttpStatusCode.OK, ret);\r\n        }\r\n")]
+        [global::System.Configuration.DefaultSettingValueAttribute("using System;\r\nusing System.Collections.Generic;\r\nusing System.Data;\r\nusing Syste" +
+            "m.Linq;\r\nusing System.Net;\r\nusing System.Net.Http;\r\nusing System.Web.Http;\r\nusin" +
+            "g System.Web.Http.Description;\r\nusing WebApi.OutputCache.V2;\r\n\r\nusing {NAMESPACE" +
+            "}.Core;\r\nusing {NAMESPACE}.Data;\r\nusing {NAMESPACE}.Service.Infrastructure;\r\nusi" +
+            "ng {NAMESPACE}.Service.Models;\r\nusing {NAMESPACE}.Common;\r\nusing {NAMESPACE}.Com" +
+            "mon.Integration;\r\n\r\n\r\nnamespace {NAMESPACE}.Service.Controllers\r\n{\r\n\tpublic clas" +
+            "s {GROUP}Controller : BaseController\r\n    {\r\n\t\r\n\t\t#region CRUD\r\n\t\t\r\n        [Htt" +
+            "pGet]\r\n        [Route(\"api/{GROUP}/{TABLE_NAME}/{id}\")]\r\n        [ResponseType(t" +
+            "ypeof(OutputTransport<{TABLE_NAME}DTO>))]\r\n        [TokenValidation]\r\n        pu" +
+            "blic HttpResponseMessage Get{TABLE_NAME}(object id)\r\n        {\r\n            Outp" +
+            "utTransport<{TABLE_NAME}DTO> ret = new OutputTransport<{TABLE_NAME}DTO>();\r\n    " +
+            "        ret.Data = _{TABLE_NAME}BO.FindById(id);\r\n\r\n            return Request.C" +
+            "reateResponse<OutputTransport<{TABLE_NAME}DTO>>(HttpStatusCode.OK, ret);\r\n      " +
+            "  }\r\n\r\n\t\t\r\n        [HttpPost]\r\n        [Route(\"api/{GROUP}/{TABLE_NAME}/Search\")" +
+            "]\r\n        [ResponseType(typeof(OutputTransport<List<{TABLE_NAME}DTO>>))]\r\n     " +
+            "   [TokenValidation]\r\n        public HttpResponseMessage Search{TABLE_NAME}s({TA" +
+            "BLE_NAME}Args args)\r\n        {\r\n            OutputTransport<List<{TABLE_NAME}DTO" +
+            ">> ret = new OutputTransport<List<{TABLE_NAME}DTO>>();\r\n            ret.Data = _" +
+            "{TABLE_NAME}BO.Search(args);\r\n\r\n            return Request.CreateResponse<Output" +
+            "Transport<List<{TABLE_NAME}DTO>>>(HttpStatusCode.OK, ret);\r\n        }\r\n\t\t\r\n\t\t\r\n " +
+            "       [HttpPost]\r\n        [Route(\"api/{GROUP}/{TABLE_NAME}\")]\r\n        [Respons" +
+            "eType(typeof(OutputTransport<{TABLE_NAME}DTO>))]\r\n        [TokenValidation]\r\n\t\t[" +
+            "ModelValidationHandling()]\r\n        public HttpResponseMessage Save{TABLE_NAME}(" +
+            "{TABLE_NAME}DTO model)\r\n        {\r\n            OutputTransport<{TABLE_NAME}DTO> " +
+            "ret = new OutputTransport<{TABLE_NAME}DTO>();\r\n\t\t\tret = _{TABLE_NAME}BO.Salvar(n" +
+            "ew InputTransport<{TABLE_NAME}DTO>() { Data = model, UserName = base.UserInfo.lo" +
+            "gon });\r\n\r\n            return Request.CreateResponse<OutputTransport<{TABLE_NAME" +
+            "}DTO>>(HttpStatusCode.OK, ret);\r\n        }\r\n\r\n\t\t#endregion CRUD\r\n\t}\r\n}\r\n")]
         public string RESTController {
             get {
                 return ((string)(this["RESTController"]));
@@ -245,36 +274,38 @@ GO
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("public class {TABLE_NAME}Proxy : BaseProxy\r\n{\r\n\tpublic OutputTransport<{TABLE_NAM" +
-            "E}DTO> Get{TABLE_NAME}(object id)\r\n\t{\r\n\t\tOutputTransport<{TABLE_NAME}DTO> ret = " +
-            "new OutputTransport<{TABLE_NAME}DTO>();\r\n\t\tstring  uri = base.ServiceBaseURI(\"Se" +
-            "rviceURI.{GROUP}\");\r\n\t\turi += \"{TABLE_NAME}\";\r\n\r\n\t\tstring content = DoRequest(ur" +
-            "i, \"GET\", null);\r\n\t\tif (string.IsNullOrEmpty(content) == false)\r\n\t\t\tret = JsonCo" +
-            "nvert.DeserializeObject<OutputTransport<{TABLE_NAME}DTO>>(content);\r\n\t\telse\r\n\t\t\t" +
-            "ret.Code = -100;\r\n\r\n\t\treturn ret;\r\n\t}\t\r\n\t\r\n\tpublic OutputTransport<{TABLE_NAME}D" +
-            "TO> Search{TABLE_NAME}({TABLE_NAME}Args args)\r\n\t{\r\n\t\tstring jsonString = JsonCon" +
-            "vert.SerializeObject(args);\r\n        StringContent strContent = new StringConten" +
-            "t(jsonString, System.Text.Encoding.UTF8, \"application/json\");\r\n\r\n\t\tOutputTranspo" +
-            "rt<{TABLE_NAME}DTO> ret = new OutputTransport<{TABLE_NAME}DTO>();\r\n\t\tstring  uri" +
-            " = base.ServiceBaseURI(\"ServiceURI.{GROUP}\");\r\n\t\turi += \"{TABLE_NAME}/Search\";\r\n" +
-            "\r\n\t\tstring content = DoRequest(uri, \"POST\", strContent);\r\n\t\tif (string.IsNullOrE" +
-            "mpty(content) == false)\r\n\t\t\tret = JsonConvert.DeserializeObject<OutputTransport<" +
-            "{TABLE_NAME}DTO>>(content);\r\n\t\telse\r\n\t\t\tret.Code = -100;\r\n\r\n\t\treturn ret;\r\n\t}\t\r\n" +
-            "\t\r\n\tpublic OutputTransport<{TABLE_NAME}DTO> Save{TABLE_NAME}({TABLE_NAME}DTO mod" +
-            "el)\r\n\t{\r\n\t\tstring jsonString = JsonConvert.SerializeObject(model);\r\n        Stri" +
-            "ngContent strContent = new StringContent(jsonString, System.Text.Encoding.UTF8, " +
-            "\"application/json\");\r\n\r\n\t\tOutputTransport<{TABLE_NAME}DTO> ret = new OutputTrans" +
-            "port<{TABLE_NAME}DTO>();\r\n\t\tstring  uri = base.ServiceBaseURI(\"ServiceURI.{GROUP" +
-            "}\");\r\n\t\turi += \"{TABLE_NAME}\";\r\n\r\n\t\tstring content = DoRequest(uri, \"POST\", strC" +
-            "ontent);\r\n\t\tif (string.IsNullOrEmpty(content) == false)\r\n\t\t{\r\n                tr" +
-            "y\r\n                {\r\n                    OutputTransport<{TABLE_NAME}DTO> ret =" +
-            " JsonConvert.DeserializeObject<OutputTransport<{TABLE_NAME}DTO>>(content);\r\n    " +
-            "                return ret;\r\n                }\r\n                catch\r\n         " +
-            "       {\r\n                    OutputTransport<string> tmp = JsonConvert.Deserial" +
-            "izeObject<OutputTransport<string>>(content);\r\n                    return new Out" +
+        [global::System.Configuration.DefaultSettingValueAttribute("using Newtonsoft.Json;\r\nusing System;\r\nusing System.Collections.Generic;\r\nusing S" +
+            "ystem.Configuration;\r\nusing System.Linq;\r\nusing System.Net.Http;\r\nusing System.W" +
+            "eb;\r\nusing {NAMESPACE}.Common;\r\n\r\nnamespace {NAMESPACE}.Web.UI.WebApiProxy\r\n{\r\n " +
+            "   public class {TABLE_NAME}Proxy : BaseProxy\r\n\t{\r\n\t\tpublic OutputTransport<{TAB" +
+            "LE_NAME}DTO> Get{TABLE_NAME}(object id)\r\n\t\t{\r\n\t\t\tOutputTransport<{TABLE_NAME}DTO" +
+            "> ret = new OutputTransport<{TABLE_NAME}DTO>();\r\n\t\t\tstring  uri = base.ServiceBa" +
+            "seURI(\"ServiceURI.{GROUP}\");\r\n\t\t\turi += \"{TABLE_NAME}\";\r\n\r\n\t\t\tstring content = D" +
+            "oRequest(uri, \"GET\", null);\r\n\t\t\tif (string.IsNullOrEmpty(content) == false)\r\n\t\t\t" +
+            "\tret = JsonConvert.DeserializeObject<OutputTransport<{TABLE_NAME}DTO>>(content);" +
+            "\r\n\t\t\telse\r\n\t\t\t\tret.Code = -100;\r\n\r\n\t\t\treturn ret;\r\n\t\t}\t\r\n\t\t\r\n\t\tpublic OutputTran" +
+            "sport<{TABLE_NAME}DTO> Search{TABLE_NAME}({TABLE_NAME}Args args)\r\n\t\t{\r\n\t\t\tstring" +
+            " jsonString = JsonConvert.SerializeObject(args);\r\n\t\t\tStringContent strContent = " +
+            "new StringContent(jsonString, System.Text.Encoding.UTF8, \"application/json\");\r\n\r" +
+            "\n\t\t\tOutputTransport<{TABLE_NAME}DTO> ret = new OutputTransport<{TABLE_NAME}DTO>(" +
+            ");\r\n\t\t\tstring  uri = base.ServiceBaseURI(\"ServiceURI.{GROUP}\");\r\n\t\t\turi += \"{TAB" +
+            "LE_NAME}/Search\";\r\n\r\n\t\t\tstring content = DoRequest(uri, \"POST\", strContent);\r\n\t\t" +
+            "\tif (string.IsNullOrEmpty(content) == false)\r\n\t\t\t\tret = JsonConvert.DeserializeO" +
+            "bject<OutputTransport<{TABLE_NAME}DTO>>(content);\r\n\t\t\telse\r\n\t\t\t\tret.Code = -100;" +
+            "\r\n\r\n\t\t\treturn ret;\r\n\t\t}\t\r\n\t\t\r\n\t\tpublic OutputTransport<{TABLE_NAME}DTO> Save{TAB" +
+            "LE_NAME}({TABLE_NAME}DTO model)\r\n\t\t{\r\n\t\t\tstring jsonString = JsonConvert.Seriali" +
+            "zeObject(model);\r\n\t\t\tStringContent strContent = new StringContent(jsonString, Sy" +
+            "stem.Text.Encoding.UTF8, \"application/json\");\r\n\r\n\t\t\tOutputTransport<{TABLE_NAME}" +
+            "DTO> ret = new OutputTransport<{TABLE_NAME}DTO>();\r\n\t\t\tstring  uri = base.Servic" +
+            "eBaseURI(\"ServiceURI.{GROUP}\");\r\n\t\t\turi += \"{TABLE_NAME}\";\r\n\r\n\t\t\tstring content " +
+            "= DoRequest(uri, \"POST\", strContent);\r\n\t\t\tif (string.IsNullOrEmpty(content) == f" +
+            "alse)\r\n\t\t\t{\r\n\t\t\t\t\ttry\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\tOutputTransport<{TABLE_NAME}DTO> ret = Json" +
+            "Convert.DeserializeObject<OutputTransport<{TABLE_NAME}DTO>>(content);\r\n\t\t\t\t\t\tret" +
+            "urn ret;\r\n\t\t\t\t\t}\r\n\t\t\t\t\tcatch\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\tOutputTransport<string> tmp = JsonCo" +
+            "nvert.DeserializeObject<OutputTransport<string>>(content);\r\n\t\t\t\t\t\treturn new Out" +
             "putTransport<{TABLE_NAME}DTO>() { Code = tmp.Code, Message = tmp.Message + \"\\n\" " +
-            "+ tmp.Data };\r\n                }\r\n            }\r\n\t\telse\r\n\t\t\tret.Code = -10;\r\n\r\n\t" +
-            "\treturn ret;\r\n\t}\t\r\n\t\r\n\t\t\r\n}")]
+            "+ tmp.Data };\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\telse\r\n\t\t\t\tret.Code = -10;\r\n\r\n\t\t\treturn ret;\r\n\t\t" +
+            "}\t\r\n\t}\r\n}\r\n")]
         public string PROXYMethods {
             get {
                 return ((string)(this["PROXYMethods"]));
@@ -305,11 +336,12 @@ GO
             "n type=\"button\" class=\"btn btn-success btn-flat\" id=\"btnNovo\" onclick=\"document." +
             "location.href=\'/{GROUP}/{TABLE_NAME}?id=0\'\">Novo {TABLE_NAME}</button>   \r\n    <" +
             "/div>\r\n</div>\r\n\r\n\r\n@section scripts {\r\n\r\n <script type=\"text/javascript\">\r\n\t$(do" +
-            "cument).ready(function(){\r\n\t\t{TABLE_NAME}Grid.ServiceURI = \"\";\r\n\t\t{TABLE_NAME}Gr" +
-            "id.LinkURI = \"/{GROUP}/{TABLE_NAME}?id=\"\r\n\t\t{TABLE_NAME}Grid.ExibirLink = true;\r" +
-            "\n\t});\r\n\t\r\n\tfunction btnPesquisar_Click() {\r\n\t\tvar model = _helper.formToModel($(" +
-            "\"#frmCriterios\"));\r\n\t\t{TABLE_NAME} Grid.Pesquisar(model);\r\n\t\t$(\'.nav-tabs a[href" +
-            "=\"#resultado\"]\').tab(\'show\')\r\n\t}\r\n\t\t\t\r\n    </script>   \r\n}")]
+            "cument).ready(function(){\r\n\t\t{TABLE_NAME}Grid.ServiceURI = \"/{GROUP}/{TABLE_NAME" +
+            "}/Search\";\r\n\t\t{TABLE_NAME}Grid.LinkURI = \"/{GROUP}/{TABLE_NAME}?id=\";\r\n\t\t{TABLE_" +
+            "NAME}Grid.ExibirLink = true;\r\n\t});\r\n\t\r\n\tfunction btnPesquisar_Click() {\r\n\t\tvar m" +
+            "odel = _helper.formToModel($(\"#frmCriterios\"));\r\n\t\t{TABLE_NAME} Grid.Pesquisar(m" +
+            "odel);\r\n\t\t$(\'.nav-tabs a[href=\"#resultado\"]\').tab(\'show\')\r\n\t}\r\n\t\t\t\r\n    </script" +
+            ">   \r\n}")]
         public string ListPage {
             get {
                 return ((string)(this["ListPage"]));

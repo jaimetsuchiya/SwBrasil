@@ -3,3 +3,6 @@ Initial Catalog=WMS
 User ID=sa
 Password=S!sTeM@s
 OutPut=C:\Temp\Result
+NameSpace=Lars
+Project=Lars
+Template=C:\Jaime\Projetos\Template\Fontes\SW.Template
