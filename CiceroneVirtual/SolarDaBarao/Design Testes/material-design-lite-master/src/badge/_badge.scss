@@ -20,7 +20,7 @@
   position : relative;
   white-space: nowrap;
   margin-right: ($badge-size + $badge-padding);
-
+ 
   &:not([data-badge]) {
     margin-right: auto;
   }
