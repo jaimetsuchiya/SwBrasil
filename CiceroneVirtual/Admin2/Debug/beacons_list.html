@@ -485,7 +485,7 @@ var page = {
             for(var i=0; i < data.length; i++) {
                 
                 var battery = data[i].Batery == null ? "??" : data[i].Batery;
-                var associated = data[i].Associated == null ? "Não" : "Sim";
+                var associated = data[i].Associated == true ? "Sim" : "Não";
                 
                 html += template.replace("{0}", data[i].id)
                                 .replace("{1}", data[i].UID)

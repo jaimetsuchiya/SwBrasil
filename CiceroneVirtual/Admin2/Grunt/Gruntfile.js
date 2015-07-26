@@ -12,6 +12,7 @@ module.exports = function(grunt) {
         template: {
             files: [
               // includes files within path
+              {expand: true, cwd: '../../../Comum/js', src: ['ciceroneVirtual.js'], dest: '../Source/Template/js', filter: 'isFile'},
               {expand: true, cwd: '../Source/Template/assets', src: ['**'], dest: '../Debug/assets'},
               {expand: true, cwd: '../Source/Template/css', src: ['**'], dest: '../Debug/css'},
               {expand: true, cwd: '../Source/Template/img', src: ['**'], dest: '../Debug/img'},

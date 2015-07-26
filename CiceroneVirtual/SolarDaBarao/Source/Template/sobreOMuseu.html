@@ -1,0 +1,180 @@
+<!doctype html>
+<!--
+  Material Design Lite
+  Copyright 2015 Google Inc. All rights reserved.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License
+-->
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Introducing Lollipop, a sweet new take on Android.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cicerone Virtual</title>
+
+    <!-- Page styles -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.css">
+    <link rel="stylesheet" href="ui/css/styles.css">
+    <style>
+    #view-source {
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 0;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    }
+    .mdl-card__actions {
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+        .mdl-layout__header-row {
+            background-color:#000;
+        }
+        .android-footer {
+            background-color:#000;
+        }
+        
+.activeMenu {
+    font-weight: 700;
+    font-size: 14px;
+    display: inline-block;
+    height: 60px;
+    line-height: 68px;
+    background-color: transparent !important;
+    border-bottom: 4px solid #8bc34a;
+    color:#FFF;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align:center;
+    margin-right: 5px;
+}
+
+    </style>
+    <script src="libs/jquery/jquery.js"></script>
+    <script src="libs/jqueryui.js"></script>
+    <script src="libs/fastclick.js"></script>
+      <script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#status").fadeOut();
+        $("#preloader").delay(400).fadeOut("slow");
+        $("#preloader").hide();
+        app.ui.onStartScanButton();
+    });
+</script>
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+
+      <div class="android-header mdl-layout__header mdl-layout__header--waterfall">
+        <div class="mdl-layout__header-row">
+          <span class="android-title mdl-layout-title">
+              <a href="index.html"><img class="android-logo-image" src="images/android-logo2.png"></a>
+          </span>
+          <!-- Add spacer, to align navigation to the right in desktop -->
+          <!--div class="android-header-spacer mdl-layout-spacer"></div>
+          <div class="android-search-box mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right mdl-textfield--full-width">
+            <label class="mdl-button mdl-js-button mdl-button--icon" for="search-field">
+              <i class="material-icons">search</i>
+            </label>
+            <div class="mdl-textfield__expandable-holder">
+              <input class="mdl-textfield__input" type="text" id="search-field" />
+            </div>
+          </div-->
+          <!-- Navigation -->
+          <div class="android-navigation-container">
+            <nav class="android-navigation mdl-navigation">
+              <span class="activeMenu mdl-typography--text-uppercase">Sobre o Museu</span>
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="comoFunciona.html#content">Como Funciona</a>
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="contato.html#content">Contato</a>
+            </nav>
+          </div>
+          <!--button class="android-more-button mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="more-button">
+            <i class="material-icons">more_vert</i>
+          </button-->
+          <!--ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="more-button">
+            <li class="mdl-menu__item">5.0 Lollipop</li>
+            <li class="mdl-menu__item">4.4 KitKat</li>
+            <li disabled class="mdl-menu__item">4.3 Jelly Bean</li>
+            <li class="mdl-menu__item">Android History</li>
+          </ul-->
+          <span class="android-mobile-title mdl-layout-title">
+            <img class="android-logo-image" src="images/android-logo2.png">
+          </span>
+        </div>
+      </div>
+
+      <div class="android-drawer mdl-layout__drawer">
+        <span class="mdl-layout-title">
+          <img class="android-logo-image" src="images/android-logo-white2.png">
+        </span>
+        <nav class="mdl-navigation">
+          <a class="mdl-navigation__link" href="index.html">Início</a>
+          <a class="mdl-navigation__link" href="#content">Sobre o Museu</a>
+          <a class="mdl-navigation__link" href="comoFunciona.html#content">Como Funciona</a>
+          <a class="mdl-navigation__link" href="contato.html#content">Contato</a>
+        </nav>
+      </div>
+
+      <div class="android-content mdl-layout__content">
+        <div class="android-be-together-section mdl-typography--text-center">
+          <div class="android-font android-slogan">Museu Histórico e Cultural de Jundiaí</div>
+          <div class="android-font android-sub-slogan">"Solar do Barão".</div>
+          <div class="android-font android-create-character">
+            Seu espaço cultural em Jundiaí
+          </div>
+
+          <a href="#content">
+            <button class="android-fab mdl-button mdl-button--colored mdl-js-button mdl-button--fab mdl-js-ripple-effect">
+              <i class="material-icons">expand_more</i>
+            </button>
+          </a>
+        </div>
+           <div class="android-more-section" id="content">
+            <div class="android-section-title mdl-typography--display-1-color-contrast">Museu Histórico e Cultural de Jundiaí</div>
+                    <div class="mdl-typography--font-light mdl-typography--subhead" style="text-align:justify;">O Museu Histórico e Cultural de Jundiaí foi criado pela Lei nº 406, de 10 de junho de 1955, porém só foi inaugurado em 28 de março de 1965. O seu fundador, organizador e primeiro orientador foi o Padre Antônio Tolloi Maria Stafuzza. 
+                    Nas diversas salas do casarão, que foi residência do Barão de Jundiaí e, por isso, também conhecido como “Solar do Barão”, o visitante poderá apreciar uma exposição de longa duração que retrata a história da casa e do Barão de Jundiaí, bem como, sobre a Fratelanza Italiana, com acervo doado pela Sociedade Jundiaiense de Socorros Mútuos – Casa de Saúde Dr. Domingos Anastasio e do Coronel Siqueira Moraes, doado pela família, além de grandes e importantes exposições ao longo do ano. 
+                    O Museu possui um auditório com capacidade para 80 pessoas, denominado Sala Profº Jahyr Accioly de Souza, dotado de um piano de cauda, utilizado para audições, palestras, reuniões e projeções de filmes e documentários. Além disso, dispõe de um belo jardim totalmente arborizado, utilizado pelos visitantes para descanso, leitura e lazer.
+    </span>
+                </div>
+          </div>
+        </div>
+
+        <footer class="android-footer mdl-mega-footer">
+          
+
+          <div class="mdl-mega-footer--middle-section">
+            <p class="mdl-typography--font-light">Desenvolvido por SwBrasil</p>
+            <!--p class="mdl-typography--font-light">Some features and devices may not be available in all areas</p-->
+          </div>
+
+
+        </footer>
+      </div>
+    </div>
+    <!--a href="https://github.com/google/material-design-lite/blob/master/templates/android-dot-com/" target="_blank" id="view-source" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">View Source</a-->
+    
+    <script src="libs/material.min.js"></script>
+    <script src="cordova.js"></script>
+    <script src="libs/evothings/evothings.js"></script>
+	<script src="js/index.js"></script>
+
+
+
+  </body>
+</html>
