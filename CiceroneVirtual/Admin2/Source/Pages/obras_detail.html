@@ -1,0 +1,194 @@
+include "../Partial/header.html" 
+
+
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="main.html">Home</a></li>
+    <li><a href="obras_list.html">Obras</a></li>                    
+    <li class="active" id="acao">Novo</li>
+</ul>
+<!-- END BREADCRUMB -->                       
+
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+    
+    <!-- START WIDGETS -->
+    <div class="row">
+        <div class="col-lg-11 col-sm-11 col-md-11">
+            <div class="panel panel-default">
+    
+                <div class="panel-heading">
+                    <h3 class="panel-title">Obras</h3>
+                </div>
+                <div class="panel-body">
+                        <div class="col-sm-12">
+                           <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Nome</label>
+                                    <input type="text" class="form-control" id="txtTitle" />
+                                </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Resumo</label>
+                                    <textarea class="form-control" style="min-height:225px;" id="txtResumo"></textarea>
+                                </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <!--<form enctype="multipart/form-data" class="form-horizontal">                                        -->
+                            <div class="form-group">
+                                <label>Imagem</label>
+                                <span class="file-input">
+                                    <div class="file-preview">
+                                        <div class="file-preview-thumbnails" style="height:180px;">
+                                            <div class="file-preview-frame" id="imgTest" style="display:none; ">
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>   
+                                        <div class="file-preview-status text-center text-success"></div>
+                                    </div>
+                                    <div class="input-group ">
+                                           <div tabindex="-1" class="form-control file-caption  kv-fileinput-caption" >
+                                           <!--<span class="glyphicon glyphicon-file kv-caption-icon" style="display: inline;"></span><div class="file-caption-name">&nbsp;</div>-->
+                                        </div>
+                                        <div class="input-group-btn">
+                                           <!--<button type="button" class="btn btn-default fileinput-remove fileinput-remove-button"><i class="glyphicon glyphicon-ban-circle"></i> Remove</button>-->
+                                           <!--<button type="submit" class="btn btn-default kv-fileinput-upload"><i class="glyphicon glyphicon-upload"></i> Upload</button>-->
+                                           <div class="btn btn-primary btn-file"> <i class="glyphicon glyphicon-folder-open"></i> &nbsp;Browse … <input type="file" multiple="" class="file" data-preview-file-type="any" id="inputFileToLoad" onchange="encodeImageFileAsURL()"></div>
+                                        </div>
+                                    </div>
+                                </span>
+                            </div>
+                            <script type='text/javascript'>
+                            function encodeImageFileAsURL(){
+                            
+                                var filesSelected = document.getElementById("inputFileToLoad").files;
+                                if (filesSelected.length > 0)
+                                {
+                                    var fileToLoad = filesSelected[0];
+                            
+                                    var fileReader = new FileReader();
+                            
+                                    fileReader.onload = function(fileLoadedEvent) {
+                                        var srcData = fileLoadedEvent.target.result; // <--- data: base64
+                            
+                                        var newImage = document.createElement('img');
+                                        newImage.id = "img";
+                                        newImage.src = srcData;
+                                        newImage.style.height = "150px";
+                                        
+                                        document.getElementById("imgTest").innerHTML = newImage.outerHTML;
+                                        document.getElementById("imgTest").style.display = "block";
+                                        console.log("Converted Base64 version is "+document.getElementById("imgTest").innerHTML);
+                                    }
+                                    fileReader.readAsDataURL(fileToLoad);
+                                }
+                            }
+                            </script>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12"><br/></div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Conteúdo</label>
+                            <textarea class="summernote" id="editor"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <button type="button" class="btn btn-primary" id="btnSalvar"><span class="fa fa-disk"></span> Salvar</button>
+
+                    <div class="alert alert-danger" role="alert" id="msgError" style="display:none">
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                        <strong>Erro!</strong> Ocorreu um erro no processamento da solicitação!
+                    </div>
+                    
+                    <div class="alert alert-success" role="alert" id="msgOk" style="display:none">
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                        <strong>Sucesso!</strong> Registro Armazenado com Sucesso! 
+                    </div>
+                </div>
+            </div> 
+        </div>  
+    </div>
+    
+</div>
+<!-- END PAGE CONTENT WRAPPER -->                                
+
+include "../Partial/footer.html"
+<script type="text/javascript" src="js/plugins/summernote/summernote.js"></script>
+
+<script type="text/javascript">
+    var page = {
+        
+        Model: null,
+        GetItem: function(uid) {
+    
+            ciceroneVirtual.Obras.Carregar(uid,  
+                function(data) {
+                    
+                    page.Model = data;
+                    
+                    $("#txtTitle").val( page.Model.Title );
+                    $('.summernote').code( page.Model.ContentHTML );
+                    $("#txtResumo").val( page.Model.Card.Description );
+                    
+                    var newImage = document.createElement('img');
+                        newImage.id = "img";
+                        newImage.src = page.Model.Card.Image;
+                        newImage.style.height = "150px";
+                    
+                    document.getElementById("imgTest").innerHTML = newImage.outerHTML;
+                    document.getElementById("imgTest").style.display = "block";
+                    
+                }, function(error) {
+                    $(".registeredUsers").text("-1");
+                })
+        },
+        
+        Save: function(model) {
+            ciceroneVirtual.Obras.Salvar( model, function(data) {
+                $("#msgOk").show();
+            }, function(fail) {
+                $("#msgError").show();
+            })
+        }
+        
+    };
+    
+    $(document).ready(function(){
+        
+        var url = document.location.href.toString();
+        var idx = url.indexOf('?');
+        if( idx == -1 ) {
+            
+            $("#acao").text("Novo");
+            page.Model = ciceroneVirtual.Obras.Novo();
+            
+        } else {
+
+            $("#acao").text("Editar");
+            var id = url.substring(idx+4, url.length);
+            page.GetItem( id );
+    
+        }
+        
+        $("#btnSalvar").click( function() {
+            
+            page.Model.Title = $("#txtTitle").val();
+            page.Model.ContentHTML = $('.summernote').code();
+            page.Model.Card = {
+                Description : $("#txtResumo").val(),
+                Image : $("#img").attr("src")
+            }
+            
+            page.Save(page.Model);
+        })
+        
+    });
+</script>

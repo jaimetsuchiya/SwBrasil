@@ -1,0 +1,78 @@
+include "../Partial/header.html" 
+
+
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Comentários</a></li>                    
+    <li class="active">Listar</li>
+</ul>
+<!-- END BREADCRUMB -->                       
+
+
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+    
+    <!-- START WIDGETS -->
+    <div class="row">
+        <div class="col-lg-11 col-sm-11 col-md-11">
+            <div class="panel panel-default">
+    
+                <div class="panel-heading">
+                    <h3 class="panel-title">Comentários</h3>
+                </div>
+                <div class="panel-body panel-body-table">
+    
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-actions">
+                            <thead>
+                                <tr>
+                                    <th width="120">Autor</th>
+                                    <th width="250">Comentário</th>
+                                    <th width="100">Data</th>
+                                    <th width="50">Aprovado</th>
+                                </tr>
+                            </thead>
+                            <tbody id="lista">
+                            </tbody>
+                        </table>
+                    </div>                                
+    
+                </div>
+                <div class="panel-footer">
+                    <br/>
+                </div>
+            </div> 
+        </div>  
+    </div>
+    
+</div>
+<!-- END PAGE CONTENT WRAPPER -->                                
+
+include "../Partial/footer.html"
+
+<script type="text/javascript">
+var page = {
+    
+    GetBeacons: function() {
+        ciceroneVirtual.Comentarios.Todos( function(data) {
+            
+            var html = "";
+            var template = "<tr><td width=\"120\">{0}</td><td width=\"050\">{1}</td><td width=\"050\">{2}</td><td width=\"100\">{3}</td><td width=\"100\">{4}</td><td width=\"100\">{5}</td></tr>";
+            for(var i=0; i < data.length; i++) {
+                
+                html+= template.replace("{0}", data[i].UID);
+            }
+            
+        }, function(error) {
+            $(".registeredUsers").text("-1");
+        })
+    }
+    
+}
+    $(document).ready(function(){
+        
+        page.GetBeacons();
+        
+    })
+</script>

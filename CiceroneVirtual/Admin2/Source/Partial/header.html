@@ -2,7 +2,7 @@
 <html lang="en">
     <head>        
         <!-- META SECTION -->
-        <title>Administração - Cicerone Virtual</title>            
+        <title>Cicerone Virtual - Administração</title>            
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -20,7 +20,7 @@
             
             <!-- START PAGE SIDEBAR -->
             <div class="page-sidebar">
-                [#INSERIR_MENU#]
+                include "../Partial/esquerda.html" 
             </div>
             <!-- END PAGE SIDEBAR -->
             
@@ -35,22 +35,23 @@
                     </li>
                     <!-- END TOGGLE NAVIGATION -->
                     <!-- SEARCH -->
-                    <li class="xn-search">
+                    <!--<li class="xn-search">
                         <form role="form">
                             <input type="text" name="search" placeholder="Search..."/>
                         </form>
-                    </li>   
+                    </li>-->
                     <!-- END SEARCH -->                    
                     <!-- POWER OFF -->
                     <li class="xn-icon-button pull-right last">
                         <a href="#"><span class="fa fa-power-off"></span></a>
                         <ul class="xn-drop-left animated zoomIn">
-                            <li><a href="pages-lock-screen.html"><span class="fa fa-lock"></span> Lock Screen</a></li>
-                            <li><a href="#" class="mb-control" data-box="#mb-signout"><span class="fa fa-sign-out"></span> Sign Out</a></li>
+                            <!--<li><a href="pages-lock-screen.html"><span class="fa fa-lock"></span> Lock Screen</a></li>-->
+                            <li><a href="#" class="mb-control" data-box="#mb-signout" ><span class="fa fa-sign-out"></span> Sign Out</a></li>
                         </ul>                        
                     </li> 
                     <!-- END POWER OFF -->                    
                     <!-- MESSAGES -->
+                    <!--
                     <li class="xn-icon-button pull-right">
                         <a href="#"><span class="fa fa-comments"></span></a>
                         <div class="informer informer-danger">4</div>
@@ -92,8 +93,10 @@
                             </div>                            
                         </div>                        
                     </li>
+                    -->
                     <!-- END MESSAGES -->
                     <!-- TASKS -->
+                    <!--
                     <li class="xn-icon-button pull-right">
                         <a href="#"><span class="fa fa-tasks"></span></a>
                         <div class="informer informer-warning">3</div>
@@ -139,6 +142,7 @@
                             </div>                            
                         </div>                        
                     </li>
+                    -->
                     <!-- END TASKS -->
                 </ul>
                 <!-- END X-NAVIGATION VERTICAL -->                     

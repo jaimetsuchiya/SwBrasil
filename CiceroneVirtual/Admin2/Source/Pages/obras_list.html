@@ -1,0 +1,236 @@
+include "../Partial/header.html" 
+
+
+<div id="beacon_modal" class="modal" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                Beacons
+                <button type="button" class="close md-close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <br />
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-actions">
+                        <thead>
+                            <tr>
+                                <th width="050">#</th>
+                                <th width="120">UID</th>
+                                <th width="050">Major</th>
+                                <th width="050">Minor</th>
+                            </tr>
+                        </thead>
+                        <tbody id="beacons_list">
+                            
+                        </tbody>
+                    </table>
+                 </div>
+            </div>
+            <div class="modal-footer">
+                <input type="button" class="btn btn-primary" value="Fechar" data-dismiss="modal" aria-hidden="true" />
+                <input type="button" class="btn btn-info" value="Associar" onclick="page.AssociateBeacon();" />
+                <br/><br/>
+                <div class="alert alert-danger" role="alert" id="msgError" style="display:none">
+                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <strong>Erro!</strong> <span id="modalErrorMsg">Ocorreu um erro no processamento da solicitação!</span>
+                </div>
+                
+                <div class="alert alert-success" role="alert" id="msgOk" style="display:none">
+                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <strong>Sucesso!</strong> Beacon associado com sucesso! 
+                </div>
+                
+                <div class="alert alert-warning" role="alert" id="msgModalWarning" style="display:none">
+                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <strong>Atenção!</strong> <span id="modalErrorMsg">Ocorreu um erro no processamento da solicitação!</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Obras</a></li>                    
+    <li class="active">Listar</li>
+</ul>
+<!-- END BREADCRUMB -->                       
+
+
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+    
+    <!-- START WIDGETS -->
+    <div class="row">
+        <div class="col-lg-11 col-sm-11 col-md-11">
+            <div class="panel panel-default">
+    
+                <div class="panel-heading">
+                    <h3 class="panel-title">Obras</h3>
+                </div>
+                <div class="panel-body panel-body-table">
+    
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-actions">
+                            <thead>
+                                <tr>
+                                    <th width="050"><input type="checkbox" id="obra" onclick=""/></th>
+                                    <th width="120">Nome</th>
+                                    <th width="500">Descrição</th>
+                                    <th width="050">Visitas</th>
+                                    <th width="200">Beacon</th>
+                                    <th width="150">Dt.Criação</th>
+                                </tr>
+                            </thead>
+                            <tbody id="list">
+                                
+                            </tbody>
+                        </table>
+                    </div>                                
+    
+                </div>
+                <div class="panel-footer">
+                    <button type="button" class="btn btn-primary" onclick="document.location.href='obras_detail.html'"><span class="fa fa-plus"></span> Nova Obra</button>
+                    <button type="button" class="btn btn-success" onclick="page.ChooseBeacons();"><span class="fa fa-chain"></span> Associar Beacon</button>
+                    
+                    <br/><br/>
+                    <div class="alert alert-warning" role="alert" id="msgFormWarning" style="display:none">
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                        <strong>Atenção!</strong> <span id="formErrorMsg">Ocorreu um erro no processamento da solicitação!</span>
+                    </div>
+                </div>
+            </div> 
+        </div>  
+    </div>
+    
+</div>
+<!-- END PAGE CONTENT WRAPPER -->                                
+
+include "../Partial/footer.html"
+
+<script type="text/javascript">
+var page = {
+    ChooseBeacons: function() {
+        
+        var selected = [];        
+        $('.obra').each( function (idx) {
+            if( this.checked ) { 
+                selected.push(this.value);
+            }
+        });
+
+        if( selected.length == 0 ) {
+            $("#formErrorMsg").text("Favor selecionar a(s) obra(s) antes de continuar!");
+            $("#msgFormWarning").show();
+            
+        } else {
+            
+            page.GetBeacons();
+            $("#beacon_modal").modal("show");
+            
+        }
+    },
+    
+    GetObras: function() {
+        
+        ciceroneVirtual.Obras.Todos( function(data) {
+            
+            var html = "";
+            var template = "<tr><td width=\"050\"><input type=\"checkbox\" class=\"obra\" value=\"{0}\" /></td><td width=\"120\"><a href=\"obras_detail.html?id={0}\">{1}</a></td><td width=\"500\">{2}</td><td width=\"050\">{3}</td><td width=\"200\">{4}</td><td width=\"150\">{5}</td></tr>";
+            for(var i=0; i < data.length; i++) {
+                var beacon = data[i].Beacon == null ? "N/D" : ("UID:" + data[i].Beacon.UID + ", Major:" + data[i].Beacon.Major + ", Minor:" + data[i].Beacon.Minor);  
+                html += template.replace("{0}", data[i].id)
+                                .replace("{0}", data[i].id)
+                                .replace("{1}", data[i].Title)
+                                .replace("{2}", data[i].Card.Description)
+                                .replace("{3}", data[i].Visitors)
+                                .replace("{4}", beacon)
+                                .replace("{5}", data[i]._creation_date.formatarData('dd/mm/yyyy hh:mm'));
+            }
+            $("#list").html(html);
+
+        }, function(error) {
+            $("#formErrorMsg").text(error.statusText);
+            $("#msgFormWarning").show();
+        })
+    },
+    
+    AssociateBeacon: function() {
+        
+        var beacon = $("#optBeacon").val();
+        if( beacon == null || beacon == "") {
+            $("#modalErrorMsg").text("Favor selecionar o Beacon antes de continuar!");
+            $("#msgModalWarning").show();
+            return;
+        }
+        
+        var selected = [];        
+        $('.obra').each( function (idx) {
+            if( this.checked ) { 
+                selected.push(this.value);
+            }
+        });
+        
+        for( var i=0; i < selected.length; i++ ) { 
+
+            ciceroneVirtual.Obras.Carregar( selected[i], function (data) {
+                
+                ciceroneVirtual.Obras.AssociarBeacon( data, beacon, function(data) {
+                    $("#msgOk").show();
+                    return;
+                }, function( error ) {
+                    $("#msgError").show();
+                    return;
+                });
+
+            }, function( fail ) {
+                $("#msgError").show();
+                return;
+            })
+            
+        }
+    },
+    
+    GetBeacons: function() {
+        ciceroneVirtual.Beacons.Todos( function(data) {
+            
+            var html = "";
+            var template = "<tr><td width=\"050\"><input type=\"radio\" value=\"{0}\" name=\"optBeacon\" id=\"optBeacon\" class=\"beacon\" /></td><td width=\"120\">{1}</td><td width=\"050\">{2}</td><td width=\"050\">{3}</td></tr>";
+            for(var i=0; i < data.length; i++) {
+                
+                var battery = data[i].Batery == null ? "??" : data[i].Batery;
+                var associated = data[i].Associated == null ? "Não" : "Sim";
+                
+                html += template.replace("{0}", data[i].id)
+                                .replace("{1}", data[i].UID)
+                                .replace("{2}", data[i].Major)
+                                .replace("{3}", data[i].Minor);
+            }
+            $("#beacons_list").html(html);
+            
+        }, function(error) {
+            $(".registeredUsers").text("-1");
+        })
+    },
+    CheckAll: function (className) {
+        $('#' + className).click(function (event) {
+            if (this.checked) {
+                $('.' + className).each(function () {
+                    this.checked = true;
+                });
+            } else {
+                $('.' + className).each(function () {
+                    this.checked = false;
+                });
+            }
+        });
+    }
+}
+    $(document).ready(function(){
+        
+        page.GetObras();
+        page.CheckAll('obra');
+
+    })
+</script>

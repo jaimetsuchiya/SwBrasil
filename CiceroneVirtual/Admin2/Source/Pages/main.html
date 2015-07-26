@@ -1,4 +1,5 @@
-[#INSERIR_HEADER#]
+include "../Partial/header.html" 
+
 
 <!-- START BREADCRUMB -->
 <ul class="breadcrumb">
@@ -14,43 +15,34 @@
     <div class="row">
         <div class="col-md-3">
             
-            <!-- START WIDGET SLIDER -->
-            <div class="widget widget-default widget-carousel">
-                <div class="owl-carousel" id="owl-example">
-                    <div>                                    
-                        <div class="widget-title">Total Visitors</div>                                                                        
-                        <div class="widget-subtitle">27/08/2015 15:23</div>
-                        <div class="widget-int">3,548</div>
-                    </div>
-                    <div>                                    
-                        <div class="widget-title">Returned</div>
-                        <div class="widget-subtitle">Visitors</div>
-                        <div class="widget-int">1,695</div>
-                    </div>
-                    <div>                                    
-                        <div class="widget-title">New</div>
-                        <div class="widget-subtitle">Visitors</div>
-                        <div class="widget-int">1,977</div>
-                    </div>
-                </div>                            
+           <!-- START WIDGET MESSAGES -->
+            <div class="widget widget-default widget-item-icon" onclick="location.href='beacons_list.html';">
+                <div class="widget-item-left">
+                    <span class="fa fa-envelope"></span>
+                </div>                             
+                <div class="widget-data">
+                    <div class="widget-int num-count beaconsPendentes">0</div>
+                    <div class="widget-title">Beacons</div>
+                    <div class="widget-subtitle">Não Associados</div>
+                </div>      
                 <div class="widget-controls">                                
                     <a href="#" class="widget-control-right widget-remove" data-toggle="tooltip" data-placement="top" title="Remove Widget"><span class="fa fa-times"></span></a>
-                </div>                             
-            </div>         
-            <!-- END WIDGET SLIDER -->
+                </div>
+            </div>                            
+            <!-- END WIDGET MESSAGES -->
             
         </div>
         <div class="col-md-3">
             
             <!-- START WIDGET MESSAGES -->
-            <div class="widget widget-default widget-item-icon" onclick="location.href='pages-messages.html';">
+            <div class="widget widget-default widget-item-icon" onclick="location.href='comentarios_list.html';">
                 <div class="widget-item-left">
                     <span class="fa fa-envelope"></span>
                 </div>                             
                 <div class="widget-data">
-                    <div class="widget-int num-count">48</div>
-                    <div class="widget-title">New messages</div>
-                    <div class="widget-subtitle">In your mailbox</div>
+                    <div class="widget-int num-count comentariosPendentes">0</div>
+                    <div class="widget-title">Comentários</div>
+                    <div class="widget-subtitle">Pendentes</div>
                 </div>      
                 <div class="widget-controls">                                
                     <a href="#" class="widget-control-right widget-remove" data-toggle="tooltip" data-placement="top" title="Remove Widget"><span class="fa fa-times"></span></a>
@@ -62,14 +54,14 @@
         <div class="col-md-3">
             
             <!-- START WIDGET REGISTRED -->
-            <div class="widget widget-default widget-item-icon" onclick="location.href='pages-address-book.html';">
+            <div class="widget widget-default widget-item-icon" onclick="location.href='usuarios_list.html';">
                 <div class="widget-item-left">
                     <span class="fa fa-user"></span>
                 </div>
                 <div class="widget-data">
-                    <div class="widget-int num-count">375</div>
-                    <div class="widget-title">Registred users</div>
-                    <div class="widget-subtitle">On your website</div>
+                    <div class="widget-int num-count registeredUsers">0</div>
+                    <div class="widget-title">Usuários</div>
+                    <div class="widget-subtitle">Registrados</div>
                 </div>
                 <div class="widget-controls">                                
                     <a href="#" class="widget-control-right widget-remove" data-toggle="tooltip" data-placement="top" title="Remove Widget"><span class="fa fa-times"></span></a>
@@ -80,26 +72,21 @@
         </div>
         <div class="col-md-3">
             
-            <!-- START WIDGET CLOCK -->
-            <div class="widget widget-danger widget-padding-sm">
-                <div class="widget-big-int plugin-clock">00:00</div>                            
-                <div class="widget-subtitle plugin-date">Loading...</div>
+            <!-- START WIDGET MESSAGES -->
+            <div class="widget widget-default widget-item-icon" onclick="location.href='obras_list.html';">
+                <div class="widget-item-left">
+                    <span class="fa fa-envelope"></span>
+                </div>                             
+                <div class="widget-data">
+                    <div class="widget-int num-count obrasPendentes">0</div>
+                    <div class="widget-title">Obras</div>
+                    <div class="widget-subtitle">Não Associados</div>
+                </div>      
                 <div class="widget-controls">                                
-                    <a href="#" class="widget-control-right widget-remove" data-toggle="tooltip" data-placement="left" title="Remove Widget"><span class="fa fa-times"></span></a>
-                </div>                            
-                <div class="widget-buttons widget-c3">
-                    <div class="col">
-                        <a href="#"><span class="fa fa-clock-o"></span></a>
-                    </div>
-                    <div class="col">
-                        <a href="#"><span class="fa fa-bell"></span></a>
-                    </div>
-                    <div class="col">
-                        <a href="#"><span class="fa fa-calendar"></span></a>
-                    </div>
-                </div>                            
-            </div>                        
-            <!-- END WIDGET CLOCK -->
+                    <a href="#" class="widget-control-right widget-remove" data-toggle="tooltip" data-placement="top" title="Remove Widget"><span class="fa fa-times"></span></a>
+                </div>
+            </div>                            
+            <!-- END WIDGET MESSAGES -->
             
         </div>
     </div>
@@ -204,4 +191,49 @@
 </div>
 <!-- END PAGE CONTENT WRAPPER -->                                
 
-[#INSERIR_FOOTER#]
+include "../Partial/footer.html"
+<script type="text/javascript">
+var dashboard = {
+    
+    GetRegisteredUsers: function() {
+        ciceroneVirtual.User.Todos( function(data) {
+            $(".registeredUsers").text(data.length);
+        }, function(error) {
+            $(".registeredUsers").text("-1");
+        })
+    },
+    
+    GetObras: function() {
+        ciceroneVirtual.Obras.ObrasNaoAssociadas( function(data) {
+            $(".obrasPendentes").text(data.length);
+        }, function(error) {
+            $(".obrasPendentes").text("-1");
+        })
+    },
+    
+    GetBeacons: function() {
+        ciceroneVirtual.Beacons.BeaconsNaoAssociadas( function(data) {
+            $(".beaconsPendentes").text(data.length);
+        }, function(error) {
+            $(".beaconsPendentes").text("-1");
+        })
+    },
+    
+    GetComentarios: function() {
+        ciceroneVirtual.Comentarios.Pendentes( function(data) {
+            $(".comentariosPendentes").text(data.length);
+        }, function(error) {
+            $(".comentariosPendentes").text("-1");
+        })
+    },
+    
+}
+    $(document).ready(function(){
+        
+        dashboard.GetRegisteredUsers();
+        dashboard.GetObras();
+        dashboard.GetBeacons();
+        dashboard.GetComentarios();
+        
+    })
+</script>

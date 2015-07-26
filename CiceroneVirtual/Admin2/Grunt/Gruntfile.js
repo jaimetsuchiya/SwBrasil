@@ -8,10 +8,29 @@ module.exports = function(grunt) {
     
     pkg: grunt.file.readJSON('package.json'),
     clean: ["Debug/*", "Release/*"],
+    copy: {
+        template: {
+            files: [
+              // includes files within path
+              {expand: true, cwd: '../Source/Template/assets', src: ['**'], dest: '../Debug/assets'},
+              {expand: true, cwd: '../Source/Template/css', src: ['**'], dest: '../Debug/css'},
+              {expand: true, cwd: '../Source/Template/img', src: ['**'], dest: '../Debug/img'},
+              {expand: true, cwd: '../Source/Template/js', src: ['**'], dest: '../Debug/js'},
+              {expand: true, cwd: '../Source/Template/JS-SDK-0.8.4', src: ['**'], dest: '../Debug/JS-SDK-0.8.4'},
+              {expand: true, cwd: '../Source/Pages', src: ['Login.html'], dest: '../Debug', filter: 'isFile'},
+            ],
+        },
+    },
     includes: {
         files:{
-            src:['../Source/App/www/index.html'],
-            dest: 'lib',
+            src:['../Source/Pages/main.html', 
+                 '../Source/Pages/beacons_list.html',
+                 '../Source/Pages/beacons_detail.html',
+                 '../Source/Pages/obras_list.html',
+                 '../Source/Pages/obras_detail.html',
+                 '../Source/Pages/comentarios_list.html',
+                ],
+            dest: '../Debug',
             flatten: true,
         }
     },
@@ -34,12 +53,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-replace');
 
   // Default task.
-  grunt.registerTask('default', ['clean', 'replace:source', 'copy:source', 'mkdir:lib', 'mkdir:dist', 'includes', 'concat:app', 'concat:utils', 'copy:dist', 'jshint:core', 'uglify', 'htmlhint:lib', 'htmlmin:dist', 'cssmin:dist']);
+  grunt.registerTask('default', ['clean', 'copy:template', 'includes']);
 
-  grunt.registerTask('teste', ['clean', 'replace:source']);
-            
-  grunt.registerTask('default2', ['clean', 'copy:source', 'mkdir:lib', 'mkdir:dist', 'includes', 'concat:app', 'concat:utils', 'copy:dist', 'jshint:core', 'htmlhint:lib', 'cssmin:dist']);
-    
-  grunt.registerTask('phonegap:create', ['mkdir:deploy', 'exec:createProject', 'copy:deploy', 'copy:config', 'exec:addDependencies', 'copy:splash']);
-  grunt.registerTask('phonegap:update', ['copy:deploy', 'copy:update']);
 };
