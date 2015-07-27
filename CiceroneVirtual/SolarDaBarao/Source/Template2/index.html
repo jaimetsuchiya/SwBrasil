@@ -7,42 +7,116 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no
 		initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
 
-	<title>iBeacon Scan</title>
+	<title>Cicerone Virtual</title>
 
-	<style>
-		@import 'ui/css/evothings-app.css';
-	</style>
+    <!-- Page styles -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.css">
+    <link rel="stylesheet" href="ui/css/styles.css">
+    <style>
+        .mdl-layout__header-row {
+            background-color:#000;
+        }
+        .android-footer {
+            background-color:#000;
+        }
+    </style>
+
+    <script src="libs/jquery/jquery.js"></script>
+    <script src="libs/jquery/jqueryui.js"></script>
 
 	<script>
 	// Redirect console.log to Evothings Workbench.
 	if (window.hyper && window.hyper.log) { console.log = hyper.log }
 	</script>
-
-	<script src="cordova.js"></script>
-	<script src="libs/jquery/jquery.js"></script>
-	<script src="libs/evothings/evothings.js"></script>
-	<script src="app.js"></script>
-
+    
 </head>
 
 <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 
-	<header>
-		<button class="back" onclick="history.back()">
-			<img src="ui/images/arrow-left.svg" />
-		</button>
+      <div class="android-header mdl-layout__header mdl-layout__header--waterfall">
+        <div class="mdl-layout__header-row">
+          <span class="android-title mdl-layout-title">
+              <a href="index.html"><img class="android-logo-image" src="images/android-logo2.png"></a>
+          </span>
+          <div class="android-navigation-container">
+            <nav class="android-navigation mdl-navigation">
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="#sobreomuseu">Sobre o Museu</a>
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="#comofunciona">Como Funciona</a>
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="contato.html#content">Contato</a>
+            </nav>
+          </div>
+<span class="android-mobile-title mdl-layout-title">
+            <img class="android-logo-image" src="images/android-logo2.png">
+          </span>
+        </div>
+      </div>
 
-		<img class="logotype" src="ui/images/logo.svg" alt="Evothings" />
+      <div class="android-drawer mdl-layout__drawer">
+        <span class="mdl-layout-title">
+          <img class="android-logo-image" src="images/android-logo-white2.png">
+        </span>
+        <nav class="mdl-navigation">
+            
+          <a class="mdl-navigation__link" href="index.html">Início</a>
+            <a class="mdl-navigation__link" href="#obras">Obras</a>
+          <a class="mdl-navigation__link" href="#sobreomuseu">Sobre o Museu</a>
+          <a class="mdl-navigation__link" href="#comofunciona">Como Funciona</a>
+          <a class="mdl-navigation__link" href="contato.html#content">Contato</a>
+        </nav>
+      </div>
 
-		<!--<button class="menu" onclick=""><img src="ui/images/menu.svg" /></button>-->
-	</header>
+      <div class="android-content mdl-layout__content">
+        <a name="top"></a>
+        <div class="android-be-together-section mdl-typography--text-center">
+          <div class="android-font android-slogan">Museu Histórico e Cultural de Jundiaí</div>
+          <div class="android-font android-sub-slogan">"Solar do Barão".</div>
+          <div class="android-font android-create-character">
+            Seu espaço cultural em Jundiaí
+          </div>
 
-	<h1>iBeacon Scan</h1>
-	<p id="warning">To detect iBeacons you will have to add the 128bit UUID's you
-	are looking for to the regions array in app.js of the iBeacon example.
-	</p>
-	<ul id="found-beacons" class="dynamic"></ul>
+          <a href="#obras">
+            <button class="android-fab mdl-button mdl-button--colored mdl-js-button mdl-button--fab mdl-js-ripple-effect">
+              <i class="material-icons">expand_more</i>
+            </button>
+          </a>
+        </div>
+        <div class="android-more-section" id="obras">
+            <div class="android-section-title mdl-typography--display-1-color-contrast">Obras Próximas a você</div>
+            <div class="android-card-container mdl-grid">
+                <ul id="found-beacons" class="dynamic"></ul>
+            </div>
+        </div>
+          <div class="android-more-section" id="sobreomuseu">
+            <div class="android-section-title mdl-typography--display-1-color-contrast">Museu Histórico e Cultural de Jundiaí</div>
+                    <div class="mdl-typography--font-light mdl-typography--subhead" style="text-align:justify;">O Museu Histórico e Cultural de Jundiaí foi criado pela Lei nº 406, de 10 de junho de 1955, porém só foi inaugurado em 28 de março de 1965. O seu fundador, organizador e primeiro orientador foi o Padre Antônio Tolloi Maria Stafuzza. 
+                    Nas diversas salas do casarão, que foi residência do Barão de Jundiaí e, por isso, também conhecido como “Solar do Barão”, o visitante poderá apreciar uma exposição de longa duração que retrata a história da casa e do Barão de Jundiaí, bem como, sobre a Fratelanza Italiana, com acervo doado pela Sociedade Jundiaiense de Socorros Mútuos – Casa de Saúde Dr. Domingos Anastasio e do Coronel Siqueira Moraes, doado pela família, além de grandes e importantes exposições ao longo do ano. 
+                    O Museu possui um auditório com capacidade para 80 pessoas, denominado Sala Profº Jahyr Accioly de Souza, dotado de um piano de cauda, utilizado para audições, palestras, reuniões e projeções de filmes e documentários. Além disso, dispõe de um belo jardim totalmente arborizado, utilizado pelos visitantes para descanso, leitura e lazer.
+    </span>
+                </div>
+          </div>
+        <div class="android-more-section" id="comofunciona">
+            <div class="android-section-title mdl-typography--display-1-color-contrast">Como Funciona</div>
+            <iframe src="https://www.youtube.com/embed/-eS5hH-L9rs" width="560" height="315" frameborder="0"></iframe>
 
+        </div>
+        <footer class="android-footer mdl-mega-footer">
+          <div class="mdl-mega-footer--middle-section">
+            <p class="mdl-typography--font-light">Desenvolvido por SwBrasil</p>
+            <!--p class="mdl-typography--font-light">Some features and devices may not be available in all areas</p-->
+          </div>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>
+            
+    <script src="cordova.js"></script>
+	<script src="libs/evothings/evothings.js"></script>
+	<script src="app.js"></script>
+    <script src="libs/material.min.js"></script>
 </body>
 
 </html>

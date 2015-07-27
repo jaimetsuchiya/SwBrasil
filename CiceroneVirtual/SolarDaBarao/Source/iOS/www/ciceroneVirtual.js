@@ -1,5 +1,8 @@
 var ciceroneVirtual = {
     
+    url: "http://54.233.65.245:9000",
+    app: "1234567890",
+    
 	Init: function () {
 		BaasBox.setEndPoint("http://54.233.65.245:9000");
 		BaasBox.appcode = "1234567890";
@@ -304,19 +307,21 @@ var ciceroneVirtual = {
         
         Todos: function( successCallBack, failCallBack ) {
             
-            BaasBox.loadCollection("Items")
-			  .done(function(res) {
-			  	console.log("Obras.Todos->res ", JSON.stringify(res));
-                
-                if( successCallBack != null )
-                    successCallBack(res);
-			  })
-			  .fail(function(error) {
-			  	console.log("Obras.Todos->error ", error);
-                
-                if( failCallBack != null )
-                    failCallBack(error);
-			  })
+            $.ajax({
+
+                url: (ciceroneVirtual.url + '/document/Beacons?page=0&recordsPerPage=50'),
+                type: "GET",
+                datatype: "json",
+                contentType: "application/json; charset=utf-8",
+                crossDomain: true,
+                async: true,
+                success: function (retorno) {
+                    successCallBack(retorno);
+                },
+                error: function (retorno, ajaxOptions, thrownError) {
+                    failCallBack(retorno);
+                },
+            });
         },
         
         ObrasNaoAssociadas: function( successCallBack, failCallBack) {
