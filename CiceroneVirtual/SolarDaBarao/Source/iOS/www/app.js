@@ -3,22 +3,9 @@ var app = (function()
 	// Application object.
 	var app = {};
     var sessionUID = null;
-	// Specify your beacon 128bit UUIDs here.
+	
+    // Specify your beacon 128bit UUIDs here.
 	var regions = [];
-    /*
-	[
-		// Estimote Beacon factory UUID.
-		{uuid:'07775DD0-111B-11E4-9191-0800200C9A66'},
-        
-		// Sample UUIDs for beacons in our lab.
-		{uuid:'F7826DA6-4FA2-4E98-8024-BC5B71E0893E'},
-		{uuid:'8DEEFBB9-F738-4297-8040-96668BB44281'},
-		{uuid:'A0B13730-3A9A-11E3-AA6E-0800200C9A66'},
-		{uuid:'E20A39F4-73F5-4BC4-A12F-17D1AD07A961'},
-		{uuid:'A4950001-C5B1-4B44-B512-1370F02D74DE'}
-	];
-    */
-
     
 	// Dictionary of beacons.
 	var beacons = {};
@@ -32,7 +19,6 @@ var app = (function()
 		document.addEventListener('deviceready', onDeviceReady, false);
         BaasBox.setEndPoint("http://54.233.69.169:9000");
 		BaasBox.appcode = "1234567890";
-        //onDeviceReady();
 	};
 
     function getItem(key)
@@ -50,30 +36,6 @@ var app = (function()
 			  .fail(function(error) {
 			  	console.log("Obras.Item.Erro ", error);
 			  })	
-            /*
-            var where = "Beacon.UID%3D%27{0}%27+and+Beacon.Major%3D%27{1}%27+and+Beacon.Minor%3D%27{2}%27".replace("{0}", keyData[0]).replace("{1}", keyData[1]).replace("{2}", keyData[2]);
-            $.ajax({
-                url: ('http://54.233.65.245:9000/document/Items?where=' + where),
-                type: "GET",
-                //datatype: "json",
-                //contentType: "application/json; charset=utf-8",
-                crossDomain: true,
-                async: true,
-                headers: {
-                    'X-BAASBOX-APPCODE': '1234567890',
-                    'X-BB-SESSION': sessionUID
-                },
-                success: function (retorno) {
-
-                    if( retorno.result == "ok" )
-                        obras[key] = retorno;
-
-                },
-                error: function (retorno, ajaxOptions, thrownError) {
-                    console.log('Obras.Item.Erro', retorno);
-                },
-            });
-            */
         }
     }
     
@@ -119,56 +81,7 @@ var app = (function()
             .fail(function (err) {
                 console.log("User.Login.Fail:", err);
             })
-/*
-            $.ajax({
-                url: 'http://54.233.65.245:9000/login',
-                type: 'POST',
-                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                crossDomain: true,
-                data: 'username=jaimert%40msn.com&password=jj321456&appcode=1234567890',
-                headers: {
-                    'X-BAASBOX-APPCODE': '1234567890',
-                    'Accept-Language': 'en-US,en;q=0.8,pt;q=0.6',
-                },
-                success: function (retorno) {
 
-                    console.log('Sucesso!');
-                    console.log(retorno);
-                    
-                    sessionUID = retorno.data["X-BB-SESSION"];
-                    
-                    console.log('Session: ' + sessionUID);
-
-                    $.ajax({
-                        url: ('http://54.233.65.245:9000/document/Beacons?page=0&recordsPerPage=50'),
-                        type: "GET",
-                        datatype: "json",
-                        contentType: "application/json; charset=utf-8",
-                        crossDomain: true,
-                        async: true,
-                        headers: {
-                            'X-BAASBOX-APPCODE': '1234567890',
-                            'X-BB-SESSION': sessionUID
-                        },
-                        success: function (retorno) {
-                            
-                            
-
-                        },
-                        error: function (retorno, ajaxOptions, thrownError) {
-                            alert('Obras.Todos.Erro');
-                        },
-                    });
-                },
-                error: function (retorno, ajaxOptions, thrownError) {
-                    console.log('Login.Erro');
-                    console.log(retorno);
-                    console.log(ajaxOptions);
-                    console.log(thrownError);
-                    
-                },
-            });
-*/
 		// Display refresh timer.
 		updateTimer = setInterval(displayBeaconList, 500);
 	}
@@ -273,8 +186,8 @@ var app = (function()
     
 	function displayBeaconList()
 	{
-		// Clear beacon list.
-		$('#found-beacons').empty();
+        // Clear beacon list.
+        $('#found-beacons').empty();
 
 		var timeNow = Date.now();
         
@@ -284,7 +197,7 @@ var app = (function()
 		$.each(beacons, function(key, beacon)
 		{
 			// Only show beacons that are updated during the last 60 seconds.
-			if (beacon.timeStamp + 90000 > timeNow)
+			if (beacon.timeStamp + 60000 > timeNow)
 			{
                 $('#warning').remove();
                 
@@ -337,6 +250,9 @@ var app = (function()
                 } catch(e) {
                     console.log('Erro no Display da Obras', e);
                 }
+                
+                //$('#warning').remove();
+                /*
                 element = $(
 					'<li>'
 					+	'<strong>UUID: ' + beacon.uuid + '</strong><br />'
@@ -349,8 +265,9 @@ var app = (function()
 					+ '</li>'
 				);
                 
-				//$('#warning').remove();
-                //$('#found-beacons').append(element);
+                $('#found-beacons').append(element);
+                */
+				
 			}
 		});
 	}
