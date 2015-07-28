@@ -30,7 +30,7 @@ var app = (function()
 	app.initialize = function()
 	{
 		document.addEventListener('deviceready', onDeviceReady, false);
-        BaasBox.setEndPoint("http://54.233.65.245:9000");
+        BaasBox.setEndPoint("http://54.233.69.169:9000");
 		BaasBox.appcode = "1234567890";
         //onDeviceReady();
 	};

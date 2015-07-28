@@ -30,7 +30,7 @@ var app = (function()
 	app.initialize = function()
 	{
 		document.addEventListener('deviceready', onDeviceReady, false);
-        BaasBox.setEndPoint("http://54.233.65.245:9000");
+        BaasBox.setEndPoint("http://54.233.69.169:9000");
 		BaasBox.appcode = "1234567890";
         //onDeviceReady();
 	};
@@ -243,6 +243,32 @@ var app = (function()
             console.log(e);
         }
 	}
+    
+    
+    function sortObjectByKey(obj) {
+        var keys = [];
+        var sorted_obj = {};
+
+        for(var key in obj){
+            if(obj.hasOwnProperty(key)){
+                keys.push( obj.rssi + "$" + key );
+            }
+        }
+
+        // sort keys
+        keys.sort();
+
+        // create new array based on Sorted Keys
+        jQuery.each(keys, function(i, key){
+            
+            var arr  = key.split('$');
+            var nKey = arr[1]; 
+            sorted_obj[nKey] = obj[nKey];
+            
+        });
+
+        return sorted_obj;
+    }
 
     
 	function displayBeaconList()
@@ -254,10 +280,11 @@ var app = (function()
         
 		// Update beacon list.
         //beacons = sortOnKeys(beacons);
+        //beacons = sortObjectByKey(beacons);
 		$.each(beacons, function(key, beacon)
 		{
 			// Only show beacons that are updated during the last 60 seconds.
-			if (beacon.timeStamp + 60000 > timeNow)
+			if (beacon.timeStamp + 90000 > timeNow)
 			{
                 $('#warning').remove();
                 
@@ -267,8 +294,6 @@ var app = (function()
 				else if (beacon.rssi < 0) { rssiWidth = 100 + beacon.rssi; }
                 var element = null;
                 var listaObras = obras[key];
-
-                
                 console.log('obras para a chave[' + key + ']:', listaObras);
                 
                 try
@@ -277,33 +302,36 @@ var app = (function()
                     {
                         for( var x=0; x < listaObras.length; x++ )
                         {
-                            var obra = listaObras[x];
-                            element = $(
-                                  '<div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">'
-                                + '<div class="mdl-card__media">'
-                                + '<img src="' + obra.Card.Image + '">'
-                                + '</div>'
-                                + '<div class="mdl-card__title">'
-                                + '<h4 class="mdl-card__title-text">' + obra.Title + '</h4>'
-                                + '</div>'
-                                + '<div class="mdl-card__supporting-text">'
-                                + '<span class="mdl-typography--font-light mdl-typography--subhead">'
-                                +  obra.Card.Description
-                                + '</span>'
-                                + '</div>'
-                                + '<div class="mdl-card__actions">'
-                                + '<a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="" data-upgraded=",MaterialButton">'
-                                + 'Saiba Mais'
-                                + '<i class="material-icons">chevron_right</i>'
-                                + '</a>'
-                                + '</div>'
-                                + '<div class="mdl-card__actions">'
-					            + 'Proximity: ' + beacon.proximity + '<br />'
-                                + '<div style="background:rgb(255,128,64);height:20px;width:' + rssiWidth + '%;"></div>'
-                                + '</div>'
-                                + '</div>')
+                            //if( beacon.proximity != "ProximityUnknown")
+                            {
+                                var obra = listaObras[x];
+                                element = $(
+                                      '<div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">'
+                                    + '<div class="mdl-card__media">'
+                                    + '<img src="' + obra.Card.Image + '">'
+                                    + '</div>'
+                                    + '<div class="mdl-card__title">'
+                                    + '<h4 class="mdl-card__title-text">' + obra.Title + '</h4>'
+                                    + '</div>'
+                                    + '<div class="mdl-card__supporting-text">'
+                                    + '<span class="mdl-typography--font-light mdl-typography--subhead">'
+                                    +  obra.Card.Description
+                                    + '</span>'
+                                    + '</div>'
+                                    + '<div class="mdl-card__actions">'
+                                    + '<a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="" data-upgraded=",MaterialButton">'
+                                    + 'Saiba Mais'
+                                    + '<i class="material-icons">chevron_right</i>'
+                                    + '</a>'
+                                    + '</div>'
+                                    + '<div class="mdl-card__actions">'
+                                    + 'Proximity: ' + beacon.proximity + '<br />'
+                                    + '<div style="background:rgb(255,128,64);height:20px;width:' + rssiWidth + '%;"></div>'
+                                    + '</div>'
+                                    + '</div>')
 
-                            $('#found-beacons').append(element);
+                                $('#found-beacons').append(element);
+                            }
                         }
                     }
                 } catch(e) {

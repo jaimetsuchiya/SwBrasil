@@ -433,7 +433,12 @@ var page = {
     
     AssociateBeacon: function() {
         
-        var beacon = $("#optBeacon").val();
+        var objBeacon = $("input[type='radio'][name='optBeacon']:checked");
+        var beacon = null;
+        if( objBeacon.length > 0 )
+            beacon = objBeacon.val();
+        
+        alert(beacon);
         if( beacon == null || beacon == "") {
             $("#modalErrorMsg").text("Favor selecionar o Beacon antes de continuar!");
             $("#msgModalWarning").show();
