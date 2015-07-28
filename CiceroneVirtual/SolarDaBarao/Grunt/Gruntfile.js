@@ -7,28 +7,23 @@ module.exports = function(grunt) {
     // Metadata.
     
     pkg: grunt.file.readJSON('package.json'),
-    clean: ["Debug/*", "Release/*"],
+    clean: ["Deploy/Debug/*", "Deploy/Release/*"],
     copy: {
         template: {
             files: [
               // includes files within path
-              {expand: true, cwd: '../../Comum/js', src: ['ciceroneVirtual.js'], dest: '../Source/Template/js', filter: 'isFile'},
-              {expand: true, cwd: '../../Comum/js', src: ['ciceroneVirtual.js'], dest: '../Debug/www/js', filter: 'isFile'},
-              {expand: true, cwd: '../Source/Template/fonts', src: ['**'], dest: '../Debug/www/fonts'},
-              {expand: true, cwd: '../Source/Template/images', src: ['**'], dest: '../Debug/www/images'},
-              {expand: true, cwd: '../Source/Template/libs', src: ['**'], dest: '../Debug/www/libs'},
-              {expand: true, cwd: '../Source/Template/plugins', src: ['**'], dest: '../Debug/www/plugins'},
-              {expand: true, cwd: '../Source/Template/ui', src: ['**'], dest: '../Debug/www/ui'},
-              {expand: true, cwd: '../Source/Template/js', src: ['**'], dest: '../Debug/www/js'},
-              {expand: true, cwd: '../Source/Template/JS-SDK-0.8.4', src: ['**'], dest: '../Debug/www/JS-SDK-0.8.4'},
-              {expand: true, cwd: '../Source/Template', src: ['index.html'], dest: '../Debug/www', filter: 'isFile'},
+              {expand: true, cwd: '../Source/Template2/images', src: ['**'], dest: 'Deploy/Debug/www/images'},
+              {expand: true, cwd: '../Source/Template2/libs', src: ['**'], dest: 'Deploy/Debug/www/libs'},
+              {expand: true, cwd: '../Source/Template2/ui', src: ['**'], dest: 'Deploy/Debug/www/ui'},
+              {expand: true, cwd: '../Source/Template2', src: ['index.html'], dest: 'Deploy/Debug/www', filter: 'isFile'},
+              {expand: true, cwd: '../Source/Template2', src: ['app.js'], dest: 'Deploy/Debug/www', filter: 'isFile'},
             ],
         },
         iosDebug: {
             files: [
               // includes files within path
-              {expand: true, cwd: '../Source/iOS', src: ['**'], dest: '../Debug/iOS'},
-              {expand: true, cwd: '../Debug/www', src: ['**'], dest: '../Debug/iOS/www'},
+              {expand: true, cwd: '../Source/iOS', src: ['**'], dest: 'Deploy/Debug/iOS'},
+              {expand: true, cwd: 'Deploy/Debug/www', src: ['**'], dest: 'Deploy/Debug/iOS/www'},
             ],
         },
     },

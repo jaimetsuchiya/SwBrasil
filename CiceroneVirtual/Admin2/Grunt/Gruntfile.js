@@ -7,18 +7,18 @@ module.exports = function(grunt) {
     // Metadata.
     
     pkg: grunt.file.readJSON('package.json'),
-    clean: ["Debug/*", "Release/*"],
+    clean: ["../Deploy/Debug/*", "../Deploy/Release/*"],
     copy: {
         template: {
             files: [
               // includes files within path
               {expand: true, cwd: '../../../Comum/js', src: ['ciceroneVirtual.js'], dest: '../Source/Template/js', filter: 'isFile'},
-              {expand: true, cwd: '../Source/Template/assets', src: ['**'], dest: '../Debug/assets'},
-              {expand: true, cwd: '../Source/Template/css', src: ['**'], dest: '../Debug/css'},
-              {expand: true, cwd: '../Source/Template/img', src: ['**'], dest: '../Debug/img'},
-              {expand: true, cwd: '../Source/Template/js', src: ['**'], dest: '../Debug/js'},
-              {expand: true, cwd: '../Source/Template/JS-SDK-0.8.4', src: ['**'], dest: '../Debug/JS-SDK-0.8.4'},
-              {expand: true, cwd: '../Source/Pages', src: ['Login.html'], dest: '../Debug', filter: 'isFile'},
+              {expand: true, cwd: '../Source/Template/assets', src: ['**'], dest: '../Deploy/Debug/assets'},
+              {expand: true, cwd: '../Source/Template/css', src: ['**'], dest: '../Deploy/Debug/css'},
+              {expand: true, cwd: '../Source/Template/img', src: ['**'], dest: '../Deploy/Debug/img'},
+              {expand: true, cwd: '../Source/Template/js', src: ['**'], dest: '../Deploy/Debug/js'},
+              {expand: true, cwd: '../Source/Template/JS-SDK-0.8.4', src: ['**'], dest: '../Deploy/Debug/JS-SDK-0.8.4'},
+              {expand: true, cwd: '../Source/Pages', src: ['Login.html'], dest: '../Deploy/Debug', filter: 'isFile'},
             ],
         },
     },

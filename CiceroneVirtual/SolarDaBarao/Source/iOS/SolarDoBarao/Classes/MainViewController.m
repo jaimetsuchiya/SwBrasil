@@ -74,7 +74,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //[UIView setAnimationsEnabled:NO];
+    [UIView setAnimationsEnabled:NO];
     // Do any additional setup after loading the view from its nib.
 }
 
