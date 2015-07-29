@@ -84,9 +84,6 @@
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>bluetooth-central</string>
-		<string>bluetooth-peripheral</string>
-		<string>bluetooth-central</string>
-		<string>bluetooth-peripheral</string>
 	</array>
 	<key>UIStatusBarHidden</key>
 	<true/>

@@ -13,16 +13,37 @@ var app = (function()
     
 	// Timer that displays list of beacons.
 	var updateTimer = null;
-
-	app.initialize = function()
-	{
+    var hasBeaconTimer = null;
+    
+	app.initialize = function() {
 		document.addEventListener('deviceready', onDeviceReady, false);
         BaasBox.setEndPoint("http://54.233.69.169:9000");
 		BaasBox.appcode = "1234567890";
 	};
 
-    function getItem(key)
-    {
+    function getComments() {
+        BaasBox.loadCollectionWithParams("Comentarios", {where: "Approved = true"})
+          .done(function(res) {
+            console.log("res ", res);
+
+            if( res.length > 0 ) {
+                
+                $("#nenhumComentario").remove();
+                for( var i=0; i < res.length; i++ ) {
+                    
+                }
+            }
+          })
+          .fail(function(error) {
+            console.log("error ", error);
+          })	
+    }
+
+    function addComment(email, name, stars, comment) {
+        
+    }
+    
+    function getItem(key) {
         var keyData = key.split(':');
         if( obras[key] == undefined )
         {
@@ -39,8 +60,25 @@ var app = (function()
         }
     }
     
-	function onDeviceReady()
-	{
+    function loadAll() {
+        
+        $('#found-beacons').empty();
+        BaasBox.loadCollection("Beacons")
+            .done(function(res) {
+                console.log("Obras.Todos.Done ", res);
+
+                for( var i=0; i < res.length; i++ ) {
+                    var card = criarCard(res[i]);
+                    $('#found-beacons').append(card);
+                }
+
+              })
+              .fail(function(error) {
+                console.log("Obras.Totos.Error ", error);
+              })
+    }
+    
+	function onDeviceReady() {
 		// Specify a shortcut for the location manager holding the iBeacon functions.
         window.locationManager = cordova.plugins.locationManager;
         console.log('locationManager:', window.locationManager);
@@ -84,10 +122,26 @@ var app = (function()
 
 		// Display refresh timer.
 		updateTimer = setInterval(displayBeaconList, 500);
+        hasBeaconTimer = setTimeout( function() {checkHasBeacons();}, 2000)
 	}
 
-	function startScan()
-	{
+    function checkHasBeacons() {
+        if( beacons.length == 0) {
+            if( regions.length == 0 ) {
+                
+                $("#warning").text("Não foi possível encontrar o Servidor do Cicerone Virtual, por favor verifique sua conexão com a Internet!");
+                
+            } else {
+                
+                $("#warning").html("Não foi possível encontrar nenhum item do acervo nas proximidades. Clique <a href='#' onclick='app.loadAll();'>aqui</a> para carregar nssos itens cadastrados?");
+                
+            }
+        } 
+            
+        
+    }
+    
+	function startScan() {
         try
         {
             // The delegate object holds the iBeacon callback functions
@@ -157,7 +211,6 @@ var app = (function()
         }
 	}
     
-    
     function sortObjectByKey(obj) {
         var keys = [];
         var sorted_obj = {};
@@ -183,9 +236,38 @@ var app = (function()
         return sorted_obj;
     }
 
+    function criarCard(obra) {
+        
+        var element = $(
+                      '<div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">'
+                    + '<div class="mdl-card__media">'
+                    + '<img src="' + obra.Card.Image + '">'
+                    + '</div>'
+                    + '<div class="mdl-card__title">'
+                    + '<h4 class="mdl-card__title-text">' + obra.Title + '</h4>'
+                    + '</div>'
+                    + '<div class="mdl-card__supporting-text">'
+                    + '<span class="mdl-typography--font-light mdl-typography--subhead">'
+                    +  obra.Card.Description
+                    + '</span>'
+                    + '</div>'
+                    + '<div class="mdl-card__actions">'
+                    + '<a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="" data-upgraded=",MaterialButton">'
+                    + 'Saiba Mais'
+                    + '<i class="material-icons">chevron_right</i>'
+                    + '</a>'
+                    + '</div>'
+                    //+ '<div class="mdl-card__actions">'
+                    //+ 'Proximity: ' + beacon.proximity + '<br />'
+                    //+ '<div style="background:rgb(255,128,64);height:20px;width:' + rssiWidth + '%;"></div>'
+                    //+ '</div>'
+                    + '</div>');
+        
+        return element;
+
+    }
     
-	function displayBeaconList()
-	{
+	function displayBeaconList() {
         // Clear beacon list.
         $('#found-beacons').empty();
 
@@ -215,34 +297,10 @@ var app = (function()
                     {
                         for( var x=0; x < listaObras.length; x++ )
                         {
-                            //if( beacon.proximity != "ProximityUnknown")
+                            if( beacon.proximity == "ProximityNear")
                             {
                                 var obra = listaObras[x];
-                                element = $(
-                                      '<div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">'
-                                    + '<div class="mdl-card__media">'
-                                    + '<img src="' + obra.Card.Image + '">'
-                                    + '</div>'
-                                    + '<div class="mdl-card__title">'
-                                    + '<h4 class="mdl-card__title-text">' + obra.Title + '</h4>'
-                                    + '</div>'
-                                    + '<div class="mdl-card__supporting-text">'
-                                    + '<span class="mdl-typography--font-light mdl-typography--subhead">'
-                                    +  obra.Card.Description
-                                    + '</span>'
-                                    + '</div>'
-                                    + '<div class="mdl-card__actions">'
-                                    + '<a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="" data-upgraded=",MaterialButton">'
-                                    + 'Saiba Mais'
-                                    + '<i class="material-icons">chevron_right</i>'
-                                    + '</a>'
-                                    + '</div>'
-                                    + '<div class="mdl-card__actions">'
-                                    + 'Proximity: ' + beacon.proximity + '<br />'
-                                    + '<div style="background:rgb(255,128,64);height:20px;width:' + rssiWidth + '%;"></div>'
-                                    + '</div>'
-                                    + '</div>')
-
+                                criarCard(obra);
                                 $('#found-beacons').append(element);
                             }
                         }
@@ -273,6 +331,7 @@ var app = (function()
 	}
 
 	return app;
+    
 })();
 
 app.initialize();

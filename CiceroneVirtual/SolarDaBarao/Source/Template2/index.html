@@ -12,7 +12,7 @@
     <!-- Page styles -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.css">
+    <link rel="stylesheet" href="ui/css/material.css">
     <link rel="stylesheet" href="ui/css/styles.css">
     <link rel="stylesheet" href="css/pure-drawer.css"/>
     <style>
@@ -22,6 +22,7 @@
         .android-footer {
             background-color:#000;
         }
+        
     </style>
 
     <script src="libs/jquery/jquery.js"></script>
@@ -35,49 +36,52 @@
 </head>
 
 <body>
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header pure-container" data-effect="pure-effect-push">
+    <div class="pure-container  mdl-layout mdl-js-layout mdl-layout--fixed-header" data-effect="pure-effect-push">
         <input type="checkbox" id="pure-toggle-left" class="pure-toggle" data-toggle="left"/>
         <label class="pure-toggle-label" for="pure-toggle-left" data-toggle-label="left"><span class="pure-toggle-icon"></span></label>
 
-        <nav class="pure-drawer" data-position="left" style="background-color:#77c159;">
+        <nav class="pure-drawer mdl-layout__drawer" data-position="left" style="background-color:#77c159;">
             <div style="padding-top:100px; padding-left:20px; padding-right:20px; padding-bottom:20px; margin: 0;">
                 <span class="mdl-layout-title">
                     <img class="android-logo-image" src="images/android-logo-white2.png">
                 </span>
             </div>
-            <div style="background-color:#FFF; width:100%; height:100%; padding:20px;">
-                <p><a class="mdl-navigation__link" href="#top">Início</a></p>
-                <p><a class="mdl-navigation__link" href="#obras">Obras</a></p>
-                <p><a class="mdl-navigation__link" href="#sobreomuseu">Sobre o Museu</a></p>
-                <p><a class="mdl-navigation__link" href="#comofunciona">Como Funciona</a></p>
-                <p onmouseover="background-color:#EFEFEF;" onmouseout="background-color:#FFF;"><a class="mdl-navigation__link" href="#comentarios">Opiniões</a></p>
+            <nav class="mdl-navigation" style="background-color:#FFF; width:100%; height:100%; padding:20px;">
+                <a class="mdl-navigation__link" href="#top">Início</a>
+                <a class="mdl-navigation__link" href="#sobreomuseu">Sobre o Museu</a>
+                <a class="mdl-navigation__link" href="#comofunciona">Como Funciona</a>
+                <a class="mdl-navigation__link" href="#obras">Acervo</a>
+                <a class="mdl-navigation__link" href="#comentarios" >Comentários</a>
+            </nav>
+        </nav> 
+        
+        <div class="android-header mdl-layout__header mdl-layout__header--waterfall">
+            <div class="mdl-layout__header-row">
+                <!--span class="android-title mdl-layout-title">
+                    <a href="index.html"><img class="android-logo-image" src="images/android-logo2.png"></a>
+                </span-->
+                <div class="android-navigation-container" style="padding-left:70px;">
+                    <nav class="android-navigation mdl-navigation">
+                        <a class="mdl-navigation__link mdl-typography--text-uppercase" href="#sobreomuseu">Sobre o Museu</a>
+                        <a class="mdl-navigation__link mdl-typography--text-uppercase" href="#comofunciona">Como Funciona</a>
+                        <a class="mdl-navigation__link mdl-typography--text-uppercase" href="#obras">Acervo</a>
+                        <a class="mdl-navigation__link mdl-typography--text-uppercase" href="#comentarios">Comentários</a>
+                    </nav>
+                </div>
+                <span class="android-mobile-title mdl-layout-title">
+                    <img class="android-logo-image" src="images/android-logo2.png">
+                </span>
             </div>
-        </nav>   
+        </div>
+
 
         <div class="pure-pusher-container">
+            
+            
             <div class="pure-pusher">
-                <!--p style="width: 300px; height: 1800px; margin: 100px auto;"-->
-                    <div class="android-header mdl-layout__header mdl-layout__header--waterfall">
-                        <div class="mdl-layout__header-row">
-                            <span class="android-title mdl-layout-title">
-                                <a href="index.html"><img class="android-logo-image" src="images/android-logo2.png"></a>
-                            </span>
-                            <div class="android-navigation-container">
-                                <nav class="android-navigation mdl-navigation">
-                                    <a class="mdl-navigation__link mdl-typography--text-uppercase" href="#obras">Obras</a>
-                                    <a class="mdl-navigation__link mdl-typography--text-uppercase" href="#sobreomuseu">Sobre o Museu</a>
-                                    <a class="mdl-navigation__link mdl-typography--text-uppercase" href="#comofunciona">Como Funciona</a>
-                                    <a class="mdl-navigation__link mdl-typography--text-uppercase" href="#comentarios">Opiniões</a>
-                                </nav>
-                            </div>
-                            <span class="android-mobile-title mdl-layout-title">
-                                <img class="android-logo-image" src="images/android-logo2.png">
-                            </span>
-                        </div>
-                    </div>
-
-
-                    <div class="android-content mdl-layout__content">
+ 
+                <!--p -->
+                <div class="android-content mdl-layout__content" style="width: 100%;">
                         <div class="android-be-together-section mdl-typography--text-center" id="top">
                             <div class="android-font android-slogan">Museu Histórico e Cultural de Jundiaí</div>
                             <div class="android-font android-sub-slogan">"Solar do Barão".</div>
@@ -91,12 +95,6 @@
                                 </button>
                             </a>
                         </div>
-                        <div class="android-more-section" id="obras">
-                            <div class="android-section-title mdl-typography--display-1-color-contrast">Obras Próximas a você</div>
-                            <div class="android-card-container mdl-grid" id="found-beacons" >
-                                
-                            </div>
-                        </div>
                         <div class="android-more-section" id="sobreomuseu">
                             <div class="android-section-title mdl-typography--display-1-color-contrast">Museu Histórico e Cultural de Jundiaí</div>
                             <div class="mdl-typography--font-light mdl-typography--subhead" style="text-align:justify; padding-left:20px; padding-right:20px;">O Museu Histórico e Cultural de Jundiaí foi criado pela Lei nº 406, de 10 de junho de 1955, porém só foi inaugurado em 28 de março de 1965. O seu fundador, organizador e primeiro orientador foi o Padre Antônio Tolloi Maria Stafuzza. 
@@ -109,19 +107,31 @@
                             <div class="android-section-title mdl-typography--display-1-color-contrast">Como Funciona</div>
                             <iframe src="https://www.youtube.com/embed/-eS5hH-L9rs" width="560" height="315" frameborder="0"></iframe>
                         </div>
+                        <div class="android-more-section" id="obras">
+                            <div class="android-section-title mdl-typography--display-1-color-contrast">Obras Próximas a você</div>
+                            <h4 id="warning">Por favor, aguarde enquanto verifico as Obras  mais próximas a você....</h3>
+                            <div class="android-card-container mdl-grid" id="found-beacons" >
+                                
+                            </div>
+                        </div>
                         <div class="android-more-section" id="comentarios">
-                            <div class="android-section-title mdl-typography--display-1-color-contrast">Opiniões</div>
-                            <br/>
+                            <div class="android-section-title mdl-typography--display-1-color-contrast">Comentários</div>
+                            <h4 id="nenhumComentario">Por favor, aguarde enquanto verifico as Obras  mais próximas a você....</h3>
+
                         </div>
                         <footer class="android-footer mdl-mega-footer">
                             <div class="mdl-mega-footer--middle-section">
+                                <span class="android-title mdl-layout-title">
+                                    <a href="index.html"><img class="android-logo-image" src="images/android-logo2.png"></a>
+                                </span>
                                 <p class="mdl-typography--font-light">Desenvolvido por SwBrasil</p>
                                 <!--p class="mdl-typography--font-light">Some features and devices may not be available in all areas</p-->
                             </div>
                         </footer>
                     </div>
-                <!--/p-->
+
             </div>
+            
         </div>
 
         <label class="pure-overlay" for="pure-toggle-left" data-overlay="left"></label> 
