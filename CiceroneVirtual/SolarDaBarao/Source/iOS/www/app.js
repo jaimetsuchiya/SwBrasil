@@ -22,7 +22,7 @@ var app = (function()
         BaasBox.setEndPoint("http://54.233.69.169:9000");
 		BaasBox.appcode = "1234567890";
         
-//        hasBeaconTimer = setTimeout( function() {checkHasBeacons();}, 2000)
+        hasBeaconTimer = setTimeout( function() {checkHasBeacons();}, 2000)
 
 	};
 
@@ -66,7 +66,39 @@ var app = (function()
     }
     
     app.showDetails = function (id) {
-        $("#modal" + id).modal('show');
+        
+        var html = $("#modal" + id).html();
+        var title= $("#title" + id).html();
+        
+/*        BaasBox.loadObject("Items", id)
+          .done(function(res) {
+            console.log("Obras.Carregar: ", res['data']);
+
+            res['data']['Visitors'] = res['data']['Visitors'] + 1;
+            
+            BaasBox.save(res['data'], "Items")
+			  .done(function(res) {
+			  	console.log("res ", res['data']);
+  */              
+                $("#dialog").html(html);
+                $("#dialog").dialog({
+                    title: title,
+                    width: 800,
+                    height:300,
+                    modal: true,
+                    closeOnEscape: true
+                });
+/*
+			  })
+			  .fail(function(error) {
+			  	console.log("error ", error);
+			  })
+            
+          })
+          .fail(function(error) {
+            console.log("error ", error);
+          })
+*/
     }
     
     function formatId(id) {
@@ -307,7 +339,7 @@ var app = (function()
                         + '     <img src="' + obra.Card.Image + '">'
                         + ' </div>'
                         + ' <div class="mdl-card__title">'
-                        + '     <h4 class="mdl-card__title-text">' + obra.Title + '</h4>'
+                        + '     <h4 id="title' + id + '" class="mdl-card__title-text">' + obra.Title + '</h4>'
                         + ' </div>'
                         + ' <div class="mdl-card__supporting-text">'
                         + '     <span class="mdl-typography--font-light mdl-typography--subhead">'
@@ -315,7 +347,7 @@ var app = (function()
                         + '     </span>'
                         + ' </div>'
                         + ' <div class="mdl-card__actions">'
-                        + 	'<div style="background:#77c159;height:1px;width:'
+                        + 	'<div id=bar"' + id + '" style="background:#77c159;height:1px;width:'
 					    + 		rssiWidth 
                         + '%;"></div>'
                         + '     <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="javascript:app.showDetails(\'' + id +'\');" data-upgraded=",MaterialButton" >'
@@ -323,16 +355,18 @@ var app = (function()
                         + '         <i class="material-icons">chevron_right</i>'
                         + '     </a>'
                         + ' </div>'
-                        + '<div id="modal' + formatId(obra.id) + '" style="display:none;">'
-                        +   obra.ContentHTML 
+                        + ' <div id="modal' + formatId(obra.id) + '" style="display:none;">'
+                        +       obra.ContentHTML 
+                        + ' </div>'        
                         + '</div>'            
-                        + '</div>'
+                    
             );
         
             $('#found-beacons').append(element);
         } else {
             
             $("#" + id).prop('rssi', rssi);
+            $("#bar" + id).width(rssiWidth);
         }
         
         /*

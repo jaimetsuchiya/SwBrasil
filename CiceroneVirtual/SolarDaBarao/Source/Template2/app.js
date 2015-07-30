@@ -14,11 +14,16 @@ var app = (function()
 	// Timer that displays list of beacons.
 	var updateTimer = null;
     var hasBeaconTimer = null;
+    var deviceReadyHasFired = false;
     
 	app.initialize = function() {
-		document.addEventListener('deviceready', onDeviceReady, false);
+		
+        document.addEventListener('deviceready', onDeviceReady, false);
         BaasBox.setEndPoint("http://54.233.69.169:9000");
 		BaasBox.appcode = "1234567890";
+        
+//        hasBeaconTimer = setTimeout( function() {checkHasBeacons();}, 2000)
+
 	};
 
     function getComments() {
@@ -60,22 +65,56 @@ var app = (function()
         }
     }
     
-    function loadAll() {
+    app.showDetails = function (id) {
         
-        $('#found-beacons').empty();
-        BaasBox.loadCollection("Beacons")
-            .done(function(res) {
-                console.log("Obras.Todos.Done ", res);
+        var html = $("#modal" + id).html();
+        var title= $("#title" + id).html();
+        
+        $("#dialog").html(html);
+        $("#dialog").dialog({
+            title: title,
+            width: 800,
+            height:300,
+            modal: true,
+            closeOnEscape: true
+        });
+        
+    }
+    
+    function formatId(id) {
+        return id.replace('-', '')
+                 .replace('-', '')
+                 .replace('-', '')
+                 .replace('-', '')
+                 .replace('-', '');
+    }
+    
+    app.loadAll = function() {
+        
+        BaasBox.login("jaimert@msn.com", "jj321456")
+            .done(function (user) {
+                
+                console.log("User.Login.Done:", user);
+            
+                BaasBox.loadCollection("Items")
+                    .done(function(res) {
+                    
+                        console.log("Obras.Todos.Done ", res);
+                        $('#warning').remove();
+                        $('#found-beacons').empty();
+                    
+                        for( var i=0; i < res.length; i++ ) {
+                            criarCard(res[i], null);
+                        }
 
-                for( var i=0; i < res.length; i++ ) {
-                    var card = criarCard(res[i]);
-                    $('#found-beacons').append(card);
-                }
-
-              })
-              .fail(function(error) {
-                console.log("Obras.Totos.Error ", error);
-              })
+                      })
+                      .fail(function(error) {
+                        console.log("Obras.Totos.Error ", error);
+                      })
+            })
+            .fail(function (err) {
+                console.log("User.Login.Fail:", err);
+            })
     }
     
 	function onDeviceReady() {
@@ -120,14 +159,27 @@ var app = (function()
                 console.log("User.Login.Fail:", err);
             })
 
+        deviceReadyHasFired = true;
+        
 		// Display refresh timer.
 		updateTimer = setInterval(displayBeaconList, 500);
-        hasBeaconTimer = setTimeout( function() {checkHasBeacons();}, 2000)
+        //hasBeaconTimer = setTimeout( function() {checkHasBeacons();}, 2000)
 	}
 
     function checkHasBeacons() {
-        if( beacons.length == 0) {
-            if( regions.length == 0 ) {
+
+        console.log('checkHasBeacons');
+        console.log('beacons:', beacons);
+        console.log('regions:', regions);
+
+        var empty = true;
+        for( var key in beacons ) {
+            empty = false;
+            break;
+        }
+            
+        if( empty ) {
+            if( regions.length == 0 && deviceReadyHasFired ) {
                 
                 $("#warning").text("Não foi possível encontrar o Servidor do Cicerone Virtual, por favor verifique sua conexão com a Internet!");
                 
@@ -236,40 +288,83 @@ var app = (function()
         return sorted_obj;
     }
 
-    function criarCard(obra) {
-        
-        var element = $(
-                      '<div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">'
-                    + '<div class="mdl-card__media">'
-                    + '<img src="' + obra.Card.Image + '">'
-                    + '</div>'
-                    + '<div class="mdl-card__title">'
-                    + '<h4 class="mdl-card__title-text">' + obra.Title + '</h4>'
-                    + '</div>'
-                    + '<div class="mdl-card__supporting-text">'
-                    + '<span class="mdl-typography--font-light mdl-typography--subhead">'
-                    +  obra.Card.Description
-                    + '</span>'
-                    + '</div>'
-                    + '<div class="mdl-card__actions">'
-                    + '<a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="" data-upgraded=",MaterialButton">'
-                    + 'Saiba Mais'
-                    + '<i class="material-icons">chevron_right</i>'
-                    + '</a>'
-                    + '</div>'
-                    //+ '<div class="mdl-card__actions">'
-                    //+ 'Proximity: ' + beacon.proximity + '<br />'
-                    //+ '<div style="background:rgb(255,128,64);height:20px;width:' + rssiWidth + '%;"></div>'
-                    //+ '</div>'
-                    + '</div>');
-        
-        return element;
+    function sortByClass(a, b) {
+        var vlr1 = $(a).prop('rssi');
+        if( vlr1 == null )
+            vlr1 = 0;
 
+        var vlr2 = $(b).prop('rssi');
+        if( vlr2 == null )
+            vlr2 = 0;
+
+        return vlr1 < vlr2;
+    }
+    
+    function criarCard(obra, rssi) {
+        
+        var id = formatId(obra.id);
+        if( rssi == null )
+            rssi = 0;
+
+        var rssiWidth = 1; // Used when RSSI is zero or greater.
+        if (rssi < -100 ) { rssiWidth = 100; }
+        else if (rssi < 0) { rssiWidth = 100 + rssi; }
+        //else if (beacon.rssi > 0) { rssiWidth = 100 - beacon.rssi; }
+        
+        if( $("#" + id).length == 0 )
+        {
+            var element = $(
+                          '<div id="' + id + '" rssi="' + rssi + '" class="cardObra mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp" >'
+                        + ' <div class="mdl-card__media">'
+                        + '     <img src="' + obra.Card.Image + '">'
+                        + ' </div>'
+                        + ' <div class="mdl-card__title">'
+                        + '     <h4 id="title' + id + '" class="mdl-card__title-text">' + obra.Title + '</h4>'
+                        + ' </div>'
+                        + ' <div class="mdl-card__supporting-text">'
+                        + '     <span class="mdl-typography--font-light mdl-typography--subhead">'
+                        +           obra.Card.Description
+                        + '     </span>'
+                        + ' </div>'
+                        + ' <div class="mdl-card__actions">'
+                        + 	'<div style="background:#77c159;height:1px;width:'
+					    + 		rssiWidth 
+                        + '%;"></div>'
+                        + '     <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="javascript:app.showDetails(\'' + id +'\');" data-upgraded=",MaterialButton" >'
+                        + '         Saiba Mais'
+                        + '         <i class="material-icons">chevron_right</i>'
+                        + '     </a>'
+                        + ' </div>'
+                        + ' <div id="modal' + formatId(obra.id) + '" style="display:none;">'
+                        +       obra.ContentHTML 
+                        + ' </div>'        
+                        + '</div>'            
+                    
+            );
+        
+            $('#found-beacons').append(element);
+        } else {
+            
+            $("#" + id).prop('rssi', rssi);
+        }
+        
+        /*
+        var elem = $('#found-beacons').find('.cardObra').sort(sortByClass);
+        var allElem = elem.get();
+        (function append() {
+
+            var $this = $(allElem.shift());
+            $('#found-beacons').append($this.fadeOut('slow')).find($this).fadeIn('slow', function () {
+                if (allElem.length > 0) window.setTimeout(append);
+            });
+        })();
+        */
+        return $("#" + id);
     }
     
 	function displayBeaconList() {
         // Clear beacon list.
-        $('#found-beacons').empty();
+        //$('#found-beacons').empty();
 
 		var timeNow = Date.now();
         
@@ -279,14 +374,12 @@ var app = (function()
 		$.each(beacons, function(key, beacon)
 		{
 			// Only show beacons that are updated during the last 60 seconds.
-			if (beacon.timeStamp + 60000 > timeNow)
+			if (beacon.timeStamp + (2*60000) > timeNow)
 			{
                 $('#warning').remove();
                 
 				// Map the RSSI value to a width in percent for the indicator.
-				var rssiWidth = 1; // Used when RSSI is zero or greater.
-				if (beacon.rssi < -100) { rssiWidth = 100; }
-				else if (beacon.rssi < 0) { rssiWidth = 100 + beacon.rssi; }
+
                 var element = null;
                 var listaObras = obras[key];
                 console.log('obras para a chave[' + key + ']:', listaObras);
@@ -297,14 +390,17 @@ var app = (function()
                     {
                         for( var x=0; x < listaObras.length; x++ )
                         {
-                            if( beacon.proximity == "ProximityNear")
-                            {
-                                var obra = listaObras[x];
-                                criarCard(obra);
-                                $('#found-beacons').append(element);
-                            }
+                            var obra = listaObras[x];
+                            var title = $("#" + formatId(obra.id));
+                            //if( title.length == 0 ) //if( beacon.proximity.indexOf("Near") > 0 && title.length == 0 )
+                            //{
+                            criarCard(obra, beacon.rssi);   
+                            //} else {
+                            //    criarCard(obra, beacon.rssi);
+                            //}
                         }
                     }
+                    
                 } catch(e) {
                     console.log('Erro no Display da Obras', e);
                 }
@@ -335,3 +431,4 @@ var app = (function()
 })();
 
 app.initialize();
+

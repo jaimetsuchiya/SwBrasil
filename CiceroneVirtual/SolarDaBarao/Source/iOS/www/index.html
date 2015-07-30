@@ -10,11 +10,15 @@
 	<title>Cicerone Virtual</title>
 
     <!-- Page styles -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet">
+    <link rel="stylesheet" href="libs/jquery/jquery-ui-1.11.4/jquery-ui.css"/>
+    <link rel="stylesheet" href="libs/jquery/jquery-ui-1.11.4/jquery-ui.structure.css"/>
+    <link href="ui/fonts/roboto.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="ui/css/material.css">
+    <link rel="stylesheet" href="ui/css/material-icon.css">
     <link rel="stylesheet" href="ui/css/styles.css">
     <link rel="stylesheet" href="css/pure-drawer.css"/>
+    
     <style>
         .mdl-layout__header-row {
             background-color:#000;
@@ -22,11 +26,25 @@
         .android-footer {
             background-color:#000;
         }
-        
+        /*
+        #dialog {
+          background:red;
+          position:absolute;
+          color:#fff;
+          top:10%;
+          z-index:99999;
+          left:50%;
+          width:80%;
+          height:50%;
+          padding:15px;
+          -ms-transform: translateX(-50%) translateY(-10%);
+          -webkit-transform: translate(-50%,-10%);
+          transform: translate(-50%,-10%);
+        } */
     </style>
 
     <script src="libs/jquery/jquery.js"></script>
-    <script src="libs/jquery/jqueryui.js"></script>
+    <script src="libs/jquery/jquery-ui-1.11.4/jquery-ui.js"></script>
 
 	<script>
 	// Redirect console.log to Evothings Workbench.
@@ -84,6 +102,10 @@
             
             <div class="pure-pusher">
  
+                <div id="dialog" style="overflow:auto;">
+                    
+                </div>
+                
                 <!--p -->
                 <div class="android-content mdl-layout__content" style="width: 100%;">
                         <div class="android-be-together-section mdl-typography--text-center" id="top">
