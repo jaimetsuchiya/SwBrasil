@@ -46,6 +46,8 @@
 
     <script src="libs/jquery/jquery.js"></script>
     <script src="libs/jquery/jquery-ui-1.11.4/jquery-ui.js"></script>
+    <script src="libs/jquery/jquery-validation/jquery.validate.js"></script>      
+
 
 	<script>
 	// Redirect console.log to Evothings Workbench.
@@ -189,7 +191,7 @@
                                         <div id="classificacao" class="raty"></div>
                                     </div>                                    
                                     <!-- Colored raised button -->
-                                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="btnSalvar">
                                       OK
                                     </button>
 
@@ -225,6 +227,52 @@
         $(document).ready(function() {
             $.fn.raty.defaults.path = 'libs/raty/images';
             $('.raty').raty();
+            
+
+            $("#frmComentario").validate({
+                rules: {
+                    txtNome: {
+                        required: true,
+                        minlength: 6
+                    },
+                    txtEmail: {
+                        required: true,
+                        email: true
+                    },
+                    txtComentario: {
+                        required: true,
+                        minlength: 20
+                    },
+                },
+                messages: {
+                    txtNome: {
+                        required: "Por Favor informe seu Nome",
+                        minlength: "O Nome deve conter no mínimo 6 caracteres"
+                    },
+                    txtEmail: {
+                        required: "Por Favor informe seu E-mail"
+                    },
+                    txtComentario: {
+                        required: "Por Favor informe seu Comentário",
+                        minlength: "O Comentário deve conter no mínimo 20 caracteres"
+                    },
+                }
+            });
+            
+            
+            $.validator.setDefaults({
+              submitHandler: function() {
+                  
+                var stars = $('#classificacao').raty({
+                  number: function() {
+                    return $(this).attr('data-number');
+                  }
+                });
+
+                app.addComment( $("#txtEmail").val(), $("#txtNome").val(), stars, $("#txtComentario").val());
+                  
+              }
+            });
         });
     </script>
 </body>

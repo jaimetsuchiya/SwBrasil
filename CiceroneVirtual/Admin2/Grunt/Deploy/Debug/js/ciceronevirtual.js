@@ -103,8 +103,7 @@ var ciceroneVirtual = {
 				Stars: 0,
 				Comment: null,
                 Approved: null,
-                ApprovedBy: null,
-                CreatedAt: null
+                ApprovedBy: null
 			};
 		},
 		

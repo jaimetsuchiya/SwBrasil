@@ -40,6 +40,10 @@ var app = (function()
                 window.open(linktarget, "_blank");
             }
         });
+        
+        $("#btnSalvar").click( function() { 
+            
+        });
 
 	};
 
@@ -52,30 +56,31 @@ var app = (function()
                 
                 $("#nenhumComentario").remove();
 
-                
+                if( $(
                 for( var i=0; i < res.length; i++ ) {
                     
-                    var comment = $(
-                          '<div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--3dp">'
-                        + '    <div class="mdl-card__title">'
-                        + '       <h4 class="mdl-card__title-text">Vinícius R.</h4>'
-                        + '    </div>'
-                        + '    <div class="mdl-card__supporting-text">'
-                        + '       <span class="mdl-typography--font-light mdl-typography--subhead">'
-                        + '           O museu em si é muito legal, não é tão grande quanto os das grandes cidades, mas ainda sim vale muito a pena ir.<br/>'
-                        + '           Meu avô foi um ferroviário e ouvir as histórias e ver os objetos e miniaturas é uma viagem muito interessante para o passado. É muito bom manter a história viva.<br/>'
-                        + '           Recomendo a ida!<br/>'
-                        + '           Gostei</span>'
-                        + '   </div>'
-                        + '   <div class="mdl-card__menu">'
-                        + '       <div class="raty" id=""></div>'
-                        + '   </div>'
-                        + '   <div class="mdl-card__actions">'
-                        + '       17/04/2014'
-                        + '   </div>'
-                        + '</div>'
-                    );
-                    $("#commentaries").append(
+                    if( $("#" + formatId(res[i].id)).length == 0 ) {
+                        var comment = $(
+                              '<div id="' + formatId(res[i].id) + '" class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--3dp">'
+                            + '    <div class="mdl-card__title">'
+                            + '       <h4 class="mdl-card__title-text">' + res[i].Name + '</h4>'
+                            + '    </div>'
+                            + '    <div class="mdl-card__supporting-text">'
+                            + '       <span class="mdl-typography--font-light mdl-typography--subhead">'
+                            +             res[i].Comment
+                            + '       </span>'
+                            + '   </div>'
+                            + '   <div class="mdl-card__menu">'
+                            + '       <div class="raty" id="starts' + formatId(res[i].id) + '"></div>'
+                            + '       <script type="text/javascript">$("#starts' + formatId(res[i].id) + '").raty({   readOnly: true, score: ' + res[i].Stars + ' });</script>
+                            + '   </div>'
+                            + '   <div class="mdl-card__actions">'
+                            +       res[i]._creation_date
+                            + '   </div>'
+                            + '</div>'
+                        );
+                        $("#commentaries").append(comment);
+                    }
                 }
             }
           })
@@ -84,9 +89,25 @@ var app = (function()
           })	
     }
 
-    function addComment(email, name, stars, comment) {
+    app.addComment = function(email, name, stars, comment) {
         
-        getComments();
+        var model = {
+				Name: name,
+				Email: email,
+				Stars: stars,
+				Comment: comment,
+                Approved: null,
+                ApprovedBy: null
+			};
+        
+        BaasBox.save(model, "Comentarios")
+			  .done(function(res) {
+			  	console.log("res ", res['data']);
+                getComments();
+			  })
+			  .fail(function(error) {
+			  	console.log("error ", error);
+			  })
     }
     
     function getItem(key) {
@@ -140,21 +161,6 @@ var app = (function()
                     height:$( window ).height() - 300,
                     modal: true,
                     closeOnEscape: true,
-                    /*
-                    open: function(event, ui) { 
-                        // Close dialog when outside is clicked
-                        $('.ui-widget-overlay').bind('click', function(){ 
-                            $("#dialog").dialog('close'); 
-                        }); 
-                    },
-                    close: function () {
-                        // necessary as it stops the video when the dialog is closed
-                        $(this).dialog('destroy');
-                        //For Firefox, you need to remove the popup from the DOM
-                        //completely. The following 2 lines are need.
-                        content1 = $("#dialog").remove();
-                        counter1 = counter1 +1;
-                    }*/
                 });
 /*
 			  })
