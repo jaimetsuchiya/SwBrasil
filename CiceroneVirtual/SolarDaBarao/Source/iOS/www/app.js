@@ -24,6 +24,23 @@ var app = (function()
         
         hasBeaconTimer = setTimeout( function() {checkHasBeacons();}, 2000)
 
+        //define tab or click event type on rool level (can be combined with modernizr)
+        var iaEvent = "click";
+        if (typeof navigator !== "undefined" && navigator.app) {
+           iaEvent = "tap";
+        }
+        
+        $('.ext-link').each.bind(iaEvent, function() {
+            if (typeof navigator !== "undefined" && navigator.app) {
+                // Mobile device.
+                var linktarget = this.attr("href");
+                navigator.app.loadUrl(linktarget, {openExternal: true});
+            } else {
+                // Possible web browser
+                window.open(linktarget, "_blank");
+            }
+        });
+
 	};
 
     function getComments() {
@@ -34,8 +51,31 @@ var app = (function()
             if( res.length > 0 ) {
                 
                 $("#nenhumComentario").remove();
+
+                
                 for( var i=0; i < res.length; i++ ) {
                     
+                    var comment = $(
+                          '<div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--3dp">'
+                        + '    <div class="mdl-card__title">'
+                        + '       <h4 class="mdl-card__title-text">Vinícius R.</h4>'
+                        + '    </div>'
+                        + '    <div class="mdl-card__supporting-text">'
+                        + '       <span class="mdl-typography--font-light mdl-typography--subhead">'
+                        + '           O museu em si é muito legal, não é tão grande quanto os das grandes cidades, mas ainda sim vale muito a pena ir.<br/>'
+                        + '           Meu avô foi um ferroviário e ouvir as histórias e ver os objetos e miniaturas é uma viagem muito interessante para o passado. É muito bom manter a história viva.<br/>'
+                        + '           Recomendo a ida!<br/>'
+                        + '           Gostei</span>'
+                        + '   </div>'
+                        + '   <div class="mdl-card__menu">'
+                        + '       <div class="raty" id=""></div>'
+                        + '   </div>'
+                        + '   <div class="mdl-card__actions">'
+                        + '       17/04/2014'
+                        + '   </div>'
+                        + '</div>'
+                    );
+                    $("#commentaries").append(
                 }
             }
           })
@@ -46,6 +86,7 @@ var app = (function()
 
     function addComment(email, name, stars, comment) {
         
+        getComments();
     }
     
     function getItem(key) {
@@ -65,6 +106,18 @@ var app = (function()
         }
     }
     
+    app.novoComentario = function() {
+        
+        $("#novoComentario").dialog({
+            title: "Novo Comentário",
+            width: $( window ).width() - 300,
+            height: 350,
+            modal: true,
+            closeOnEscape: true,
+        });
+
+    }
+        
     app.showDetails = function (id) {
         
         var html = $("#modal" + id).html();
@@ -83,10 +136,25 @@ var app = (function()
                 $("#dialog").html(html);
                 $("#dialog").dialog({
                     title: title,
-                    width: 800,
-                    height:300,
+                    width: $( window ).width() - 300,
+                    height:$( window ).height() - 300,
                     modal: true,
-                    closeOnEscape: true
+                    closeOnEscape: true,
+                    /*
+                    open: function(event, ui) { 
+                        // Close dialog when outside is clicked
+                        $('.ui-widget-overlay').bind('click', function(){ 
+                            $("#dialog").dialog('close'); 
+                        }); 
+                    },
+                    close: function () {
+                        // necessary as it stops the video when the dialog is closed
+                        $(this).dialog('destroy');
+                        //For Firefox, you need to remove the popup from the DOM
+                        //completely. The following 2 lines are need.
+                        content1 = $("#dialog").remove();
+                        counter1 = counter1 +1;
+                    }*/
                 });
 /*
 			  })
@@ -166,7 +234,10 @@ var app = (function()
                     }
 
                     console.log('regions:', regions);
-
+                    
+                    $("#commentaries").empty();
+                    getComments();
+                    
                     // Start tracking beacons!
                     startScan();
                     
@@ -347,13 +418,13 @@ var app = (function()
                         + '     </span>'
                         + ' </div>'
                         + ' <div class="mdl-card__actions">'
-                        + 	'<div id=bar"' + id + '" style="background:#77c159;height:1px;width:'
-					    + 		rssiWidth 
-                        + '%;"></div>'
                         + '     <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="javascript:app.showDetails(\'' + id +'\');" data-upgraded=",MaterialButton" >'
                         + '         Saiba Mais'
                         + '         <i class="material-icons">chevron_right</i>'
                         + '     </a>'
+                        + 	'<div id="bar' + id + '" style="background:#77c159;height:1px;width:'
+					    + 		rssiWidth 
+                        + '%;"></div>'
                         + ' </div>'
                         + ' <div id="modal' + formatId(obra.id) + '" style="display:none;">'
                         +       obra.ContentHTML 
@@ -363,6 +434,7 @@ var app = (function()
             );
         
             $('#found-beacons').append(element);
+            
         } else {
             
             $("#" + id).prop('rssi', rssi);

@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="ui/css/material-icon.css">
     <link rel="stylesheet" href="ui/css/styles.css">
     <link rel="stylesheet" href="css/pure-drawer.css"/>
+    <link rel="stylesheet" href="libs/raty/jquery.raty.css">
     
     <style>
         .mdl-layout__header-row {
@@ -142,13 +143,65 @@
                         </div>
                         <div class="android-more-section" id="comentarios">
                             <div class="android-section-title mdl-typography--display-1-color-contrast">Comentários</div>
-                            <h4 id="nenhumComentario">Por favor, aguarde enquanto verifico as Obras  mais próximas a você....</h3>
+                            <h4 id="nenhumComentario" style="display:none;">Ainda não há nenhum comentário sobre o museu! Gostaria de ser o primeiro a deixar sua opinião?</h4>
+                            <div class="android-card-container mdl-grid" id="commentaries" >
+                                
+                                <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--3dp">
+                                    <div class="mdl-card__title">
+                                        <h4 class="mdl-card__title-text">Vinícius R.</h4>
+                                    </div>
+                                    <div class="mdl-card__supporting-text">
+                                        <span class="mdl-typography--font-light mdl-typography--subhead">
+                                            O museu em si é muito legal, não é tão grande quanto os das grandes cidades, mas ainda sim vale muito a pena ir.<br/>
+                                            Meu avô foi um ferroviário e ouvir as histórias e ver os objetos e miniaturas é uma viagem muito interessante para o passado. É muito bom manter a história viva.<br/>
+                                            Recomendo a ida!<br/>
+                                            Gostei</span>
+                                    </div>
+                                    <div class="mdl-card__menu">
+                                        <div class="raty"></div>
+                                    </div>
+                                    <div class="mdl-card__actions">
+                                        17/04/2014
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <center>
+                                <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" onclick="app.novoComentario();">
+                                  <i class="material-icons">add</i>
+                                </button>
+                                <br/><br/>
+                                <p class="" id="lblMsgComentario" style="display:none;">Obrigado pelo seu comentário, sua opinião é muito importante!</p>
+                            </center>
+
+                            <div id="novoComentario" style="display:none;">
+                                <form id="frmComentario">
+                                    <div class="mdl-textfield mdl-js-textfield textfield-demo">
+                                        <input class="mdl-textfield__input" type="text" id="txtNome" placeholder="Nome" />
+                                    </div>
+                                    <div class="mdl-textfield mdl-js-textfield textfield-demo">
+                                        <input class="mdl-textfield__input" type="text" id="txtEmail" placeholder="Email" />
+                                    </div>
+                                    <div class="mdl-textfield mdl-js-textfield textfield-demo">
+                                        <textarea class="mdl-textfield__input" type="text" rows= "3" id="txtComentario" placeholder="Comentário" ></textarea>
+                                    </div>
+                                    <div class="mdl-textfield mdl-js-textfield textfield-demo">
+                                        <div id="classificacao" class="raty"></div>
+                                    </div>                                    
+                                    <!-- Colored raised button -->
+                                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                                      OK
+                                    </button>
+
+                                </form>
+
+                            </div>
 
                         </div>
                         <footer class="android-footer mdl-mega-footer" style="padding-bottom:20px;">
                             <div class="mdl-mega-footer--middle-section">
                                 <a href="index.html"><img class="android-logo-image" src="images/android-logo2.png"></a>
-                                <p class="mdl-typography--font-light">Desenvolvido por <a class="mdl-navigation__link" href="http://www.swbrasil.net.br" target="_blank" style="color:#FFF;">SwBrasil</a></p>
+                                <p class="mdl-typography--font-light">Desenvolvido por <a class="mdl-navigation__link ext-link" href="http://www.swbrasil.net.br" style="color:#FFF;">SwBrasil</a></p>
                                 <p><br/><br/></p>
                             </div>
                         </footer>
@@ -163,11 +216,17 @@
     </div>
             
     <script src="cordova.js"></script>
+    <script src="libs/raty/jquery.raty.js"></script>
 	<script src="libs/evothings/evothings.js"></script>
     <script src="libs/baasbox/baasbox-0.8.4.min.js"></script>
 	<script src="app.js"></script>
     <!--script src="libs/material.min.js"></script-->
-
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $.fn.raty.defaults.path = 'libs/raty/images';
+            $('.raty').raty();
+        });
+    </script>
 </body>
 
 </html>
