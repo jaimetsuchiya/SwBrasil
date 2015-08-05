@@ -103,7 +103,8 @@ var ciceroneVirtual = {
 				Stars: 0,
 				Comment: null,
                 Approved: null,
-                ApprovedBy: null
+                ApprovedBy: null,
+                CreatedAt: null
 			};
 		},
 		
@@ -351,6 +352,7 @@ var ciceroneVirtual = {
                 console.log("Obra.Model", model);
                 
                 BaasBox.save(model, "Items")
+                
                   .done(function(res) {
                     console.log("Obra.Salvar", beacon['data']);
 

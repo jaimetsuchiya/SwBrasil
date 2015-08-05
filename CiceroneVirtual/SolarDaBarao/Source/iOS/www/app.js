@@ -56,7 +56,6 @@ var app = (function()
                 
                 $("#nenhumComentario").remove();
 
-                if( $(
                 for( var i=0; i < res.length; i++ ) {
                     
                     if( $("#" + formatId(res[i].id)).length == 0 ) {
@@ -72,7 +71,6 @@ var app = (function()
                             + '   </div>'
                             + '   <div class="mdl-card__menu">'
                             + '       <div class="raty" id="starts' + formatId(res[i].id) + '"></div>'
-                            + '       <script type="text/javascript">$("#starts' + formatId(res[i].id) + '").raty({   readOnly: true, score: ' + res[i].Stars + ' });</script>
                             + '   </div>'
                             + '   <div class="mdl-card__actions">'
                             +       res[i]._creation_date
@@ -80,6 +78,7 @@ var app = (function()
                             + '</div>'
                         );
                         $("#commentaries").append(comment);
+                        $("#starts" + formatId(res[i].id) ).raty({ readOnly: true, score: res[i].Stars});
                     }
                 }
             }
@@ -397,7 +396,7 @@ var app = (function()
         return vlr1 < vlr2;
     }
     
-    function criarCard(obra, rssi) {
+    function criarCard(obra, rssi, proximity) {
         
         var id = formatId(obra.id);
         if( rssi == null )
@@ -411,7 +410,8 @@ var app = (function()
         if( $("#" + id).length == 0 )
         {
             var element = $(
-                          '<div id="' + id + '" rssi="' + rssi + '" class="cardObra mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp" >'
+                
+                          '<div id="' + id + '" rssi="' + rssi + '" class="cardObra mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">'
                         + ' <div class="mdl-card__media">'
                         + '     <img src="' + obra.Card.Image + '">'
                         + ' </div>'
@@ -435,19 +435,29 @@ var app = (function()
                         + ' <div id="modal' + formatId(obra.id) + '" style="display:none;">'
                         +       obra.ContentHTML 
                         + ' </div>'        
-                        + '</div>'            
-                    
+                        + '</div>'
             );
         
             $('#found-beacons').append(element);
             
         } else {
-            
+
             $("#" + id).prop('rssi', rssi);
             $("#bar" + id).width(rssiWidth);
         }
         
-        /*
+        console.log(proximity);
+                            
+        if( beacon.proximity.toString().indexOf('Near') != -1 )
+            moveToBegin(id);
+        else if( beacon.proximity.toString().indexOf('Far') != -1 )
+            moveToEnd( formatId(obra.id) );
+
+        return $("#" + id);
+    }
+    
+    function orderBy() {
+        
         var elem = $('#found-beacons').find('.cardObra').sort(sortByClass);
         var allElem = elem.get();
         (function append() {
@@ -456,9 +466,28 @@ var app = (function()
             $('#found-beacons').append($this.fadeOut('slow')).find($this).fadeIn('slow', function () {
                 if (allElem.length > 0) window.setTimeout(append);
             });
+            
         })();
-        */
-        return $("#" + id);
+        
+    }
+    
+    function moveToBegin(id) {
+
+        var card = $("#"+ id);
+        $('#found-beacons').remove( card );
+
+        var allElem = elem.get();
+        $('#found-beacons').insertBefore(card, allElem[0]);
+    }
+    
+    
+    function moveToEnd(id) {
+
+        var card = $("#"+ id);
+        $('#found-beacons').remove(card);
+
+        var allElem = elem.get();
+        $('#found-beacons').insertAfter(card, allElem[allElem.length-1]);
     }
     
 	function displayBeaconList() {
@@ -473,7 +502,7 @@ var app = (function()
 		$.each(beacons, function(key, beacon)
 		{
 			// Only show beacons that are updated during the last 60 seconds.
-			if (beacon.timeStamp + (2*60000) > timeNow)
+			if (beacon.timeStamp + (60000) > timeNow)
 			{
                 $('#warning').remove();
                 
@@ -490,13 +519,8 @@ var app = (function()
                         for( var x=0; x < listaObras.length; x++ )
                         {
                             var obra = listaObras[x];
-                            var title = $("#" + formatId(obra.id));
-                            //if( title.length == 0 ) //if( beacon.proximity.indexOf("Near") > 0 && title.length == 0 )
-                            //{
-                            criarCard(obra, beacon.rssi);   
-                            //} else {
-                            //    criarCard(obra, beacon.rssi);
-                            //}
+                            //var title = $("#" + formatId(obra.id));
+                            criarCard(obra, beacon.rssi, beacon.proximity);
                         }
                     }
                     

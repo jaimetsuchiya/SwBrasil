@@ -1,0 +1,11 @@
+
+<apps>
+    <app type="baasbox">
+        <baasbox>
+            <appCode></appCode>
+            <uri></uri>
+        </baasbox>
+    </app>
+    <app type="swbrasil">
+    </app>
+</apps>

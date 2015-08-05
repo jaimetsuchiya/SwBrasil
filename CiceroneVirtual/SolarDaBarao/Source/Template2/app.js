@@ -22,7 +22,28 @@ var app = (function()
         BaasBox.setEndPoint("http://54.233.69.169:9000");
 		BaasBox.appcode = "1234567890";
         
-//        hasBeaconTimer = setTimeout( function() {checkHasBeacons();}, 2000)
+        hasBeaconTimer = setTimeout( function() {checkHasBeacons();}, 2000)
+
+        //define tab or click event type on rool level (can be combined with modernizr)
+        var iaEvent = "click";
+        if (typeof navigator !== "undefined" && navigator.app) {
+           iaEvent = "tap";
+        }
+        
+        $('.ext-link').each.bind(iaEvent, function() {
+            if (typeof navigator !== "undefined" && navigator.app) {
+                // Mobile device.
+                var linktarget = this.attr("href");
+                navigator.app.loadUrl(linktarget, {openExternal: true});
+            } else {
+                // Possible web browser
+                window.open(linktarget, "_blank");
+            }
+        });
+        
+        $("#btnSalvar").click( function() { 
+            
+        });
 
 	};
 
@@ -34,8 +55,32 @@ var app = (function()
             if( res.length > 0 ) {
                 
                 $("#nenhumComentario").remove();
+
+                if( $(
                 for( var i=0; i < res.length; i++ ) {
                     
+                    if( $("#" + formatId(res[i].id)).length == 0 ) {
+                        var comment = $(
+                              '<div id="' + formatId(res[i].id) + '" class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--3dp">'
+                            + '    <div class="mdl-card__title">'
+                            + '       <h4 class="mdl-card__title-text">' + res[i].Name + '</h4>'
+                            + '    </div>'
+                            + '    <div class="mdl-card__supporting-text">'
+                            + '       <span class="mdl-typography--font-light mdl-typography--subhead">'
+                            +             res[i].Comment
+                            + '       </span>'
+                            + '   </div>'
+                            + '   <div class="mdl-card__menu">'
+                            + '       <div class="raty" id="starts' + formatId(res[i].id) + '"></div>'
+                            + '       <script type="text/javascript">$("#starts' + formatId(res[i].id) + '").raty({   readOnly: true, score: ' + res[i].Stars + ' });</script>
+                            + '   </div>'
+                            + '   <div class="mdl-card__actions">'
+                            +       res[i]._creation_date
+                            + '   </div>'
+                            + '</div>'
+                        );
+                        $("#commentaries").append(comment);
+                    }
                 }
             }
           })
@@ -44,8 +89,25 @@ var app = (function()
           })	
     }
 
-    function addComment(email, name, stars, comment) {
+    app.addComment = function(email, name, stars, comment) {
         
+        var model = {
+				Name: name,
+				Email: email,
+				Stars: stars,
+				Comment: comment,
+                Approved: null,
+                ApprovedBy: null
+			};
+        
+        BaasBox.save(model, "Comentarios")
+			  .done(function(res) {
+			  	console.log("res ", res['data']);
+                getComments();
+			  })
+			  .fail(function(error) {
+			  	console.log("error ", error);
+			  })
     }
     
     function getItem(key) {
@@ -65,20 +127,52 @@ var app = (function()
         }
     }
     
+    app.novoComentario = function() {
+        
+        $("#novoComentario").dialog({
+            title: "Novo Comentário",
+            width: $( window ).width() - 300,
+            height: 350,
+            modal: true,
+            closeOnEscape: true,
+        });
+
+    }
+        
     app.showDetails = function (id) {
         
         var html = $("#modal" + id).html();
         var title= $("#title" + id).html();
         
-        $("#dialog").html(html);
-        $("#dialog").dialog({
-            title: title,
-            width: 800,
-            height:300,
-            modal: true,
-            closeOnEscape: true
-        });
-        
+/*        BaasBox.loadObject("Items", id)
+          .done(function(res) {
+            console.log("Obras.Carregar: ", res['data']);
+
+            res['data']['Visitors'] = res['data']['Visitors'] + 1;
+            
+            BaasBox.save(res['data'], "Items")
+			  .done(function(res) {
+			  	console.log("res ", res['data']);
+  */              
+                $("#dialog").html(html);
+                $("#dialog").dialog({
+                    title: title,
+                    width: $( window ).width() - 300,
+                    height:$( window ).height() - 300,
+                    modal: true,
+                    closeOnEscape: true,
+                });
+/*
+			  })
+			  .fail(function(error) {
+			  	console.log("error ", error);
+			  })
+            
+          })
+          .fail(function(error) {
+            console.log("error ", error);
+          })
+*/
     }
     
     function formatId(id) {
@@ -146,7 +240,10 @@ var app = (function()
                     }
 
                     console.log('regions:', regions);
-
+                    
+                    $("#commentaries").empty();
+                    getComments();
+                    
                     // Start tracking beacons!
                     startScan();
                     
@@ -327,13 +424,13 @@ var app = (function()
                         + '     </span>'
                         + ' </div>'
                         + ' <div class="mdl-card__actions">'
-                        + 	'<div style="background:#77c159;height:1px;width:'
-					    + 		rssiWidth 
-                        + '%;"></div>'
                         + '     <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="javascript:app.showDetails(\'' + id +'\');" data-upgraded=",MaterialButton" >'
                         + '         Saiba Mais'
                         + '         <i class="material-icons">chevron_right</i>'
                         + '     </a>'
+                        + 	'<div id="bar' + id + '" style="background:#77c159;height:1px;width:'
+					    + 		rssiWidth 
+                        + '%;"></div>'
                         + ' </div>'
                         + ' <div id="modal' + formatId(obra.id) + '" style="display:none;">'
                         +       obra.ContentHTML 
@@ -343,22 +440,13 @@ var app = (function()
             );
         
             $('#found-beacons').append(element);
+            
         } else {
             
             $("#" + id).prop('rssi', rssi);
+            $("#bar" + id).width(rssiWidth);
         }
         
-        /*
-        var elem = $('#found-beacons').find('.cardObra').sort(sortByClass);
-        var allElem = elem.get();
-        (function append() {
-
-            var $this = $(allElem.shift());
-            $('#found-beacons').append($this.fadeOut('slow')).find($this).fadeIn('slow', function () {
-                if (allElem.length > 0) window.setTimeout(append);
-            });
-        })();
-        */
         return $("#" + id);
     }
     
@@ -394,11 +482,23 @@ var app = (function()
                             var title = $("#" + formatId(obra.id));
                             //if( title.length == 0 ) //if( beacon.proximity.indexOf("Near") > 0 && title.length == 0 )
                             //{
+                            
                             criarCard(obra, beacon.rssi);   
                             //} else {
                             //    criarCard(obra, beacon.rssi);
                             //}
                         }
+                        
+                        var elem = $('#found-beacons').find('.cardObra').sort(sortByClass);
+                        var allElem = elem.get();
+                        (function append() {
+
+                            var $this = $(allElem.shift());
+                            $('#found-beacons').append($this.fadeOut('slow')).find($this).fadeIn('slow', function () {
+                                if (allElem.length > 0) window.setTimeout(append);
+                            });
+                        })();
+
                     }
                     
                 } catch(e) {
